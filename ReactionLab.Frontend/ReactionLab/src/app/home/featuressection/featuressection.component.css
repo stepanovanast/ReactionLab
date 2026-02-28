@@ -1,0 +1,103 @@
+/* Section Container */
+.features-section {
+  border-bottom: 2px dashed #d1d5db;
+  padding: 80px 32px; /* py-20 px-8 */
+}
+
+.container {
+  max-width: 1280px; /* max-w-7xl */
+  margin: 0 auto;
+}
+
+/* Header Area */
+.features-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.dot-indicator {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  margin-bottom: 16px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  background-color: #9ca3af;
+  border-radius: 50%;
+}
+
+.title {
+  font-size: 36px;
+  font-weight: 700;
+  color: #000000;
+  margin-bottom: 16px;
+}
+
+.subtitle {
+  font-size: 18px;
+  color: #4b5563;
+}
+
+/* Grid Layout */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* md:grid-cols-2 */
+  gap: 24px;
+  max-width: 896px; /* max-w-4xl */
+  margin: 0 auto;
+}
+
+/* Mobile Responsive Grid */
+@media (max-width: 768px) {
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Feature Cards */
+.feature-card {
+  border: 2px dashed #000000;
+  border-radius: 8px;
+  padding: 24px;
+  background-color: #fcfcfc; /* bg-paper approximation */
+  transition: background-color 0.2s ease;
+}
+
+.feature-card:hover {
+  background-color: #f3f4f6;
+}
+
+/* Icon Box */
+.icon-box {
+  width: 48px;
+  height: 48px;
+  border: 2px dashed #000000;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.icon-box:hover {
+  border-color: #ef4444;
+  color: #ef4444;
+}
+
+/* Card Typography */
+.feature-name {
+  font-size: 20px;
+  font-weight: 700;
+  color: #000000;
+  margin-bottom: 12px;
+}
+
+.feature-text {
+  color: #4b5563;
+  line-height: 1.5;
+}

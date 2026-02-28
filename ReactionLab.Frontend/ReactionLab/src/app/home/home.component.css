@@ -1,0 +1,51 @@
+/* Notebook paper grid background - stays fixed while content scrolls */
+:host {
+  display: block;
+  min-height: 100vh;
+  padding-top: 64px;
+  position: relative;
+  background-color: #f9f7f4;
+  background-image:
+    /* Vertical lines */
+    repeating-linear-gradient(
+      to right,
+      transparent 0,
+      transparent 31px,
+      #cbd5e1 31px,
+      #cbd5e1 32px
+    ),
+    /* Horizontal lines */
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent 31px,
+      #cbd5e1 31px,
+      #cbd5e1 32px
+    );
+  background-attachment: fixed;
+}
+
+/* Paper texture overlay */
+:host::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' /%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
+  pointer-events: none;
+  opacity: 0.6;
+  z-index: 1;
+}
+
+/* Keep all content above the texture overlay */
+:host ::ng-deep > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* Navbar must sit above all other content */
+:host ::ng-deep app-navbar {
+  z-index: 1001;
+}

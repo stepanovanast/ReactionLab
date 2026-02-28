@@ -1,0 +1,62 @@
+<app-navbar [showAuthButtons]="false"></app-navbar>
+<app-sidebar (collapsedChange)="onSidebarCollapse($event)"></app-sidebar>
+<div class="topics-page-container">
+  <!-- Header Section -->
+  <header class="topics-header">
+    <div class="header-text">
+      <h1>Topics to Review</h1>
+      <p>Select a topic to visualize and explore</p>
+    </div>
+
+    <div class="search-wrapper">
+      <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8"></circle>
+        <path d="m21 21-4.3-4.3"></path>
+      </svg>
+      <input
+        type="text"
+        placeholder="Search topics..."
+        [(ngModel)]="searchQuery"
+        class="search-input"
+      />
+    </div>
+  </header>
+
+  <!-- Grid Section -->
+  <div class="topics-grid">
+    @if (filteredTopics.length > 0) {
+      @for (topic of filteredTopics; track topic.id) {
+        <div
+          (click)="topic.status !== 'locked' && onTopicClick(topic)"
+          [class]="'topic-card status-' + topic.status"
+        >
+          <div class="card-top">
+            <h3 class="topic-title">{{ topic.title }}</h3>
+            @if (topic.status === 'current') {
+              <div class="indicator-dot"></div>
+            }
+            @if (topic.status === 'completed') {
+              <span class="status-icon">✓</span>
+            }
+            @if (topic.status === 'locked') {
+              <span class="status-icon">🔒</span>
+            }
+          </div>
+
+          <span class="status-badge">
+            @switch (topic.status) {
+              @case ('current') { In Progress }
+              @case ('completed') { Completed }
+              @case ('available') { Available }
+              @case ('locked') { Locked }
+            }
+          </span>
+        </div>
+      }
+    } @else {
+      <div class="no-results">
+        No topics found matching "{{ searchQuery }}"
+      </div>
+    }
+  </div>
+</div>

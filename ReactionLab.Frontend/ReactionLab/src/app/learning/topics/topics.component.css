@@ -1,0 +1,239 @@
+/* Notebook paper grid background */
+:host {
+  display: block;
+  position: fixed;
+  top: 64px;
+  right: 0;
+  bottom: 0;
+  left: 192px;
+  background-color: #f9f7f4;
+  background-image:
+    /* Vertical lines */
+    repeating-linear-gradient(
+      to right,
+      transparent 0,
+      transparent 31px,
+      #cbd5e1 31px,
+      #cbd5e1 32px
+    ),
+    /* Horizontal lines */
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent 31px,
+      #cbd5e1 31px,
+      #cbd5e1 32px
+    );
+  background-attachment: fixed;
+  overflow: hidden;
+}
+
+:host.sidebar-collapsed {
+  left: 64px;
+}
+
+@media (max-width: 768px) {
+  :host {
+    left: 64px;
+  }
+}
+
+/* Paper texture overlay */
+:host::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' /%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
+  pointer-events: none;
+  opacity: 0.6;
+  z-index: 1;
+}
+
+/* Keep all content above the texture overlay */
+:host ::ng-deep > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* Navbar must sit above all other content */
+:host ::ng-deep app-navbar {
+  z-index: 1001;
+}
+
+/* Layout Container */
+.topics-page-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  overflow: auto;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  position: relative;
+  z-index: 2;
+  color: #1a1a2e;
+  line-height: 1.6;
+}
+
+/* Header & Search */
+.topics-header {
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1.5rem;
+}
+
+.header-text h1 {
+  font-size: 2rem;
+  color: #000000;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  line-height: 1;
+}
+
+.header-text p {
+  font-size: 18px;
+  color: #4b5563;
+  line-height: 28px;
+}
+
+/* Search Bar */
+.search-wrapper {
+  position: relative;
+  width: 20rem;
+  margin-top: 0.25rem;
+}
+
+.search-icon {
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #9ca3af;
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.5rem 1rem 0.5rem 2.5rem;
+  border: 2px dashed #000;
+  border-radius: 0.5rem;
+  background: #fff;
+  font-size: 0.875rem;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.search-input:focus {
+  border-style: solid;
+  border-color: #4b5563;
+}
+
+/* Grid System */
+.topics-grid {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+  .topics-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* Topic Cards */
+.topic-card {
+  height: 18rem;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  border: 2px dashed #9ca3af;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.topic-title {
+  font-size: 1.125rem;
+  color: #000000;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+/* Status Variations */
+.status-current {
+  border-color: #000;
+  background-color: #f3f4f6;
+}
+.status-current:hover { background-color: #e5e7eb; }
+
+.status-completed {
+  border-color: #4b5563;
+  background-color: #f3f4f6;
+}
+.status-completed:hover { background-color: #e5e7eb; }
+
+.status-locked {
+  border-color: #9ca3af;
+  background-color: #f9fafb;
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.status-available {
+  border-color: #9ca3af;
+  background-color: #fff;
+}
+.status-available:hover { background-color: #f9fafb; }
+
+/* Indicators & Badges */
+.indicator-dot {
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+  background-color: #000;
+  flex-shrink: 0;
+}
+
+.status-badge {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 9999px;
+  align-self: flex-start;
+}
+
+.status-current .status-badge, 
+.status-completed .status-badge {
+  background-color: #d1d5db;
+  color: #000;
+}
+
+.status-available .status-badge {
+  background-color: #e5e7eb;
+  color: #374151;
+}
+
+.status-locked .status-badge {
+  background-color: #f3f4f6;
+  color: #4b5563;
+}
+
+.no-results {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 3rem 0;
+  color: #6b7280;
+}

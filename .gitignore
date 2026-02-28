@@ -1,0 +1,9 @@
+.claude/
+.DS_Store
+.angular/
+node_modules/
+bin/
+obj/
+*.user
+*.suo
+.vs/

@@ -1,0 +1,77 @@
+<div class="container">
+    <div class="auth-card">
+        <h1>Create an account</h1>
+        <p class="subtitle">Sign up to start your journey in chemistry exploration!</p>
+
+        <!-- Error message -->
+        <div *ngIf="errorMessage" class="error-message">
+            {{ errorMessage }}
+        </div>
+
+        <form class="auth-form" (ngSubmit)="onSignup()">
+            <div class="form-group">
+                <label for="fullname">Your name</label>
+                <input
+                    type="text"
+                    id="fullname"
+                    placeholder="Enter your name..."
+                    [(ngModel)]="name"
+                    name="name"
+                    [disabled]="isLoading">
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="Enter your email..."
+                    [(ngModel)]="email"
+                    name="email"
+                    [disabled]="isLoading">
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Enter your password..."
+                    [(ngModel)]="password"
+                    name="password"
+                    [disabled]="isLoading">
+            </div>
+
+            <div class="form-group">
+                <label for="confirm-password">Confirm password</label>
+                <input
+                    type="password"
+                    id="confirm-password"
+                    placeholder="Confirm your password..."
+                    [(ngModel)]="confirmPassword"
+                    name="confirmPassword"
+                    [disabled]="isLoading">
+            </div>
+
+            <button
+                type="submit"
+                class="submit-btn"
+                [disabled]="isLoading">
+                {{ isLoading ? 'Creating account...' : 'Create your account' }}
+            </button>
+
+            <div class="toggle-text">
+                <span>Already have an account? </span>
+                <a routerLink="/login" class="toggle-link">Sign in!</a>
+            </div>
+
+            <div class="back-link">
+                <a routerLink="/">← Back to home</a>
+            </div>
+        </form>
+    </div>
+
+    <p class="terms-text">
+        By continuing, you agree to our Terms of Use and Privacy Policy
+    </p>
+</div>

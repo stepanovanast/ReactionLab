@@ -1,0 +1,26 @@
+:host {
+  display: block;
+  position: fixed;
+  top: 64px;
+  right: 0;
+  bottom: 0;
+  left: 192px;
+  background-color: #f9f7f4;
+  overflow: hidden;
+}
+
+:host.sidebar-collapsed {
+  left: 64px;
+}
+
+@media (max-width: 768px) {
+  :host {
+    left: 64px;
+  }
+}
+
+.visualization-layout {
+  display: flex;
+  height: 100%;
+  overflow: hidden;
+}

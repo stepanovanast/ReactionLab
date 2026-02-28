@@ -1,0 +1,163 @@
+/* Container & Section */
+.reaction-section {
+  border-bottom: 2px dashed #d1d5db;
+  padding: 80px 32px;
+}
+
+.reaction-container {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.reaction-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 48px;
+  align-items: center;
+}
+
+@media (max-width: 1024px) {
+  .reaction-grid { grid-template-columns: 1fr; }
+}
+
+/* --- Left Card Styles --- */
+.reaction-card {
+  border: 2px dashed #000000;
+  border-radius: 8px;
+  padding: 24px;
+  background-color: #ffffff;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 2px dashed #d1d5db;
+}
+
+.window-buttons { display: flex; gap: 8px; }
+.win-btn { width: 12px; height: 12px; border: 2px solid #000; border-radius: 50%; cursor: pointer; transition: 0.2s; }
+.win-btn.red:hover { background: #ef4444; }
+.win-btn.yellow:hover { background: #f59e0b; }
+.win-btn.green:hover { background: #10b981; }
+
+.status-badge {
+  border: 2px dashed #9ca3af;
+  border-radius: 4px;
+  padding: 4px 12px;
+  font-size: 12px;
+}
+
+.card-main-layout { display: flex; gap: 16px; margin-bottom: 16px; }
+
+.reaction-sidebar {
+  width: 128px;
+  border: 2px dashed #9ca3af;
+  border-radius: 4px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.molecule-tag {
+  border: 1px solid #9ca3af;
+  border-radius: 4px;
+  padding: 4px;
+  font-size: 12px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.molecule-tag:hover { background: #f3f4f6; }
+
+.viz-area {
+  flex: 1;
+  border: 2px dashed #9ca3af;
+  border-radius: 8px;
+  min-height: 250px;
+  background-color: #f9fafb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.viz-area:hover .orbital-ring { animation: spin 3s linear infinite; }
+
+.orbital-ring {
+  width: 96px; height: 96px; border: 2px dashed #9ca3af; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; margin: 0 auto 12px;
+}
+.orbital-core { width: 64px; height: 64px; border: 2px solid #000; border-radius: 50%; }
+
+.viz-text { font-size: 14px; color: #6b7280; margin: 0; text-align: center; }
+
+/* Playback Bar */
+.playback-bar {
+  border: 2px dashed #9ca3af;
+  border-radius: 8px;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: 0.2s;
+}
+.playback-bar:hover { background: #f9fafb; cursor: pointer; }
+
+.play-button {
+  width: 24px; height: 24px; border: 2px solid #000; border-radius: 4px;
+  display: flex; align-items: center; justify-content: center;
+}
+.play-icon { width: 12px; height: 12px; }
+
+.progress-container { flex: 1; height: 4px; background: #d1d5db; border-radius: 99px; }
+.progress-fill { width: 33%; height: 100%; background: #000; border-radius: 99px; }
+
+.time-stamp { font-size: 12px; color: #4b5563; }
+
+.pause-path {
+  display: none;
+}
+
+.playback-bar:hover .play-path {
+  display: none;
+}
+
+.playback-bar:hover .pause-path {
+  display: block;
+}
+
+.playback-bar:hover .play-button {
+  background-color: #000;
+  color: #fff;
+  transition: 0.2s ease;
+}
+
+/* --- Right Content Styles --- */
+.section-title { font-size: 36px; font-weight: 700; margin-bottom: 24px; }
+.section-description { font-size: 18px; color: #4b5563; line-height: 1.6; margin-bottom: 32px; }
+
+.features-list { display: flex; flex-direction: column; gap: 16px; }
+.feature-item { display: flex; align-items: flex-start; gap: 12px; }
+
+.check-box {
+  width: 32px; height: 32px; border: 2px dashed #000; border-radius: 4px;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  transition: 0.2s;
+}
+
+.check-icon {
+  transition: 0.2s;
+}
+
+.check-box:hover { border-color: #10b981; }
+.check-box:hover .check-icon { color: #10b981; }
+.check-icon { width: 16px; height: 16px; }
+
+.feature-title { font-weight: 700; margin: 0 0 4px 0; }
+.feature-detail { font-size: 16px; color: #4b5563; margin: 0; }
+
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }

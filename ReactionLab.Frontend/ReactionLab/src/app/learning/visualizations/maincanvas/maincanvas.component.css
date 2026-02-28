@@ -1,0 +1,181 @@
+:host {
+    display: block;
+    flex: 1;
+    height: 100%;
+    overflow: hidden;
+}
+
+.main-canvas {
+    flex: 1;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: #f9f7f4;
+    background-image:
+        repeating-linear-gradient(
+            to right,
+            transparent 0,
+            transparent 31px,
+            #cbd5e1 31px,
+            #cbd5e1 32px
+        ),
+        repeating-linear-gradient(
+            to bottom,
+            transparent 0,
+            transparent 31px,
+            #cbd5e1 31px,
+            #cbd5e1 32px
+        );
+}
+
+/* Grid Background - now using main-canvas background instead */
+.grid-background {
+    display: none;
+}
+
+/* Centered Container */
+.canvas-center {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.visualization-container {
+    position: relative;
+    width: 600px;
+    height: 600px;
+}
+
+/* Top Indicators Row */
+.indicators-row {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    right: 16px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    z-index: 10;
+}
+
+.indicator {
+    border: 2px dashed #000;
+    padding: 8px 16px;
+    border-radius: 4px;
+    flex-shrink: 0;
+}
+
+.visualization-title {
+    flex-shrink: 1;
+}
+
+.indicator-label {
+    font-size: 12px;
+    color: #374151; /* text-gray-700 */
+}
+
+.indicator-value {
+    color: #000;
+    font-size: 18px;
+}
+
+.visualization-title .indicator-value {
+    text-align: center;
+    white-space: nowrap;
+}
+
+/* Main Visualization Box */
+.visualization-box {
+    border: 2px dashed #000;
+    border-radius: 8px;
+    padding: 48px;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+}
+
+.visualization-content {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.placeholder {
+    color: #9ca3af; /* text-gray-400 */
+    font-size: 14px;
+}
+
+/* Canvas Info Label */
+.canvas-info {
+    position: absolute;
+    bottom: 96px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+}
+
+.info-title {
+    color: #000;
+    font-size: 14px;
+    margin-bottom: 4px;
+}
+
+.info-controls {
+    color: #6b7280; /* text-gray-500 */
+    font-size: 12px;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .visualization-title {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .visualization-container {
+        width: 90vw;
+        height: 90vw;
+        max-width: 500px;
+        max-height: 500px;
+    }
+
+    .indicators-row {
+        flex-wrap: wrap;
+    }
+
+    .canvas-info {
+        bottom: 48px;
+    }
+}
+
+@media (max-width: 480px) {
+    .visualization-container {
+        width: 95vw;
+        height: 95vw;
+    }
+
+    .indicators-row {
+        gap: 8px;
+    }
+
+    .indicator {
+        padding: 6px 12px;
+    }
+
+    .indicator-value {
+        font-size: 16px;
+    }
+
+    .visualization-box {
+        padding: 24px;
+    }
+}
