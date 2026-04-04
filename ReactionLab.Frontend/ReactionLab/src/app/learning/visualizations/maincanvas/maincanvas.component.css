@@ -33,7 +33,7 @@
     display: none;
 }
 
-/* Centered Container */
+/* Centered Container — centers the visualization-container only */
 .canvas-center {
     position: absolute;
     inset: 0;
@@ -46,6 +46,7 @@
     position: relative;
     width: 600px;
     height: 600px;
+    overflow: visible; /* allow toggle and playback to hang outside */
 }
 
 /* Top Indicators Row */
@@ -70,6 +71,50 @@
 
 .visualization-title {
     flex-shrink: 1;
+}
+
+/* View Mode Toggle — floats above the viewport, does not affect centering */
+.view-mode-row {
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 10px;
+}
+
+.view-mode-toggle {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.mode-btn {
+    padding: 6px 14px;
+    font-size: 12px;
+    background: white;
+    border: 2px dashed #000;
+    border-radius: 8px;
+    cursor: pointer;
+    color: #000;
+    transition: 0.2s ease;
+}
+
+.mode-btn:hover:not(.active) {
+    border-color: #ef4444;
+    color: #ef4444;
+}
+
+.mode-btn.active {
+    background: #000;
+    color: #fff;
+    border: 2px solid #000;
+}
+
+.mode-btn.active:hover {
+    background: #ef4444;
+    border-color: #ef4444;
 }
 
 .indicator-label {
@@ -108,9 +153,75 @@
     justify-content: center;
 }
 
-.placeholder {
-    color: #9ca3af; /* text-gray-400 */
-    font-size: 14px;
+.three-canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* Playback Bar — floats below the viewport, does not affect centering */
+.playback-bar {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    border: 2px dashed #9ca3af;
+    border-radius: 8px;
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 12px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.playback-bar:hover {
+    background: #f3f4f6;
+}
+
+.play-button {
+    width: 28px;
+    height: 28px;
+    border: 2px solid #000;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background 0.2s, color 0.2s;
+}
+
+.play-button.active,
+.playback-bar:hover .play-button {
+    background: #000;
+    color: #fff;
+}
+
+.playback-icon {
+    width: 14px;
+    height: 14px;
+}
+
+.progress-container {
+    flex: 1;
+    height: 4px;
+    background: #d1d5db;
+    border-radius: 99px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: #000;
+    border-radius: 99px;
+    transition: width 0.4s ease;
+}
+
+.time-stamp {
+    font-size: 12px;
+    color: #4b5563;
+    flex-shrink: 0;
 }
 
 /* Canvas Info Label */

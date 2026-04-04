@@ -1,9 +1,76 @@
-.claude/
+# ── OS ────────────────────────────────────────────────────────────────────────
 .DS_Store
-.angular/
-node_modules/
-bin/
-obj/
-*.user
+Thumbs.db
+desktop.ini
+
+# ── IDEs ──────────────────────────────────────────────────────────────────────
+.idea/
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
 *.suo
+*.user
+*.userosscache
+*.sln.docstates
 .vs/
+
+# ── Logs ──────────────────────────────────────────────────────────────────────
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ══════════════════════════════════════════════════════════════════════════════
+#  FRONTEND  (Angular / Node)
+# ══════════════════════════════════════════════════════════════════════════════
+node_modules/
+dist/
+tmp/
+out-tsc/
+.angular/
+coverage/
+.nyc_output/
+.sass-cache/
+*.sublime-workspace
+
+# Environment files
+.env
+.env.*
+ReactionLab.Frontend/**/environment.prod.ts
+ReactionLab.Frontend/**/environment.*.local.ts
+
+# ══════════════════════════════════════════════════════════════════════════════
+#  BACKEND  (.NET / C#)
+# ══════════════════════════════════════════════════════════════════════════════
+
+# Build output
+**/bin/
+**/obj/
+
+# NuGet
+*.nupkg
+*.snupkg
+**/packages/
+!**/packages/build/
+nuget.config.local
+*.nuget.targets
+
+# Secrets & config overrides
+**/appsettings.local.json
+**/appsettings.Development.json
+**/appsettings.Production.json
+**/*.pfx
+**/*.p12
+**/*.key
+**/*.pem
+
+# Test results
+**/TestResults/
+**/*.trx
+**/*.coveragexml
+**/*.coverage
+
+# Publish output
+**/publish/

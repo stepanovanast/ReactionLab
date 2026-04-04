@@ -33,7 +33,7 @@
 
             <div class="form-options">
                 <label class="checkbox-label">
-                    <input type="checkbox" id="remember">
+                    <input type="checkbox" id="remember" [(ngModel)]="rememberMe" name="remember">
                     <span>Remember me</span>
                 </label>
                 <a routerLink="/forgot" class="forgot-link">Forgot password?</a>

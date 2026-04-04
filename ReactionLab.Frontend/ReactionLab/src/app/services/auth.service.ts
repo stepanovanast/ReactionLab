@@ -45,19 +45,19 @@ export class AuthService {
       email,
       password
     }).pipe(
-      tap(response => this.handleAuthResponse(response))
+      tap(response => this.handleAuthResponse(response, false))
     );
   }
 
   // =====================================================
   // LOGIN
   // =====================================================
-  login(email: string, password: string): Observable<AuthResponse> {
+  login(email: string, password: string, rememberMe: boolean = false): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(`${this.apiUrl}/login`, {
       email,
       password
     }).pipe(
-      tap(response => this.handleAuthResponse(response))
+      tap(response => this.handleAuthResponse(response, rememberMe))
     );
   }
 
@@ -65,14 +65,12 @@ export class AuthService {
   // LOGOUT
   // =====================================================
   logout(): void {
-    // Clear storage
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+    sessionStorage.removeItem('token');
+    sessionStorage.removeItem('user');
 
-    // Clear current user
     this.currentUserSubject.next(null);
-
-    // Navigate to home
     this.router.navigate(['/']);
   }
 
@@ -80,25 +78,26 @@ export class AuthService {
   // HELPERS
   // =====================================================
 
-  // Store token and user after successful auth
-  private handleAuthResponse(response: AuthResponse): void {
-    localStorage.setItem('token', response.token);
-    localStorage.setItem('user', JSON.stringify(response.user));
+  // Store token and user — localStorage if rememberMe, sessionStorage if not
+  private handleAuthResponse(response: AuthResponse, rememberMe: boolean): void {
+    const storage = rememberMe ? localStorage : sessionStorage;
+    storage.setItem('token', response.token);
+    storage.setItem('user', JSON.stringify(response.user));
     this.currentUserSubject.next(response.user);
   }
 
-  // Load user from storage on app start
+  // Load user from storage on app start (check both)
   private loadUserFromStorage(): void {
-    const userJson = localStorage.getItem('user');
+    const userJson = localStorage.getItem('user') ?? sessionStorage.getItem('user');
     if (userJson) {
       const user = JSON.parse(userJson);
       this.currentUserSubject.next(user);
     }
   }
 
-  // Get the stored JWT token
+  // Get the stored JWT token (check both)
   getToken(): string | null {
-    return localStorage.getItem('token');
+    return localStorage.getItem('token') ?? sessionStorage.getItem('token');
   }
 
   // Check if user is logged in

@@ -1,6 +1,10 @@
 <app-navbar [showAuthButtons]="false"></app-navbar>
 <app-sidebar (collapsedChange)="onSidebarCollapse($event)"></app-sidebar>
 <div class="visualization-layout">
-  <app-leftpanel></app-leftpanel>
-  <app-maincanvas></app-maincanvas>
+  @if (reaction) {
+    <app-leftpanel [reaction]="reaction" [currentStepIndex]="currentStepIndex" (stepChange)="onStepChange($event)"></app-leftpanel>
+    <app-maincanvas [reaction]="reaction" [currentStepIndex]="currentStepIndex" [step]="currentStep" (stepChange)="onStepChange($event)"></app-maincanvas>
+  } @else {
+    <div class="loading">Loading reaction...</div>
+  }
 </div>

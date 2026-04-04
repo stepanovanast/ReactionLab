@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { NavbarComponent } from '../app/navbar/navbar.component';
 import { HerosectionComponent } from './herosection/herosection.component';
 import { FeaturessectionComponent } from './featuressection/featuressection.component';
-import { ReactionsectionComponent } from './reactionsection/reactionsection.component';
 import { LibrarysectionComponent } from './librarysection/librarysection.component';
 import { WhysectionComponent } from './whysection/whysection.component';
 import { FooterComponent } from './footer/footer.component';
@@ -14,7 +13,6 @@ import { FooterComponent } from './footer/footer.component';
     NavbarComponent,
     HerosectionComponent,
     FeaturessectionComponent,
-    ReactionsectionComponent,
     LibrarysectionComponent,
     WhysectionComponent,
     FooterComponent

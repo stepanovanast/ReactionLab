@@ -24,3 +24,12 @@
   height: 100%;
   overflow: hidden;
 }
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  color: #6b7280;
+  font-size: 14px;
+}

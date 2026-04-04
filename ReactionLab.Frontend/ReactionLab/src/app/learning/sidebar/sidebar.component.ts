@@ -1,6 +1,7 @@
 import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { SidebarService } from './sidebar.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -10,8 +11,8 @@ import { SidebarService } from './sidebar.service';
   styleUrl: './sidebar.component.css'
 })
 export class SidebarComponent implements OnInit {
-  private router = inject(Router);
   private sidebarService = inject(SidebarService);
+  private authService = inject(AuthService);
 
   @Output() collapsedChange = new EventEmitter<boolean>();
 
@@ -29,6 +30,6 @@ export class SidebarComponent implements OnInit {
   }
 
   signOut(): void {
-    this.router.navigate(['/']);
+    this.authService.logout();
   }
 }

@@ -1,15 +1,10 @@
-import { Component, HostBinding, inject } from '@angular/core';
+import { Component, HostBinding, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NavbarComponent } from '../../app/navbar/navbar.component';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { SidebarService } from '../sidebar/sidebar.service';
-
-interface Topic {
-  id: number;
-  title: string;
-  status: 'current' | 'completed' | 'available' | 'locked';
-}
+import { ApiService, Topic } from '../../services/api.service';
 
 @Component({
   selector: 'app-topics',
@@ -18,28 +13,35 @@ interface Topic {
   templateUrl: './topics.component.html',
   styleUrl: './topics.component.css'
 })
-export class TopicsComponent {
+export class TopicsComponent implements OnInit {
   private router = inject(Router);
   private sidebarService = inject(SidebarService);
+  private apiService = inject(ApiService);
+
   searchQuery = '';
+  topics: Topic[] = [];
+  isLoading = true;
+  error: string | null = null;
 
   @HostBinding('class.sidebar-collapsed')
   get sidebarCollapsed(): boolean {
     return this.sidebarService.isCollapsed;
   }
 
-  onSidebarCollapse(collapsed: boolean): void {
-    // State is managed by service, this just triggers change detection
+  ngOnInit(): void {
+    this.apiService.getTopics().subscribe({
+      next: (topics) => {
+        this.topics = topics;
+        this.isLoading = false;
+      },
+      error: () => {
+        this.error = 'Failed to load topics. Please try again.';
+        this.isLoading = false;
+      }
+    });
   }
 
-  topics: Topic[] = [
-    { id: 1, title: 'Topic 1', status: 'current' },
-    { id: 2, title: 'Topic 2', status: 'completed' },
-    { id: 3, title: 'Topic 3', status: 'available' },
-    { id: 4, title: 'Topic 4', status: 'available' },
-    { id: 5, title: 'Topic 5', status: 'available' },
-    { id: 6, title: 'Topic 6', status: 'available' },
-  ];
+  onSidebarCollapse(collapsed: boolean): void {}
 
   get filteredTopics(): Topic[] {
     return this.topics.filter(topic =>

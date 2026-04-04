@@ -11,11 +11,69 @@ body {
   background: #ffffff;
 }
 
-a {
-  text-decoration: none;
-  color: inherit;
+.notebook-bg {
+  background-color: #FCF6E8;
+  background-image: 
+    /* Vertical lines */
+    repeating-linear-gradient(
+      to right,
+      transparent 0,
+      transparent 23px,
+      #C9B88F 23px,
+      #C9B88F 24px
+    ),
+
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent 23px,
+      #C9B88F 23px,
+      #C9B88F 24px
+    );
+  background-size: 100% 100%;
 }
 
-ul {
-  list-style: none;
+.pink-grid-bg {
+  background-color: #FCE8F4;
+  background-image: 
+    /* Vertical lines */
+    repeating-linear-gradient(
+      to right,
+      transparent 0,
+      transparent 23px,
+      #D9A4BE 23px,
+      #D9A4BE 24px
+    ),
+
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent 23px,
+      #D9A4BE 23px,
+      #D9A4BE 24px
+    );
+  background-size: 100% 100%;
 }
+
+.blue-grid-bg {
+  background-color: #E8F0FC;
+  background-image: 
+    /* Vertical lines */
+    repeating-linear-gradient(
+      to right,
+      transparent 0,
+      transparent 23px,
+      #8CA8D4 23px,
+      #8CA8D4 24px
+    ),
+
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent 23px,
+      #8CA8D4 23px,
+      #8CA8D4 24px
+    );
+  background-size: 100% 100%;
+}
+

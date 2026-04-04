@@ -24,7 +24,11 @@
 
   <!-- Grid Section -->
   <div class="topics-grid">
-    @if (filteredTopics.length > 0) {
+    @if (isLoading) {
+      <div class="no-results">Loading topics...</div>
+    } @else if (error) {
+      <div class="no-results">{{ error }}</div>
+    } @else if (filteredTopics.length > 0) {
       @for (topic of filteredTopics; track topic.id) {
         <div
           (click)="topic.status !== 'locked' && onTopicClick(topic)"

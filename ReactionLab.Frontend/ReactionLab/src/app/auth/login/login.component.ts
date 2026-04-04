@@ -18,6 +18,7 @@ export class LoginComponent {
   // Form fields (bound with [(ngModel)])
   email = '';
   password = '';
+  rememberMe = false;
 
   // UI state
   isLoading = false;
@@ -37,7 +38,7 @@ export class LoginComponent {
     this.isLoading = true;
 
     // Call backend API
-    this.authService.login(this.email, this.password).subscribe({
+    this.authService.login(this.email, this.password, this.rememberMe).subscribe({
       next: () => {
         // Success! Navigate to topics page
         this.router.navigate(['/topics']);

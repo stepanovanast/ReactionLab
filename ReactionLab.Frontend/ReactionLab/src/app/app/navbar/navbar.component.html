@@ -1,47 +1,81 @@
-<nav class="navbar">
-  <div class="nav-container">
-    <a routerLink="/" class="logo">
-      <div class="logo-animation">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
-          <defs>
-            <clipPath id="clippath">
-              <path id="flask-body" d="M183.45,174.51l-28.2-77.47v-17.94h-15.89v17.94l-28.2,77.47c-2.49,6.83,1.68,14.49,7.89,14.49h56.51c6.21,0,10.37-7.65,7.89-14.49Z"/>
-            </clipPath>
-            <clipPath id="clippath-1">
-              <path id="tube-glass" d="M62.33,6.8h24.58v97.86c0,6.78-5.51,12.29-12.29,12.29h0c-6.78,0-12.29-5.51-12.29-12.29V6.8h0Z" transform="translate(115.08 -26.21) rotate(75)"/>
-            </clipPath>
-          </defs>
-          <g id="liquid-stream-curved" class="stream-hidden">
-            <path id="stream-path" class="stream-path" d="M128.1,55.37c37.97,53.96,25.27,133.63,25.27,133.63"/>
-          </g>
-          <g id="flask-container">
-            <g id="flask-liquid-fill">
-              <g class="flask-clip">
-                <rect id="flask-liquid-fill-2" class="flask-liquid" x="84.57" y="148.03" width="122.21" height="41.05"/>
+<nav class="navbar-wrapper">
+  <div class="px-3 px-md-4 px-lg-5 py-2 py-md-3">
+    <div class="nav-inner-container px-3 px-md-4 shadow">
+
+      <!-- Main row: Logo + Desktop Auth Buttons + Mobile Hamburger -->
+      <div class="d-flex align-items-center justify-content-between nav-main-row">
+
+        <!-- Logo -->
+        <a routerLink="/" class="logo d-flex align-items-center gap-2 flex-shrink-0">
+          <div class="logo-animation">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+              <defs>
+                <clipPath id="clippath">
+                  <path id="flask-body" d="M183.45,174.51l-28.2-77.47v-17.94h-15.89v17.94l-28.2,77.47c-2.49,6.83,1.68,14.49,7.89,14.49h56.51c6.21,0,10.37-7.65,7.89-14.49Z"/>
+                </clipPath>
+                <clipPath id="clippath-1">
+                  <path id="tube-glass" d="M62.33,6.8h24.58v97.86c0,6.78-5.51,12.29-12.29,12.29h0c-6.78,0-12.29-5.51-12.29-12.29V6.8h0Z" transform="translate(115.08 -26.21) rotate(75)"/>
+                </clipPath>
+              </defs>
+              <g id="liquid-stream-curved" class="stream-hidden">
+                <path id="stream-path" class="stream-path" d="M128.1,55.37c37.97,53.96,25.27,133.63,25.27,133.63"/>
               </g>
-            </g>
-            <g id="flask-glass">
-              <path id="flask-body-2" class="flask-outline" d="M183.45,174.51l-28.2-77.47v-17.94h-15.89v17.94l-28.2,77.47c-2.49,6.83,1.68,14.49,7.89,14.49h56.51c6.21,0,10.37-7.65,7.89-14.49Z"/>
-              <line id="flask-rim" class="flask-rim" x1="132.3" y1="78.85" x2="162.31" y2="78.85"/>
-            </g>
-          </g>
-          <g id="tube-container" class="tube-container">
-            <g id="tube-liquid-fill" class="tube-liquid-hidden">
-              <g class="tube-clip">
-                <rect id="liquid-fill" class="tube-liquid" x="17.96" y="53.41" width="133.81" height="42.09"/>
+              <g id="flask-container">
+                <g id="flask-liquid-fill">
+                  <g class="flask-clip">
+                    <rect id="flask-liquid-fill-2" class="flask-liquid" x="84.57" y="148.03" width="122.21" height="41.05"/>
+                  </g>
+                </g>
+                <g id="flask-glass">
+                  <path id="flask-body-2" class="flask-outline" d="M183.45,174.51l-28.2-77.47v-17.94h-15.89v17.94l-28.2,77.47c-2.49,6.83,1.68,14.49,7.89,14.49h56.51c6.21,0,10.37-7.65,7.89-14.49Z"/>
+                  <line id="flask-rim" class="flask-rim" x1="132.3" y1="78.85" x2="162.31" y2="78.85"/>
+                </g>
               </g>
-            </g>
-            <path id="tube-glass-2" class="tube-outline" d="M65.5,78.85h24.58v97.86c0,6.78-5.51,12.29-12.29,12.29h0c-6.78,0-12.29-5.51-12.29-12.29v-97.86h0Z"/>
-          </g>
-        </svg>
+              <g id="tube-container" class="tube-container">
+                <g id="tube-liquid-fill" class="tube-liquid-hidden">
+                  <g class="tube-clip">
+                    <rect id="liquid-fill" class="tube-liquid" x="17.96" y="53.41" width="133.81" height="42.09"/>
+                  </g>
+                </g>
+                <path id="tube-glass-2" class="tube-outline" d="M65.5,78.85h24.58v97.86c0,6.78-5.51,12.29-12.29,12.29h0c-6.78,0-12.29-5.51-12.29-12.29v-97.86h0Z"/>
+              </g>
+            </svg>
+          </div>
+          ReactionLab
+        </a>
+
+        <!-- Auth Buttons: desktop only -->
+        @if (showAuthButtons) {
+          <div class="auth-btn-container d-none d-md-flex align-items-center gap-3 flex-shrink-0">
+            <a routerLink="/login" id="loginBtn">Log in</a>
+            <a routerLink="/signup" id="signUpBtn">Sign up</a>
+          </div>
+        }
+
+        <!-- Hamburger: mobile only -->
+        @if (showAuthButtons) {
+          <button
+            class="hamburger-btn d-flex d-md-none flex-shrink-0"
+            [class.open]="menuOpen"
+            (click)="toggleMenu()"
+            aria-label="Toggle menu"
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        }
+
       </div>
-      ReactionLab
-    </a>
-    @if (showAuthButtons) {
-      <div class="auth-btn-container">
-        <a routerLink="/login" class="btn btn-primary" id="loginBtn">Log in</a>
-        <a routerLink="/signup" class="btn btn-secondary" id="signUpBtn">Sign up</a>
-      </div>
-    }
+
+      <!-- Mobile dropdown menu -->
+      @if (showAuthButtons && menuOpen) {
+        <div class="mobile-menu d-md-none">
+          <a routerLink="/login" id="loginBtnMobile" (click)="toggleMenu()">Log in</a>
+          <a routerLink="/signup" id="signUpBtnMobile" (click)="toggleMenu()">Sign up</a>
+        </div>
+      }
+
+    </div>
   </div>
 </nav>

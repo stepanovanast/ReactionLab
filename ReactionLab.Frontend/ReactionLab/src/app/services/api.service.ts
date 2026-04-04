@@ -27,10 +27,29 @@ export interface Reaction {
   steps: ReactionStep[];
 }
 
+export interface Atom {
+  id: string;
+  element: string;
+  x: number;
+  y: number;
+  z: number;
+}
+
+export interface Bond {
+  from: string;
+  to: string;
+}
+
 export interface ReactionStep {
   number: number;
   title: string;
   description: string;
+  atoms: Atom[];
+  bonds: Bond[];
+  temperatureRange: { start: number; end: number };
+  background: 'default' | 'glow' | 'dark';
+  electronTransfers: { from: string; to: string }[];
+  atomOverrides: Record<string, { radiusScale?: number; dimmed?: boolean; glowing?: boolean; darkened?: boolean }>;
 }
 
 export interface Badge {
@@ -91,6 +110,24 @@ export class ApiService {
   getUserBadges(): Observable<Badge[]> {
     return this.http.get<Badge[]>(
       `${this.apiUrl}/user/badges`,
+      { headers: this.getAuthHeaders() }
+    );
+  }
+
+  // Award Molecular Vision badge (first visualization mode switch)
+  awardMolecularVision(): Observable<any> {
+    return this.http.post(
+      `${this.apiUrl}/user/badges/molecular-vision`,
+      {},
+      { headers: this.getAuthHeaders() }
+    );
+  }
+
+  // Award Full Circuit badge (reached final step of any reaction)
+  awardFullCircuit(): Observable<any> {
+    return this.http.post(
+      `${this.apiUrl}/user/badges/full-circuit`,
+      {},
       { headers: this.getAuthHeaders() }
     );
   }

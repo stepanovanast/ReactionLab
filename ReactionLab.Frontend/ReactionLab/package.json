@@ -17,6 +17,7 @@
     "@angular/router": "^18.0.0",
     "bootstrap": "^5.3.8",
     "rxjs": "~7.8.0",
+    "three": "^0.183.2",
     "tslib": "^2.6.0",
     "zone.js": "~0.14.0"
   },
@@ -24,6 +25,7 @@
     "@angular-devkit/build-angular": "^18.0.0",
     "@angular/cli": "^18.0.0",
     "@angular/compiler-cli": "^18.0.0",
+    "@types/three": "^0.183.1",
     "typescript": "~5.4.0"
   }
 }

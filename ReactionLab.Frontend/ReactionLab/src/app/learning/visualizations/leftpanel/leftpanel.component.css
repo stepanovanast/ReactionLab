@@ -143,6 +143,71 @@
     color: #666;
 }
 
+.step {
+  cursor: pointer;
+  border-radius: 4px;
+  padding: 4px;
+  transition: background 0.15s;
+}
+
+.step:hover {
+  background-color: #f3f4f6;
+}
+
+.step.active {
+  background-color: #f3f4f6;
+}
+
+.step.active .step-number {
+  border-style: solid;
+  background-color: #000;
+  color: #fff;
+}
+
+/* Step Controls */
+.step-controls {
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+.control-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border: 2px dashed #000;
+  border-radius: 8px;
+  background: white;
+  font-size: 13px;
+  color: #000;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.control-btn svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+.control-btn:hover:not(:disabled) {
+  border-color: #ef4444;
+  color: #ef4444;
+}
+
+.control-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.step-counter {
+  font-size: 13px;
+  color: #374151;
+}
+
 /* Scrollbar Styling */
 .reaction-steps::-webkit-scrollbar {
     width: 8px;

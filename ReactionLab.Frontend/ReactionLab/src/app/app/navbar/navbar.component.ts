@@ -10,4 +10,9 @@ import { RouterLink } from '@angular/router';
 })
 export class NavbarComponent {
   @Input() showAuthButtons = true;
+  menuOpen = false;
+
+  toggleMenu() {
+    this.menuOpen = !this.menuOpen;
+  }
 }
