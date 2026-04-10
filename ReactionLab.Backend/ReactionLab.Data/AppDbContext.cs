@@ -76,10 +76,10 @@ public class AppDbContext : DbContext
 
         // Seed topics
         modelBuilder.Entity<Topic>().HasData(
-            new Topic { Id = 1, Title = "Iron Sulfide Formation", Description = "Heat iron and sulfur to observe how separate magnetic and yellow particles transform into a single non-magnetic black solid.", Order = 1 },
-            new Topic { Id = 2, Title = "Coming Soon", Description = "This topic is under construction.", Order = 2 },
-            new Topic { Id = 3, Title = "Coming Soon", Description = "This topic is under construction.", Order = 3 },
-            new Topic { Id = 4, Title = "Coming Soon", Description = "This topic is under construction.", Order = 4 }
+            new Topic { Id = 1, Title = "Iron sulfide formation",       Description = "Heat iron and sulfur to observe how separate magnetic and yellow particles transform into a single non-magnetic black solid.", Order = 1 },
+            new Topic { Id = 2, Title = "Production of hydrogen gas",   Description = "Observe iron dissolving in hydrochloric acid as electrons transfer to hydrogen ions, producing iron(II) chloride and hydrogen gas.", Order = 2 },
+            new Topic { Id = 3, Title = "Glowing splint test",          Description = "Decompose hydrogen peroxide with a catalyst and test the released oxygen using the glowing splint technique.", Order = 3 },
+            new Topic { Id = 4, Title = "Sodium-water reaction",        Description = "Watch sodium react vigorously with water, releasing hydrogen gas and forming sodium hydroxide solution.", Order = 4 }
         );
 
         // Seed reactions
@@ -88,7 +88,7 @@ public class AppDbContext : DbContext
             {
                 Id = 1,
                 TopicId = 1,
-                Title = "Iron Sulfide Formation",
+                Title = "Iron sulfide formation",
                 Equation = "8 Fe + 8 S → 8 FeS",
                 Temperature = 900,
                 MoleculeData = "[]",

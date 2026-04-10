@@ -1,1 +1,63 @@
-<p>privacypolicy works!</p>
+<app-navbar></app-navbar>
+<div class="page-section">
+
+  <div class="page-left">
+    <div class="legal-nav-item">
+      <a routerLink="/terms-of-use" class="legal-nav-header legal-nav-header--link">
+        <span class="legal-nav-title">Terms of Use</span>
+        <span class="legal-nav-chevron"></span>
+      </a>
+    </div>
+
+    <div class="legal-nav-item legal-nav-item--open">
+      <div class="legal-nav-header">
+        <span class="legal-nav-title">Privacy Policy</span>
+        <span class="legal-nav-chevron"></span>
+      </div>
+      <div class="legal-nav-body">
+        <a class="legal-toc-link" (click)="scrollTo('information-collect')">1. Information We Collect</a>
+        <a class="legal-toc-link" (click)="scrollTo('how-we-use')">2. How We Use Your Information</a>
+        <a class="legal-toc-link" (click)="scrollTo('sharing')">3. Information Sharing</a>
+        <a class="legal-toc-link" (click)="scrollTo('data-security')">4. Data Security</a>
+        <a class="legal-toc-link" (click)="scrollTo('cookies')">5. Cookies</a>
+        <a class="legal-toc-link" (click)="scrollTo('your-rights')">6. Your Rights</a>
+        <a class="legal-toc-link" (click)="scrollTo('children')">7. Children's Privacy</a>
+        <a class="legal-toc-link" (click)="scrollTo('policy-changes')">8. Changes to This Policy</a>
+        <a class="legal-toc-link" (click)="scrollTo('contact')">9. Contact Us</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-right legal-content">
+    <h1>Privacy Policy</h1>
+    <p class="legal-updated">Last updated: April 2025</p>
+
+    <h2 id="information-collect">1. Information We Collect</h2>
+    <p>We collect information you provide directly, such as your name, email address, and password when you create an account. We also collect usage data such as topics viewed and progress made within the platform.</p>
+
+    <h2 id="how-we-use">2. How We Use Your Information</h2>
+    <p>We use your information to operate and improve ReactionLab, personalize your learning experience, track your progress, and communicate important updates about the service.</p>
+
+    <h2 id="sharing">3. Information Sharing</h2>
+    <p>We do not sell, trade, or otherwise transfer your personal information to third parties. We may share data with trusted service providers who assist in operating our platform, under strict confidentiality agreements.</p>
+
+    <h2 id="data-security">4. Data Security</h2>
+    <p>We implement industry-standard security measures to protect your personal information. Passwords are hashed and never stored in plain text. However, no method of transmission over the internet is 100% secure.</p>
+
+    <h2 id="cookies">5. Cookies</h2>
+    <p>ReactionLab may use session tokens stored in your browser's local or session storage to keep you logged in. We do not use third-party tracking cookies.</p>
+
+    <h2 id="your-rights">6. Your Rights</h2>
+    <p>You have the right to access, correct, or delete your personal data at any time. You can delete your account from your profile page. For other requests, contact us directly.</p>
+
+    <h2 id="children">7. Children's Privacy</h2>
+    <p>ReactionLab is intended for users aged 13 and older. We do not knowingly collect personal information from children under 13. If you believe we have collected such data, please contact us immediately.</p>
+
+    <h2 id="policy-changes">8. Changes to This Policy</h2>
+    <p>We may update this Privacy Policy from time to time. Changes will be posted on this page with an updated date. We encourage you to review this policy periodically.</p>
+
+    <h2 id="contact">9. Contact Us</h2>
+    <p>If you have any questions about this Privacy Policy, please contact us at support&#64;reactionlab.io.</p>
+  </div>
+
+</div>

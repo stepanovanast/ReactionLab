@@ -1,6 +1,6 @@
 /* ── Section ── */
 .library-section {
-  border-bottom: 2px dashed #d1d5db;
+  border-bottom: 2px dashed #000;
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -115,17 +115,11 @@
   background-color: #FFF8F0;
   transform: rotate(var(--card-rotation, 0deg));
   box-shadow: 0 2px 8px rgba(0,0,0,0.1), 0 1px 3px rgba(0,0,0,0.08);
-  cursor: pointer;
-  transition: background-color 0.15s ease;
   list-style: none;
 }
 
 @media (min-width: 576px) {
   .library-card { padding: 24px; }
-}
-
-.library-card:hover {
-  background-color: #f3f4f6;
 }
 
 /* pin */
@@ -209,7 +203,7 @@
   border-radius: 6px;
   padding: 8px 12px;
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
   text-decoration: none;
   transition: background-color 0.2s ease;
@@ -224,7 +218,7 @@
 }
 
 .explore-btn:hover {
-  background-color: #337D2F;
+  background-color: #5c79a7;
 }
 
 .explore-btn svg {

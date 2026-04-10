@@ -47,8 +47,13 @@
         <!-- Auth Buttons: desktop only -->
         @if (showAuthButtons) {
           <div class="auth-btn-container d-none d-md-flex align-items-center gap-3 flex-shrink-0">
-            <a routerLink="/login" id="loginBtn">Log in</a>
-            <a routerLink="/signup" id="signUpBtn">Sign up</a>
+            @if (isLearningPage) {
+              <a routerLink="/user" id="loginBtn">My profile</a>
+              <a routerLink="/topics" id="signUpBtn">My learning</a>
+            } @else {
+              <a routerLink="/login" id="loginBtn">Log in</a>
+              <a routerLink="/signup" id="signUpBtn">Sign up</a>
+            }
           </div>
         }
 
@@ -71,8 +76,13 @@
       <!-- Mobile dropdown menu -->
       @if (showAuthButtons && menuOpen) {
         <div class="mobile-menu d-md-none">
-          <a routerLink="/login" id="loginBtnMobile" (click)="toggleMenu()">Log in</a>
-          <a routerLink="/signup" id="signUpBtnMobile" (click)="toggleMenu()">Sign up</a>
+          @if (isLearningPage) {
+            <a routerLink="/user" id="loginBtnMobile" (click)="toggleMenu()">My profile</a>
+            <a routerLink="/topics" id="signUpBtnMobile" (click)="toggleMenu()">My learning</a>
+          } @else {
+            <a routerLink="/login" id="loginBtnMobile" (click)="toggleMenu()">Log in</a>
+            <a routerLink="/signup" id="signUpBtnMobile" (click)="toggleMenu()">Sign up</a>
+          }
         </div>
       }
 

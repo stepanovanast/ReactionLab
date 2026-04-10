@@ -1,66 +1,258 @@
 :host {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: block;
     min-height: 100vh;
     width: 100%;
-    padding: 20px;
-    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+    background-color: #FFF8F0;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-
-    background-color: #f5f5f0;
-    background-image:
-        repeating-linear-gradient(
-            to right,
-            transparent 0,
-            transparent 31px,
-            #cbd5e1 31px,
-            #cbd5e1 32px
-        ),
-        repeating-linear-gradient(
-            to bottom,
-            transparent 0,
-            transparent 31px,
-            #cbd5e1 31px,
-            #cbd5e1 32px
-        );
-    background-attachment: fixed;
+    box-sizing: border-box;
 }
 
-.container {
+/* ── Emoji background ── */
+.emoji {
+    position: absolute;
+    user-select: none;
+    pointer-events: none;
+    opacity: 0.82;
+    z-index: 1;
+    filter: blur(1.5px) drop-shadow(0 2px 6px rgba(0,0,0,0.10));
+    line-height: 1;
+}
+
+/* ── Page layout ── */
+.page-layout {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: clamp(12px, 2vh, 24px) 24px;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 2;
+}
+
+/* ── Logo ── */
+.page-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: #000;
+    flex-shrink: 0;
+    align-self: flex-start;
+    transition: color 0.3s ease;
+}
+
+.page-logo:hover {
+    color: #5c79a7;
+    cursor: pointer;
+}
+
+.logo-animation {
+    width: 50px;
+    height: 70px;
+    padding-bottom: 20px;
+    flex-shrink: 0;
+}
+
+@media (min-width: 768px) {
+    .logo-animation { width: 60px; height: 84px; }
+    .page-logo { font-size: 1.4rem; }
+}
+
+@media (min-width: 1200px) {
+    .logo-animation { width: 70px; height: 98px; }
+    .page-logo { font-size: 1.6rem; }
+}
+
+.logo-animation svg {
     width: 100%;
-    max-width: 480px;
+    height: 100%;
+}
+
+/* ── Logo SVG styles ── */
+.stream-path {
+    fill: none;
+    stroke: #5c79a7;
+    stroke-width: 4px;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+}
+
+.tube-liquid, .flask-liquid {
+    fill: #5c79a7;
+}
+
+.tube-outline {
+    fill: none;
+    stroke: #231f20;
+    stroke-width: 6px;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+}
+
+.flask-outline {
+    fill: none;
+    stroke: #231f20;
+    stroke-width: 6px;
+    stroke-linecap: round;
+    stroke-miterlimit: 10;
+}
+
+.flask-rim {
+    fill: #fff;
+    stroke: #231f20;
+    stroke-width: 6px;
+    stroke-linecap: round;
+    stroke-miterlimit: 10;
+}
+
+.flask-clip-auth {
+    clip-path: url(#auth-clippath);
+}
+
+.tube-clip-auth {
+    clip-path: url(#auth-clippath-1);
+}
+
+.tube-container {
+    transform: translate(0, 0);
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.auth-tube-glass {
+    transform: rotate(0deg);
+    transform-origin: 77px 80px;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tube-liquid-hidden {
+    opacity: 0;
+    transform: translate(0px, 0px);
+    transition: opacity 0.1s ease 0s;
+}
+
+.stream-hidden {
+    opacity: 0;
+}
+
+.stream-hidden .stream-path {
+    stroke-dasharray: 250;
+    stroke-dashoffset: 250;
+}
+
+.auth-flask-fill {
+    transform: translateY(50px);
+    transition: transform 0.2s ease 0s;
+}
+
+/* Hover animations */
+.page-logo:hover .tube-container {
+    transform: translate(46px, -35px);
+}
+
+.page-logo:hover .auth-tube-glass {
+    transform: rotate(75deg);
+}
+
+.page-logo:hover .tube-liquid-hidden {
+    opacity: 1;
+    transform: translate(-50px, 30px);
+    transition: opacity 0.3s ease 0.6s;
+}
+
+.page-logo:hover .stream-hidden {
+    opacity: 1;
+}
+
+.page-logo:hover .stream-hidden .stream-path {
+    stroke-dashoffset: 0;
+    transition: stroke-dashoffset 0.5s ease-out 0.8s, opacity 0.1s 0.8s;
+}
+
+.page-logo:hover .auth-flask-fill {
+    transform: translateY(0px);
+    transition: transform 1.2s ease 0.8s;
+}
+
+.page-logo:not(:hover) .tube-container,
+.page-logo:not(:hover) .auth-tube-glass {
+    transition: all 0.2s ease;
+}
+
+.page-logo:not(:hover) .tube-liquid-hidden,
+.page-logo:not(:hover) .auth-flask-fill,
+.page-logo:not(:hover) .stream-hidden {
+    transition: all 0s ease;
+}
+
+/* ── Auth grid ── */
+.auth-grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    align-items: center;
+    padding: clamp(8px, 2vh, 32px) 0 clamp(8px, 1.5vh, 16px);
+    max-width: 520px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+@media (min-width: 1001px) {
+    .auth-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 80px;
+        max-width: 1100px;
+    }
+}
+
+/* ── Left panel ── */
+.left-panel {
+    display: none;
+    flex-direction: column;
+}
+
+@media (min-width: 1001px) {
+    .left-panel {
+        display: flex;
+    }
+}
+
+.left-title {
+    font-size: clamp(2.5rem, 5vw, 5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    color: #000;
+    margin: 0 0 16px 0;
+}
+
+/* ── Right panel ── */
+.right-panel {
     display: flex;
     flex-direction: column;
 }
 
+/* ── Auth card ── */
 .auth-card {
-    border: 2px dashed #000;
-    border-radius: 8px;
-    padding: 48px;
-    background-color: #fefefe;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    padding: clamp(16px, 3.5vh, 48px) clamp(20px, 3vw, 48px);
 }
 
 h1 {
-    font-size: 32px;
+    font-size: clamp(18px, 2.8vh, 32px);
     font-weight: bold;
     text-align: center;
-    margin-bottom: 8px;
+    margin-bottom: clamp(4px, 0.6vh, 8px);
     color: #000;
 }
 
-.subtitle {
-    text-align: center;
-    color: #666;
-    margin-bottom: 32px;
-    font-size: 14px;
-}
-
+/* ── Form ── */
 .auth-form {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: clamp(6px, 1.2vh, 16px);
 }
 
 .form-group {
@@ -76,8 +268,9 @@ h1 {
 }
 
 .form-group input {
-    width: 100%;
-    padding: 12px 16px;
+     width: 100%;
+    padding: clamp(6px, 1.2vh, 12px) 14px;
+    background-color: #FFF8F0;
     border: 2px dashed #000;
     border-radius: 4px;
     font-family: inherit;
@@ -89,6 +282,7 @@ h1 {
 .form-group input:focus {
     outline: none;
     border-style: solid;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
 }
 
 .form-options {
@@ -109,8 +303,6 @@ h1 {
 .checkbox-label input[type="checkbox"] {
     width: 16px;
     height: 16px;
-    border: 2px solid #000;
-    border-radius: 2px;
     cursor: pointer;
 }
 
@@ -125,28 +317,30 @@ h1 {
 
 .submit-btn {
     width: 100%;
-    padding: 16px;
+    padding: clamp(8px, 1.8vh, 16px);
     background-color: #000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
     color: #fff;
     border: 2px solid #000;
     border-radius: 8px;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     font-size: 16px;
-    font-weight: 500;
+    font-weight: 700;
     cursor: pointer;
     transition: 0.2s ease;
+    margin-top: clamp(8px, 1.5vh, 24px);
 }
 
 .submit-btn:hover {
-    background-color: #ef4444;
-    border-color: #ef4444;
+    background-color: #5c79a7;
+    border-color: #5c79a7;
 }
 
 .toggle-text {
     text-align: center;
     font-size: 14px;
     color: #666;
-    margin-top: 16px;
+    margin-bottom: clamp(6px, 1vh, 16px);
 }
 
 .toggle-link {
@@ -159,24 +353,27 @@ h1 {
     text-decoration: underline;
 }
 
-.back-link {
-    text-align: center;
-    margin-top: 16px;
-}
-
-.back-link a {
+.error-message {
+    color: #ef4444;
     font-size: 14px;
-    color: #666;
-    text-decoration: none;
-}
-
-.back-link a:hover {
-    color: #000;
+    margin-bottom: 16px;
+    padding: 12px;
+    border: 1px dashed #ef4444;
+    border-radius: 4px;
 }
 
 .terms-text {
     text-align: center;
     font-size: 12px;
     color: #999;
-    margin-top: 24px;
+}
+
+.terms-link {
+    color: #666;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.terms-link:hover {
+    color: #000;
 }

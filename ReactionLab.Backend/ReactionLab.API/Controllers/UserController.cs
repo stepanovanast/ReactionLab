@@ -156,6 +156,27 @@ public class UserController : ControllerBase
     }
 
     // =====================================================
+    // DELETE /api/user
+    // Deletes the current user's account
+    // =====================================================
+    [HttpDelete]
+    public async Task<IActionResult> DeleteAccount()
+    {
+        var userId = GetUserIdFromToken();
+        if (userId == null)
+            return Unauthorized(new { error = "Invalid token" });
+
+        var user = await _context.Users.FindAsync(userId);
+        if (user == null)
+            return NotFound(new { error = "User not found" });
+
+        _context.Users.Remove(user);
+        await _context.SaveChangesAsync();
+
+        return Ok(new { message = "Account deleted" });
+    }
+
+    // =====================================================
     // Helper: Extract user ID from JWT claims
     // =====================================================
     private int? GetUserIdFromToken()

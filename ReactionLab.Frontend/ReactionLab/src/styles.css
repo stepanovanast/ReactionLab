@@ -19,16 +19,16 @@ body {
       to right,
       transparent 0,
       transparent 23px,
-      #C9B88F 23px,
-      #C9B88F 24px
+      #E8E2D5 23px,
+      #E8E2D5 24px
     ),
 
     repeating-linear-gradient(
       to bottom,
       transparent 0,
       transparent 23px,
-      #C9B88F 23px,
-      #C9B88F 24px
+      #E8E2D5 23px,
+      #E8E2D5 24px
     );
   background-size: 100% 100%;
 }
@@ -41,16 +41,16 @@ body {
       to right,
       transparent 0,
       transparent 23px,
-      #D9A4BE 23px,
-      #D9A4BE 24px
+      #E8D5E0 23px,
+      #E8D5E0 24px
     ),
 
     repeating-linear-gradient(
       to bottom,
       transparent 0,
       transparent 23px,
-      #D9A4BE 23px,
-      #D9A4BE 24px
+      #E8D5E0 23px,
+      #E8D5E0 24px
     );
   background-size: 100% 100%;
 }

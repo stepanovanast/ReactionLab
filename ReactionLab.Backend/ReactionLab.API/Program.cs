@@ -47,7 +47,7 @@ builder.Services.AddSwaggerGen(options =>
 });
 
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<BadgeService>();
@@ -91,14 +91,7 @@ using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
 
-    if (app.Environment.IsDevelopment())
-    {
-        // In development: wipe and recreate the DB on every restart
-        // so schema changes (like adding IsAdmin) are always applied cleanly
-        db.Database.EnsureDeleted();
-    }
-
-    db.Database.EnsureCreated();
+    await db.Database.MigrateAsync();
 
     var authService = scope.ServiceProvider.GetRequiredService<AuthService>();
     await authService.EnsureAdminExistsAsync();

@@ -1,77 +1,169 @@
-<div class="container">
-    <div class="auth-card">
-        <h1>Create an account</h1>
-        <p class="subtitle">Sign up to start your journey in chemistry exploration!</p>
+<!-- Scattered emoji decorations (5×5 shift-by-3 grid) -->
+<span class="emoji" style="top:11%;left:42%;transform:rotate(14deg);font-size:clamp(1.8rem,3vw,3.6rem)">🧪</span>
+<span class="emoji" style="top:3%;left:6%;transform:rotate(-18deg);font-size:clamp(2rem,3.5vw,4rem)">⚡️</span>
+<span class="emoji" style="top:22%;left:81%;transform:rotate(9deg);font-size:clamp(1.8rem,3vw,3.6rem)">🍎</span>
+<span class="emoji" style="top:7%;left:28%;transform:rotate(-5deg);font-size:clamp(2rem,3.5vw,4rem)">🚀</span>
+<span class="emoji" style="top:16%;left:63%;transform:rotate(22deg);font-size:clamp(1.8rem,3vw,3.6rem)">💡</span>
 
-        <!-- Error message -->
+<span class="emoji" style="top:34%;left:14%;transform:rotate(11deg);font-size:clamp(2rem,3.5vw,4rem)">🍎</span>
+<span class="emoji" style="top:47%;left:88%;transform:rotate(-13deg);font-size:clamp(1.8rem,3vw,3.6rem)">🚀</span>
+<span class="emoji" style="top:29%;left:51%;transform:rotate(16deg);font-size:clamp(2rem,3.5vw,4rem)">⚡️</span>
+<span class="emoji" style="top:41%;left:32%;transform:rotate(-9deg);font-size:clamp(1.8rem,3vw,3.6rem)">💡</span>
+<span class="emoji" style="top:52%;left:67%;transform:rotate(25deg);font-size:clamp(2rem,3.5vw,4rem)">🧪</span>
+
+<span class="emoji" style="top:71%;left:3%;transform:rotate(7deg);font-size:clamp(1.8rem,3vw,3.6rem)">💡</span>
+<span class="emoji" style="top:63%;left:44%;transform:rotate(-15deg);font-size:clamp(2rem,3.5vw,4rem)">🍎</span>
+<span class="emoji" style="top:84%;left:21%;transform:rotate(19deg);font-size:clamp(1.8rem,3vw,3.6rem)">🧪</span>
+<span class="emoji" style="top:76%;left:92%;transform:rotate(-11deg);font-size:clamp(2rem,3.5vw,4rem)">⚡️</span>
+<span class="emoji" style="top:92%;left:56%;transform:rotate(5deg);font-size:clamp(1.8rem,3vw,3.6rem)">🚀</span>
+
+<span class="emoji" style="top:5%;left:89%;transform:rotate(20deg);font-size:clamp(2rem,3.5vw,4rem)">🧪</span>
+<span class="emoji" style="top:38%;left:74%;transform:rotate(-12deg);font-size:clamp(1.8rem,3vw,3.6rem)">🍎</span>
+<span class="emoji" style="top:19%;left:11%;transform:rotate(15deg);font-size:clamp(2rem,3.5vw,4rem)">💡</span>
+<span class="emoji" style="top:56%;left:25%;transform:rotate(-8deg);font-size:clamp(1.8rem,3vw,3.6rem)">⚡️</span>
+<span class="emoji" style="top:12%;left:53%;transform:rotate(10deg);font-size:clamp(2rem,3.5vw,4rem)">🚀</span>
+
+<span class="emoji" style="top:44%;left:54%;transform:rotate(-17deg);font-size:clamp(1.8rem,3vw,3.6rem)">🍎</span>
+<span class="emoji" style="top:68%;left:79%;transform:rotate(13deg);font-size:clamp(2rem,3.5vw,4rem)">🚀</span>
+<span class="emoji" style="top:81%;left:41%;transform:rotate(-6deg);font-size:clamp(1.8rem,3vw,3.6rem)">💡</span>
+<span class="emoji" style="top:94%;left:8%;transform:rotate(24deg);font-size:clamp(2rem,3.5vw,4rem)">🧪</span>
+<span class="emoji" style="top:31%;left:95%;transform:rotate(-10deg);font-size:clamp(1.8rem,3vw,3.6rem)">⚡️</span>
+
+<div class="page-layout">
+
+  <!-- Logo -->
+  <a class="page-logo" routerLink="/">
+    <div class="logo-animation">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+        <defs>
+          <clipPath id="signup-clippath">
+            <path d="M183.45,174.51l-28.2-77.47v-17.94h-15.89v17.94l-28.2,77.47c-2.49,6.83,1.68,14.49,7.89,14.49h56.51c6.21,0,10.37-7.65,7.89-14.49Z"/>
+          </clipPath>
+          <clipPath id="signup-clippath-1">
+            <path d="M62.33,6.8h24.58v97.86c0,6.78-5.51,12.29-12.29,12.29h0c-6.78,0-12.29-5.51-12.29-12.29V6.8h0Z" transform="translate(115.08 -26.21) rotate(75)"/>
+          </clipPath>
+        </defs>
+        <g class="stream-hidden">
+          <path class="stream-path" d="M128.1,55.37c37.97,53.96,25.27,133.63,25.27,133.63"/>
+        </g>
+        <g>
+          <g>
+            <g class="flask-clip-signup">
+              <rect class="flask-liquid auth-flask-fill" x="84.57" y="148.03" width="122.21" height="41.05"/>
+            </g>
+          </g>
+          <g>
+            <path class="flask-outline" d="M183.45,174.51l-28.2-77.47v-17.94h-15.89v17.94l-28.2,77.47c-2.49,6.83,1.68,14.49,7.89,14.49h56.51c6.21,0,10.37-7.65,7.89-14.49Z"/>
+            <line class="flask-rim" x1="132.3" y1="78.85" x2="162.31" y2="78.85"/>
+          </g>
+        </g>
+        <g class="tube-container">
+          <g class="tube-liquid-hidden">
+            <g class="tube-clip-signup">
+              <rect class="tube-liquid" x="17.96" y="53.41" width="133.81" height="42.09"/>
+            </g>
+          </g>
+          <path class="tube-outline auth-tube-glass" d="M65.5,78.85h24.58v97.86c0,6.78-5.51,12.29-12.29,12.29h0c-6.78,0-12.29-5.51-12.29-12.29v-97.86h0Z"/>
+        </g>
+      </svg>
+    </div>
+    ReactionLab
+  </a>
+
+  <!-- 2-col grid -->
+  <div class="auth-grid">
+
+    <!-- Left panel -->
+    <div class="left-panel">
+      <h2 class="left-title">Hey there!<br>Ready to learn?</h2>
+    </div>
+
+    <!-- Right panel -->
+    <div class="right-panel">
+      <div class="auth-card">
+
+        <h1>Create account</h1>
+          <div class="toggle-text">
+            <span>Already have an account? </span>
+            <a routerLink="/login" class="toggle-link">Log in!</a>
+          </div>
         <div *ngIf="errorMessage" class="error-message">
-            {{ errorMessage }}
+          {{ errorMessage }}
+        </div>
+
+        <div class="avatar-picker">
+          <p class="avatar-label">Choose your avatar:</p>
+          <div class="avatar-options">
+            @for (avatar of avatars; track avatar.id) {
+              <button
+                type="button"
+                class="avatar-option"
+                [class.avatar-option--selected]="avatarId === avatar.id"
+                (click)="selectAvatar(avatar.id)">
+                <span class="avatar-emoji">{{ avatar.emoji }}</span>
+              </button>
+            }
+          </div>
         </div>
 
         <form class="auth-form" (ngSubmit)="onSignup()">
-            <div class="form-group">
-                <label for="fullname">Your name</label>
-                <input
-                    type="text"
-                    id="fullname"
-                    placeholder="Enter your name..."
-                    [(ngModel)]="name"
-                    name="name"
-                    [disabled]="isLoading">
-            </div>
+          <div class="form-group">
+            <label for="fullname">Name:</label>
+            <input
+              type="text"
+              id="fullname"
+              placeholder="Type in your name..."
+              [(ngModel)]="name"
+              name="name"
+              [disabled]="isLoading">
+          </div>
 
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input
-                    type="email"
-                    id="email"
-                    placeholder="Enter your email..."
-                    [(ngModel)]="email"
-                    name="email"
-                    [disabled]="isLoading">
-            </div>
+          <div class="form-group">
+            <label for="email">Email:</label>
+            <input
+              type="email"
+              id="email"
+              placeholder="Type in your email..."
+              [(ngModel)]="email"
+              name="email"
+              [disabled]="isLoading">
+          </div>
 
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input
-                    type="password"
-                    id="password"
-                    placeholder="Enter your password..."
-                    [(ngModel)]="password"
-                    name="password"
-                    [disabled]="isLoading">
-            </div>
+          <div class="form-group">
+            <label for="password">Password:</label>
+            <input
+              type="password"
+              id="password"
+              placeholder="Type in your password..."
+              [(ngModel)]="password"
+              name="password"
+              [disabled]="isLoading">
+          </div>
 
-            <div class="form-group">
-                <label for="confirm-password">Confirm password</label>
-                <input
-                    type="password"
-                    id="confirm-password"
-                    placeholder="Confirm your password..."
-                    [(ngModel)]="confirmPassword"
-                    name="confirmPassword"
-                    [disabled]="isLoading">
-            </div>
+          <div class="form-group">
+            <label for="confirm-password">Confirm password:</label>
+            <input
+              type="password"
+              id="confirm-password"
+              placeholder="Type in your password again..."
+              [(ngModel)]="confirmPassword"
+              name="confirmPassword"
+              [disabled]="isLoading">
+          </div>
 
-            <button
-                type="submit"
-                class="submit-btn"
-                [disabled]="isLoading">
-                {{ isLoading ? 'Creating account...' : 'Create your account' }}
-            </button>
-
-            <div class="toggle-text">
-                <span>Already have an account? </span>
-                <a routerLink="/login" class="toggle-link">Sign in!</a>
-            </div>
-
-            <div class="back-link">
-                <a routerLink="/">← Back to home</a>
-            </div>
+          <button
+            type="submit"
+            class="submit-btn"
+            [disabled]="isLoading">
+            {{ isLoading ? 'Creating account...' : 'Create account' }}
+          </button>
         </form>
+      </div>
+
+      <p class="terms-text">
+        By continuing, you agree to our <a routerLink="/terms-of-use" class="terms-link">Terms of Use</a> and <a routerLink="/privacy-policy" class="terms-link">Privacy Policy</a>
+      </p>
     </div>
 
-    <p class="terms-text">
-        By continuing, you agree to our Terms of Use and Privacy Policy
-    </p>
+  </div>
 </div>

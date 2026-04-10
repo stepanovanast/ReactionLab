@@ -3,8 +3,10 @@
   top: 0;
   left: 0;
   right: 0;
+  width: 100%;
   z-index: 1000;
   background: transparent;
+  box-sizing: border-box;
 }
 
 .nav-inner-container {
@@ -13,6 +15,7 @@
   background-color: #FFF8F0;
   border: 2px solid #000000;
   border-radius: 0.5rem;
+  box-sizing: border-box;
 }
 
 @media (min-width: 768px) {
@@ -52,7 +55,7 @@
 }
 
 .logo:hover {
-  color: #337D2F;
+  color: #5c79a7;
   cursor: pointer;
 }
 
@@ -77,14 +80,14 @@
 
 .stream-path {
   fill: none;
-  stroke: #337D2F;
+  stroke: #5c79a7;
   stroke-width: 4px;
   stroke-linejoin: round;
   stroke-linecap: round;
 }
 
 .tube-liquid, .flask-liquid {
-  fill: #337D2F;
+  fill: #5c79a7;
 }
 
 .tube-outline {
@@ -197,17 +200,18 @@
   cursor: pointer;
   border-radius: 8px;
   transition: 0.2s ease;
-  width: 90px;
+  min-width: 90px;
   text-decoration: none;
   font-size: 14px;
+  font-weight: 700;
 }
 
 @media (min-width: 768px) {
-  #loginBtn, #signUpBtn { font-size: 16px; padding: 10px 20px; width: 110px; }
+  #loginBtn, #signUpBtn { font-size: 16px; padding: 10px 20px; min-width: 110px; }
 }
 
 @media (min-width: 1200px) {
-  #loginBtn, #signUpBtn { font-size: 18px; padding: 12px 24px; width: 130px; }
+  #loginBtn, #signUpBtn { font-size: 18px; padding: 12px 24px; min-width: 130px; }
 }
 
 #signUpBtn {
@@ -222,13 +226,13 @@
 }
 
 #signUpBtn:hover {
-  background-color: #337D2F;
-  border: 2px solid #337D2F;
+  background-color: #5c79a7;
+  border: 2px solid #5c79a7;
 }
 
 #loginBtn:hover {
-  border: dashed 2px #337D2F;
-  color: #337D2F;
+  border: dashed 2px #5c79a7;
+  color: #5c79a7;
 }
 
 #signOutBtn {
@@ -247,8 +251,8 @@
 }
 
 #signOutBtn:hover {
-  border: dashed 2px #337D2F;
-  color: #337D2F;
+  border: dashed 2px #5c79a7;
+  color: #5c79a7;
 }
 
 .hamburger-btn {
@@ -273,7 +277,7 @@
 }
 
 .hamburger-btn:hover span {
-  background-color: #337D2F;
+  background-color: #5c79a7;
 }
 
 .hamburger-btn.open span:nth-child(1) {
@@ -308,7 +312,7 @@
   transition: 0.2s ease;
   text-decoration: none;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 #loginBtnMobile {
@@ -323,11 +327,11 @@
 }
 
 #loginBtnMobile:hover {
-  border: dashed 2px #337D2F;
-  color: #337D2F;
+  border: dashed 2px #5c79a7;
+  color: #5c79a7;
 }
 
 #signUpBtnMobile:hover {
-  background-color: #337D2F;
-  border: 2px solid #337D2F;
+  background-color: #5c79a7;
+  border: 2px solid #5c79a7;
 }

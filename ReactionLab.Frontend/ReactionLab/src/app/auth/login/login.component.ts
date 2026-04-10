@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { Router, RouterLink, ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
@@ -13,12 +13,12 @@ import { AuthService } from '../../services/auth.service';
 })
 export class LoginComponent {
   private router = inject(Router);
+  private route = inject(ActivatedRoute);
   private authService = inject(AuthService);
 
   // Form fields (bound with [(ngModel)])
   email = '';
   password = '';
-  rememberMe = false;
 
   // UI state
   isLoading = false;
@@ -38,10 +38,15 @@ export class LoginComponent {
     this.isLoading = true;
 
     // Call backend API
-    this.authService.login(this.email, this.password, this.rememberMe).subscribe({
+    this.authService.login(this.email, this.password, false).subscribe({
       next: () => {
-        // Success! Navigate to topics page
-        this.router.navigate(['/topics']);
+        const returnUrl = this.route.snapshot.queryParams['returnUrl'];
+        const reactionId = this.route.snapshot.queryParams['reactionId'];
+        if (returnUrl) {
+          this.router.navigateByUrl(returnUrl + (reactionId ? `?reactionId=${reactionId}` : ''));
+        } else {
+          this.router.navigate(['/topics']);
+        }
       },
       error: (err) => {
         // Show error message

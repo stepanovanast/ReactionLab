@@ -1,0 +1,29 @@
+.marquee {
+  display: flex;
+  width: 100%;
+  overflow: hidden;
+  align-items: center;
+  background-color: #5c79a7;
+  color: #ffffff;
+}
+
+.marquee__item {
+  flex-shrink: 0;
+  font-size: clamp(16px, 1.5vw + 12px, 24px);
+  line-height: 1.5;
+  letter-spacing: 15%;
+  text-transform: uppercase;
+  animation: running-animation 20s linear infinite;
+  white-space: nowrap;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+@keyframes running-animation {
+  0% {
+    transform: translateZ(0);
+  }
+  100% {
+    transform: translate3d(-100%, 0, 0);
+  }
+}

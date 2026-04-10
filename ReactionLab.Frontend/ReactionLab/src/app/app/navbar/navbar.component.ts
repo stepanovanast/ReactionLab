@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Component, Input, inject } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -11,6 +12,18 @@ import { RouterLink } from '@angular/router';
 export class NavbarComponent {
   @Input() showAuthButtons = true;
   menuOpen = false;
+
+  private authService = inject(AuthService);
+  private router = inject(Router);
+
+  get isLearningPage(): boolean {
+    const url = this.router.url;
+    return url.startsWith('/topics') || url.startsWith('/user') || url.startsWith('/visualizations');
+  }
+
+  get isLoggedIn(): boolean {
+    return this.authService.isLoggedIn();
+  }
 
   toggleMenu() {
     this.menuOpen = !this.menuOpen;

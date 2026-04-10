@@ -1,31 +1,33 @@
 import { Component, HostBinding, OnInit, inject } from '@angular/core';
 import { NavbarComponent } from '../../app/navbar/navbar.component';
-import { SidebarComponent } from '../sidebar/sidebar.component';
-import { SidebarService } from '../sidebar/sidebar.service';
+
 import { AuthService } from '../../services/auth.service';
 import { ApiService, Badge } from '../../services/api.service';
 
 @Component({
   selector: 'app-user',
   standalone: true,
-  imports: [NavbarComponent, SidebarComponent],
+  imports: [NavbarComponent],
   templateUrl: './user.component.html',
   styleUrl: './user.component.css'
 })
 export class UserComponent implements OnInit {
-  private sidebarService = inject(SidebarService);
   private authService = inject(AuthService);
   private apiService = inject(ApiService);
 
   badges: Badge[] = [];
 
+  private readonly avatarMap: Record<number, string> = {
+    1: '🧪', 2: '⚗️', 3: '🔬', 4: '🧬', 5: '⚡',
+  };
+
   get userName(): string {
     return this.authService.getCurrentUser()?.name ?? '';
   }
 
-  @HostBinding('class.sidebar-collapsed')
-  get sidebarCollapsed(): boolean {
-    return this.sidebarService.isCollapsed;
+  get avatarEmoji(): string {
+    const id = this.authService.getCurrentUser()?.avatarId ?? 1;
+    return this.avatarMap[id] ?? '🧪';
   }
 
   ngOnInit(): void {

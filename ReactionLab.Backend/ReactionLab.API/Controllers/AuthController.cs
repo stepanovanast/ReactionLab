@@ -36,7 +36,7 @@ public class AuthController : ControllerBase
         }
 
         // Attempt signup
-        var result = await _authService.SignupAsync(request.Name, request.Email, request.Password);
+        var result = await _authService.SignupAsync(request.Name, request.Email, request.Password, request.AvatarId);
 
         if (!result.IsSuccess)
         {
@@ -112,6 +112,6 @@ public class AuthController : ControllerBase
 }
 
 // Request DTOs (Data Transfer Objects)
-public record SignupRequest(string Name, string Email, string Password);
+public record SignupRequest(string Name, string Email, string Password, int AvatarId = 1);
 public record LoginRequest(string Email, string Password);
 public record ForgotPasswordRequest(string Email);

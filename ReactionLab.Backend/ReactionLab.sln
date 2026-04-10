@@ -5,15 +5,15 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ReactionLab", "ReactionLab", "{D4D97152-C18E-783F-8B2D-C136465DF06B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReactionLab.API", "ReactionLab\ReactionLab.API\ReactionLab.API.csproj", "{D3FE6887-4DB3-4EDE-AC61-705C6E3F2F94}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReactionLab.API", "ReactionLab.API\ReactionLab.API.csproj", "{D3FE6887-4DB3-4EDE-AC61-705C6E3F2F94}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ReactionLab.Data", "ReactionLab.Data", "{3A506A86-B6BE-B1EC-70DC-52999DC95E1B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReactionLab.Data", "ReactionLab.Data\ReactionLab.Data\ReactionLab.Data.csproj", "{A7E55664-0628-4FE2-91B5-DA9AE1EC2BC3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReactionLab.Data", "ReactionLab.Data\ReactionLab.Data.csproj", "{A7E55664-0628-4FE2-91B5-DA9AE1EC2BC3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ReactionLab.Tests", "ReactionLab.Tests", "{D7063D05-2C94-48CB-0CCE-9A8DAF4680A1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReactionLab.Tests", "ReactionLab.Tests\ReactionLab.Tests\ReactionLab.Tests.csproj", "{1309F243-4CE1-4072-804E-ECBD4BC2B81E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReactionLab.Tests", "ReactionLab.Tests\ReactionLab.Tests.csproj", "{1309F243-4CE1-4072-804E-ECBD4BC2B81E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

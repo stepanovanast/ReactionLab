@@ -1,1 +1,63 @@
-<p>termsofuse works!</p>
+<app-navbar></app-navbar>
+<div class="page-section">
+
+  <div class="page-left">
+    <div class="legal-nav-item legal-nav-item--open">
+      <div class="legal-nav-header">
+        <span class="legal-nav-title">Terms of Use</span>
+        <span class="legal-nav-chevron"></span>
+      </div>
+      <div class="legal-nav-body">
+        <a class="legal-toc-link" (click)="scrollTo('acceptance')">1. Acceptance of Terms</a>
+        <a class="legal-toc-link" (click)="scrollTo('use-of-service')">2. Use of Service</a>
+        <a class="legal-toc-link" (click)="scrollTo('user-accounts')">3. User Accounts</a>
+        <a class="legal-toc-link" (click)="scrollTo('intellectual-property')">4. Intellectual Property</a>
+        <a class="legal-toc-link" (click)="scrollTo('disclaimers')">5. Disclaimers</a>
+        <a class="legal-toc-link" (click)="scrollTo('limitation')">6. Limitation of Liability</a>
+        <a class="legal-toc-link" (click)="scrollTo('changes')">7. Changes to Terms</a>
+        <a class="legal-toc-link" (click)="scrollTo('contact')">8. Contact</a>
+      </div>
+    </div>
+
+    <div class="legal-nav-item">
+      <a routerLink="/privacy-policy" class="legal-nav-header legal-nav-header--link">
+        <span class="legal-nav-title">Privacy Policy</span>
+        <span class="legal-nav-chevron"></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="page-right legal-content">
+    <h1>Terms of Use</h1>
+    <p class="legal-updated">Last updated: April 2025</p>
+
+    <h2 id="acceptance">1. Acceptance of Terms</h2>
+    <p>By accessing or using ReactionLab, you agree to be bound by these Terms of Use. If you do not agree to these terms, please do not use the service.</p>
+
+    <h2 id="use-of-service">2. Use of Service</h2>
+    <p>ReactionLab is an educational platform designed to help students and educators explore chemistry concepts through interactive visualizations. You agree to use this service only for lawful, educational purposes.</p>
+    <p>You must not misuse the service by introducing malware, attempting unauthorized access, or engaging in any activity that disrupts the platform's operation.</p>
+
+    <h2 id="user-accounts">3. User Accounts</h2>
+    <p>To access certain features, you must create an account. You are responsible for maintaining the confidentiality of your credentials and for all activity that occurs under your account.</p>
+    <p>You agree to provide accurate information during registration and to keep your account details up to date.</p>
+
+    <h2 id="intellectual-property">4. Intellectual Property</h2>
+    <p>All content on ReactionLab — including visualizations, text, graphics, and code — is the property of ReactionLab and is protected by applicable intellectual property laws.</p>
+    <p>You may not reproduce, distribute, or create derivative works from any content without our prior written permission.</p>
+
+    <h2 id="disclaimers">5. Disclaimers</h2>
+    <p>ReactionLab is provided on an "as is" basis. We make no warranties, express or implied, regarding the accuracy, completeness, or reliability of any content on the platform.</p>
+    <p>The visualizations and educational content are for illustrative purposes only and should not be used as a substitute for professional scientific guidance.</p>
+
+    <h2 id="limitation">6. Limitation of Liability</h2>
+    <p>To the fullest extent permitted by law, ReactionLab shall not be liable for any indirect, incidental, or consequential damages arising from your use of the service.</p>
+
+    <h2 id="changes">7. Changes to Terms</h2>
+    <p>We reserve the right to update these Terms of Use at any time. Changes will be posted on this page with an updated date. Continued use of the service after changes constitutes acceptance of the revised terms.</p>
+
+    <h2 id="contact">8. Contact</h2>
+    <p>If you have any questions about these Terms of Use, please contact us at support&#64;reactionlab.io.</p>
+  </div>
+
+</div>

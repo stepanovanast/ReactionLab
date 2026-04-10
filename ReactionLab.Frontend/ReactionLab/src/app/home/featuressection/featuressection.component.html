@@ -1,15 +1,8 @@
 <section class="features-section">
   <div class="features-container">
-    <div class="marquee">
-      <p class="marquee__item">MAKING CHEMISTRY ACCESSIBLE | MAKING CHEMISTRY ACCESSIBLE | MAKING CHEMISTRY ACCESSIBLE |
-        MAKING CHEMISTRY ACCESSIBLE | MAKING CHEMISTRY ACCESSIBLE | MAKING CHEMISTRY ACCESSIBLE |&nbsp;</p>
-      <p class="marquee__item">MAKING CHEMISTRY ACCESSIBLE | MAKING CHEMISTRY ACCESSIBLE | MAKING CHEMISTRY ACCESSIBLE |
-        MAKING CHEMISTRY ACCESSIBLE | MAKING CHEMISTRY ACCESSIBLE | MAKING CHEMISTRY ACCESSIBLE |&nbsp;</p>
-    </div>
     <div class="features-content">
       <div class="features-layout">
 
-        <!-- Left: reaction viz card -->
         <div class="reaction-card">
           <div class="card-header">
             <div class="window-buttons">
@@ -17,25 +10,56 @@
               <div class="win-btn yellow"></div>
               <div class="win-btn green"></div>
             </div>
-            <div class="status-badge">Combustion reaction</div>
+            <div class="badge-group">
+              <div class="trophy-badge" [style.background-color]="highlightTrophy ? '#f3f4f6' : ''">
+                <svg class="trophy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/>
+                  <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/>
+                  <path d="M4 22h16"/>
+                  <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/>
+                  <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/>
+                  <path d="M18 2H6v7a6 6 0 0 0 12 0V2z"/>
+                </svg>
+                <span class="trophy-alert" [class.trophy-alert-show]="highlightTrophy" aria-hidden="true"></span>
+              </div>
+              <div class="status-badge" [style.background-color]="highlightBadges ? '#f3f4f6' : ''">Combustion</div>
+              <div class="status-badge" [style.background-color]="highlightBadges ? '#f3f4f6' : ''">Decomposition</div>
+              <div class="status-badge" [style.background-color]="highlightBadges ? '#f3f4f6' : ''">Decay</div>
+            </div>
           </div>
           <div class="card-main-layout">
             <aside class="reaction-sidebar">
-              <div class="molecule-tag">H₂</div>
-              <div class="molecule-tag">CH₄</div>
-              <div class="molecule-tag">O₂</div>
-              <div class="molecule-tag">H₂O</div>
+              <div class="molecule-tag" [class.molecule-active]="highlightMolecules">Step 1</div>
+              <div class="molecule-tag" [class.molecule-active]="highlightMolecules">Step 2</div>
+              <div class="molecule-tag" [class.molecule-active]="highlightMolecules">Step 3</div>
+              <div class="molecule-tag" [class.molecule-active]="highlightMolecules">Step 4</div>
+              <div class="view-toggle">
+                <div class="view-option" [class.view-option-active]="highlightViewToggle">
+                  <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <line x1="6.0" y1="8.0" x2="4.7" y2="6.9" stroke="#000" stroke-width="1" stroke-linecap="round"/>
+                    <line x1="10.0" y1="8.0" x2="11.3" y2="6.9" stroke="#000" stroke-width="1" stroke-linecap="round"/>
+                    <circle cx="8" cy="9.5" r="2.5" stroke="#000" stroke-width="1"/>
+                    <circle cx="3.5" cy="6" r="1.5" stroke="#000" stroke-width="1"/>
+                    <circle cx="12.5" cy="6" r="1.5" stroke="#000" stroke-width="1"/>
+                  </svg>
+                </div>
+                <div class="view-option" [class.view-option-active]="highlightViewToggle">
+                  <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M 4.54 8.46 A 2.5 2.5 0 1 1 7.46 5.54 A 3.5 3.5 0 0 1 8.54 5.54 A 2.5 2.5 0 1 1 11.46 8.46 A 3.5 3.5 0 1 1 4.54 8.46 Z" stroke="#000" stroke-width="1" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+              </div>
             </aside>
             <div class="viz-area">
               <div class="viz-content">
-                <div class="orbital-ring">
+                <div class="orbital-ring" [class.orbital-spin]="highlightMolecules">
                   <div class="orbital-core"></div>
                 </div>
                 <p class="viz-text">3D visualization area</p>
               </div>
             </div>
           </div>
-          <div class="playback-bar">
+          <div class="playback-bar" [class.playback-active]="highlightPlayback">
             <div class="play-button">
               <svg class="playback-icon" viewBox="0 0 24 24" fill="currentColor">
                 <path class="play-path" d="M8 5v14l11-7z"/>
@@ -49,44 +73,73 @@
           </div>
         </div>
 
-        <!-- Right: title + bullets -->
         <div class="features-text-col">
-          <h1 class="title">how does it work?</h1>
+          <h1 class="title">The how:</h1>
           <div class="bullet-card">
-            <div style="display:flex;flex-direction:column;gap:4px;">
-              <div style="display:flex;align-items:center;gap:8px;">
-                <div class="bullet-dot"></div>
+            <div class="bullet-item"
+              (mouseenter)="highlightBadges = true"
+              (mouseleave)="highlightBadges = false">
+              <div class="check-box">
+                <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+              </div>
+              <div>
                 <h2 class="bullet-heading">Navigate across topics</h2>
+                <p class="bullet-subtitle">Surf through a variety of topics and choose one to explore.</p>
               </div>
-              <p class="bullet-subtitle">Surf through a variety of topics and choose one to explore.</p>
             </div>
-            <div style="display:flex;flex-direction:column;gap:4px;">
-              <div style="display:flex;align-items:center;gap:8px;">
-                <div class="bullet-dot"></div>
+            <div class="bullet-item"
+              (mouseenter)="highlightMolecules = true"
+              (mouseleave)="highlightMolecules = false">
+              <div class="check-box">
+                <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+              </div>
+              <div>
                 <h2 class="bullet-heading">Observe the reaction</h2>
+                <p class="bullet-subtitle">Watch chemical reactions unfold in real-time with step-by-step breakdowns.</p>
               </div>
-              <p class="bullet-subtitle">Watch chemical reactions unfold in real-time with step-by-step breakdowns.</p>
             </div>
-            <div style="display:flex;flex-direction:column;gap:4px;">
-              <div style="display:flex;align-items:center;gap:8px;">
-                <div class="bullet-dot"></div>
-                <h2 class="bullet-heading">fffff</h2>
+            <div class="bullet-item"
+              (mouseenter)="highlightViewToggle = true"
+              (mouseleave)="highlightViewToggle = false">
+              <div class="check-box">
+                <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
               </div>
-              <p class="bullet-subtitle">sssss</p>
-            </div>
-            <div style="display:flex;flex-direction:column;gap:4px;">
-              <div style="display:flex;align-items:center;gap:8px;">
-                <div class="bullet-dot"></div>
+              <div>
                 <h2 class="bullet-heading">Toggle the view</h2>
+                <p class="bullet-subtitle">Learn the reactions by exploring the bond angles and atom sizes.</p>
               </div>
-              <p class="bullet-subtitle">Learn the reactions by exploring the bond angles and atom sizes.</p>
             </div>
-            <div style="display:flex;flex-direction:column;gap:4px;">
-              <div style="display:flex;align-items:center;gap:8px;">
-                <div class="bullet-dot"></div>
-                <h2 class="bullet-heading">Time Control</h2>
+            <div class="bullet-item"
+              (mouseenter)="highlightTrophy = true"
+              (mouseleave)="highlightTrophy = false">
+              <div class="check-box">
+                <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
               </div>
-              <p class="bullet-subtitle">Pause, rewind or come back later to understand each molecular step.</p>
+              <div>
+                <h2 class="bullet-heading">Fuel your progress</h2>
+                <p class="bullet-subtitle">Receive awards as your learning progresses.</p>
+              </div>
+            </div>
+            <div class="bullet-item"
+              (mouseenter)="highlightPlayback = true"
+              (mouseleave)="highlightPlayback = false">
+              <div class="check-box">
+                <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+              </div>
+              <div>
+                <h2 class="bullet-heading">Control the timing</h2>
+                <p class="bullet-subtitle">Pause, rewind or come back later to understand each molecular step.</p>
+              </div>
             </div>
           </div>
         </div>

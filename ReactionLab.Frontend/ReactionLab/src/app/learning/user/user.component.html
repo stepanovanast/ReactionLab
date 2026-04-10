@@ -1,14 +1,10 @@
-<app-navbar [showAuthButtons]="false"></app-navbar>
-<app-sidebar (collapsedChange)="onSidebarCollapse($event)"></app-sidebar>
+<app-navbar></app-navbar>
     <div class="container">
         <div class="content">
             <!-- Profile Header -->
             <div class="profile-header">
                 <div class="profile-avatar">
-                    <svg class="avatar-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="8" r="4"/>
-                        <path d="M20 21a8 8 0 0 0-16 0"/>
-                    </svg>
+                    <span class="avatar-emoji">{{ avatarEmoji }}</span>
                 </div>
                 <h1 class="profile-name">{{ userName }}</h1>
             </div>

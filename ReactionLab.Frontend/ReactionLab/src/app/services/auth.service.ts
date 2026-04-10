@@ -13,6 +13,7 @@ export interface User {
   id: number;
   name: string;
   email: string;
+  avatarId: number;
 }
 
 @Injectable({
@@ -39,11 +40,12 @@ export class AuthService {
   // =====================================================
   // SIGNUP
   // =====================================================
-  signup(name: string, email: string, password: string): Observable<AuthResponse> {
+  signup(name: string, email: string, password: string, avatarId: number = 1): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(`${this.apiUrl}/signup`, {
       name,
       email,
-      password
+      password,
+      avatarId
     }).pipe(
       tap(response => this.handleAuthResponse(response, false))
     );

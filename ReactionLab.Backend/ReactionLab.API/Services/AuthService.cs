@@ -25,7 +25,7 @@ public class AuthService
     // =====================================================
     // SIGNUP: Create a new user
     // =====================================================
-    public async Task<AuthResult> SignupAsync(string name, string email, string password)
+    public async Task<AuthResult> SignupAsync(string name, string email, string password, int avatarId = 1)
     {
         // Step 1: Check if email already exists
         var existingUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
@@ -43,6 +43,7 @@ public class AuthService
             Name = name,
             Email = email,
             PasswordHash = passwordHash,
+            AvatarId = avatarId,
             CreatedAt = DateTime.UtcNow
         };
 
@@ -73,7 +74,7 @@ public class AuthService
         // Step 2: Verify the password
         if (!VerifyPassword(password, user.PasswordHash))
         {
-            return AuthResult.Fail("Invalid email or password");
+            return AuthResult.Fail("Invalid email or password!");
         }
 
         // Step 3: Generate JWT token
@@ -206,7 +207,7 @@ public class AuthResult
     {
         IsSuccess = true,
         Token = token,
-        User = new UserDto(user.Id, user.Name, user.Email)
+        User = new UserDto(user.Id, user.Name, user.Email, user.AvatarId)
     };
 
     public static AuthResult Fail(string error) => new()
@@ -216,4 +217,4 @@ public class AuthResult
     };
 }
 
-public record UserDto(int Id, string Name, string Email);
+public record UserDto(int Id, string Name, string Email, int AvatarId);

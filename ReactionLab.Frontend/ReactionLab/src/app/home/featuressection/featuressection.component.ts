@@ -7,4 +7,10 @@ import { Component } from '@angular/core';
   templateUrl: './featuressection.component.html',
   styleUrl: './featuressection.component.css'
 })
-export class FeaturessectionComponent {}
+export class FeaturessectionComponent {
+  highlightBadges = false;
+  highlightMolecules = false;
+  highlightViewToggle = false;
+  highlightTrophy = false;
+  highlightPlayback = false;
+}

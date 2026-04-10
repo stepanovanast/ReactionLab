@@ -15,21 +15,30 @@ export class SignupComponent {
   private router = inject(Router);
   private authService = inject(AuthService);
 
-  // Form fields
   name = '';
   email = '';
   password = '';
   confirmPassword = '';
+  avatarId = 1;
 
-  // UI state
+  avatars = [
+    { id: 1, emoji: '🧪' },
+    { id: 2, emoji: '⚗️' },
+    { id: 3, emoji: '🔬' },
+    { id: 4, emoji: '🧬' },
+    { id: 5, emoji: '⚡' },
+  ];
+
   isLoading = false;
   errorMessage = '';
 
+  selectAvatar(id: number): void {
+    this.avatarId = id;
+  }
+
   onSignup(): void {
-    // Clear previous errors
     this.errorMessage = '';
 
-    // Validation
     if (!this.name || !this.email || !this.password) {
       this.errorMessage = 'Please fill in all fields';
       return;
@@ -45,13 +54,10 @@ export class SignupComponent {
       return;
     }
 
-    // Show loading state
     this.isLoading = true;
 
-    // Call backend API
-    this.authService.signup(this.name, this.email, this.password).subscribe({
+    this.authService.signup(this.name, this.email, this.password, this.avatarId).subscribe({
       next: () => {
-        // Success! User is logged in automatically, go to topics
         this.router.navigate(['/topics']);
       },
       error: (err) => {

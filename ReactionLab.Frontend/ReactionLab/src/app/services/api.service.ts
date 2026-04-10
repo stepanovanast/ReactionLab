@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, forkJoin, of } from 'rxjs';
+import { switchMap, map } from 'rxjs/operators';
 import { AuthService } from './auth.service';
 
 // Types matching our backend responses
@@ -92,6 +93,27 @@ export class ApiService {
   // Get single topic with reactions
   getTopic(id: number): Observable<TopicDetail> {
     return this.http.get<TopicDetail>(`${this.apiUrl}/topics/${id}`);
+  }
+
+  // Fetch all topics keyed by lowercase title, with first reactionId if one exists
+  getTopicMap(): Observable<Map<string, { topicId: number; reactionId?: number }>> {
+    return this.getTopics().pipe(
+      switchMap(topics => {
+        if (topics.length === 0) return of(new Map());
+        return forkJoin(topics.map(t => this.getTopic(t.id))).pipe(
+          map(details => {
+            const m = new Map<string, { topicId: number; reactionId?: number }>();
+            details.forEach(td => {
+              m.set(td.title.toLowerCase(), {
+                topicId: td.id,
+                reactionId: td.reactions?.[0]?.id
+              });
+            });
+            return m;
+          })
+        );
+      })
+    );
   }
 
   // =====================================================

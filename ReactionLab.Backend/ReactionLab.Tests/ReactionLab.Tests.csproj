@@ -19,8 +19,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\ReactionLab\ReactionLab.API\ReactionLab.API.csproj" />
-    <ProjectReference Include="..\..\ReactionLab.Data\ReactionLab.Data\ReactionLab.Data.csproj" />
+    <ProjectReference Include="..\ReactionLab.API\ReactionLab.API.csproj" />
+    <ProjectReference Include="..\ReactionLab.Data\ReactionLab.Data.csproj" />
   </ItemGroup>
 
 </Project>
