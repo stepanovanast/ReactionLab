@@ -30,7 +30,7 @@ export class LoginComponent {
 
     // Basic validation
     if (!this.email || !this.password) {
-      this.errorMessage = 'Please enter email and password';
+      this.errorMessage = 'Type in you email and password!';
       return;
     }
 
@@ -51,7 +51,7 @@ export class LoginComponent {
       error: (err) => {
         // Show error message
         this.isLoading = false;
-        this.errorMessage = err.error?.error || 'Login failed. Please try again.';
+        this.errorMessage = err.error?.error || 'Login failed. Please try again!';
       }
     });
   }

@@ -68,13 +68,13 @@ public class AuthService
         var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
         if (user == null)
         {
-            return AuthResult.Fail("Invalid email or password");
+            return AuthResult.Fail("Incorrect email or password!");
         }
 
         // Step 2: Verify the password
         if (!VerifyPassword(password, user.PasswordHash))
         {
-            return AuthResult.Fail("Invalid email or password!");
+            return AuthResult.Fail("Incorrect email or password!");
         }
 
         // Step 3: Generate JWT token

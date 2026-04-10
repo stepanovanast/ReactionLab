@@ -372,11 +372,13 @@ h1 {
 }
 
 .error-message {
-    color: #ef4444;
+    color: #A75C87;
     font-size: 14px;
+    margin-top: 16px;
     margin-bottom: 16px;
     padding: 12px;
-    border: 1px dashed #ef4444;
+    border: 2px dashed #A75C87;
+    background-color: #FCE8F4;
     border-radius: 4px;
 }
 

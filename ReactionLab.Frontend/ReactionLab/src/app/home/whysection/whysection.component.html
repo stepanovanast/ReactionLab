@@ -20,11 +20,13 @@
   <!-- Paper wrapper -->
   <div class="paper-wrapper">
 
+    <!-- Background paper SVG -->
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 482 632"
       class="paper-svg"
-      preserveAspectRatio="xMidYMid meet"
+      preserveAspectRatio="none"
+      aria-hidden="true"
     >
       <defs>
         <filter id="paperShadow" x="-15%" y="-10%" width="130%" height="125%">
@@ -53,51 +55,57 @@
 
       <rect x="0" y="0" width="482" height="632" fill="url(#blueGrid)" clip-path="url(#paperClip)" filter="url(#paperShadow)"/>
       <path style="fill:none;stroke:#E8F0FC;stroke-width:2;stroke-linecap:round;stroke-linejoin:round" d="M436,1v16c5.3,1,9.5,4.6,10.7,9.1c1.7,6.5-3.1,12.9-10.7,14.3s-15-2.7-16.7-9.1c-1.7-6.5,3.1-12.9,10.7-14.3V1h-42v16c5.3,1,9.5,4.6,10.7,9.1c1.7,6.5-3.1,12.9-10.7,14.3s-15-2.7-16.7-9.1c-1.7-6.5,3.1-12.9,10.7-14.3V1h-42v16c5.3,1,9.5,4.6,10.7,9.1c1.7,6.5-3.1,12.9-10.7,14.3s-15-2.7-16.7-9.1c-1.7-6.5,3.1-12.9,10.7-14.3V1h-42v16c5.3,1,9.5,4.6,10.7,9.1c1.7,6.5-3.1,12.9-10.7,14.3s-15-2.7-16.7-9.1c-1.7-6.5,3.1-12.9,10.7-14.3V1h-42v16c5.3,1,9.5,4.6,10.7,9.1c1.7,6.5-3.1,12.9-10.7,14.3s-15-2.7-16.7-9.1c-1.7-6.5,3.1-12.9,10.7-14.3V1h-42v16c5.3,1,9.5,4.6,10.7,9.1c1.7,6.5-3.1,12.9-10.7,14.3s-15-2.7-16.7-9.1c-1.7-6.5,3.1-12.9,10.7-14.3V1h-42v16c5.3,1,9.5,4.6,10.7,9.1c1.7,6.5-3.1,12.9-10.7,14.3s-15-2.7-16.7-9.1c-1.7-6.5,3.1-12.9,10.7-14.3V1h-42v16c5.3,1,9.5,4.6,10.7,9.1c1.7,6.5-3.1,12.9-10.7,14.3s-15-2.7-16.7-9.1C81.6,24.8,86.4,18.4,94,17V1H52v16c5.3,1,9.5,4.6,10.7,9.1C64.4,32.6,59.6,39,52,40.4s-15-2.7-16.7-9.1C33.6,24.8,38.4,18.4,46,17V1H1v630h480V1H436z"/>
-
-      <!-- Paper content: title + bullet points -->
-      <foreignObject x="36" y="52" width="410" height="560">
-        <div xmlns="http://www.w3.org/1999/xhtml" style="width:100%;height:100%;display:flex;flex-direction:column;align-items:center;padding:28px 24px 24px;box-sizing:border-box;font-family:inherit;">
-
-          <!-- Title -->
-          <h2 class="why-title">Why ReactionLab?</h2>
-
-          <!-- Divider -->
-          <div style="width:100%;height:1.5px;background:rgba(51,125,47,0.18);border-radius:2px;margin:18px 0 28px;"></div>
-
-          <!-- Bullet points -->
-          <div style="width:100%;display:flex;flex-direction:column;gap:24px;">
-
-            <!-- Safe Learning -->
-            <div style="display:flex;flex-direction:column;gap:4px;">
-              <div style="display:flex;align-items:center;gap:8px;">
-                <div style="width:10px;height:10px;border-radius:50%;background-color:#D48CB5;flex-shrink:0;"></div>
-                <h2 class="why-heading">Safe Learning</h2>
-              </div>
-              <p class="why-subtitle">No hazardous chemicals, no lab accidents. Experiment freely in a completely safe digital environment.</p>
-            </div>
-
-            <!-- 24/7 Accessible -->
-            <div style="display:flex;flex-direction:column;gap:4px;">
-              <div style="display:flex;align-items:center;gap:8px;">
-                <div style="width:10px;height:10px;border-radius:50%;background-color:#6A9FD4;flex-shrink:0;"></div>
-                <h2 class="why-heading">24/7 Accessible</h2>
-              </div>
-              <p class="why-subtitle">Learn anytime, anywhere. No lab scheduling, no equipment limitations, just instant access.</p>
-            </div>
-
-            <!-- Eco-Friendly -->
-            <div style="display:flex;flex-direction:column;gap:4px;">
-              <div style="display:flex;align-items:center;gap:8px;">
-                <div style="width:10px;height:10px;border-radius:50%;background-color:#4DAF6E;flex-shrink:0;"></div>
-                <h2 class="why-heading">Eco-Friendly</h2>
-              </div>
-              <p class="why-subtitle">Zero chemical waste, zero environmental impact. Sustainable education for a better future.</p>
-            </div>
-
-          </div>
-        </div>
-      </foreignObject>
     </svg>
+
+    <!-- Content overlay (centered on top of paper) -->
+    <div class="paper-content">
+
+      <!-- Title -->
+      <h1 class="why-title">The why:</h1>
+
+      <!-- Divider -->
+      <div class="why-divider"></div>
+
+      <!-- Bullet points -->
+      <div class="why-bullets">
+
+        <!-- Safe Learning -->
+        <div class="why-bullet">
+          <div class="why-bullet-header">
+            <div class="why-dot" style="background-color:#A75C87;"></div>
+            <h2 class="why-heading">Safe learning</h2>
+          </div>
+          <p class="why-subtitle">No hazardous chemicals, no lab accidents.</p>
+        </div>
+
+        <!-- 24/7 Accessible -->
+        <div class="why-bullet">
+          <div class="why-bullet-header">
+            <div class="why-dot" style="background-color:#5C79A7;"></div>
+            <h2 class="why-heading">24/7 accessibility</h2>
+          </div>
+          <p class="why-subtitle">Learn anytime, anywhere, without limitations.</p>
+        </div>
+
+        <!-- Eco-Friendly -->
+        <div class="why-bullet">
+          <div class="why-bullet-header">
+            <div class="why-dot" style="background-color:#7ABD77;"></div>
+            <h2 class="why-heading">Eco-friendliness</h2>
+          </div>
+          <p class="why-subtitle">Zero chemical waste, zero environmental impact.</p>
+        </div>
+
+        <div class="why-bullet">
+          <div class="why-bullet-header">
+            <div class="why-dot" style="background-color:#A78E5C;"></div>
+            <h2 class="why-heading">Universal compatibility</h2>
+          </div>
+          <p class="why-subtitle">Accessible on any device, no installation required.</p>
+        </div>
+
+      </div>
+    </div>
 
   </div>
 </section>

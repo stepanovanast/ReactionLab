@@ -27,12 +27,12 @@ public class AuthController : ControllerBase
             string.IsNullOrWhiteSpace(request.Email) ||
             string.IsNullOrWhiteSpace(request.Password))
         {
-            return BadRequest(new { error = "Name, email, and password are required" });
+            return BadRequest(new { error = "Name, email, and password are required!" });
         }
 
         if (request.Password.Length < 6)
         {
-            return BadRequest(new { error = "Password must be at least 6 characters" });
+            return BadRequest(new { error = "The password must be at least 6 characters long!" });
         }
 
         // Attempt signup
@@ -62,7 +62,7 @@ public class AuthController : ControllerBase
         if (string.IsNullOrWhiteSpace(request.Email) ||
             string.IsNullOrWhiteSpace(request.Password))
         {
-            return BadRequest(new { error = "Email and password are required" });
+            return BadRequest(new { error = "Email and password are required!" });
         }
 
         // Attempt login

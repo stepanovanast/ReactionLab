@@ -1,0 +1,354 @@
+/* ── Page layout ── */
+.page-layout {
+  min-height: 100vh;
+  background-color: #FFF8F0;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ── Emoji background ── */
+.emoji {
+  position: absolute;
+  user-select: none;
+  pointer-events: none;
+  opacity: 0.82;
+  z-index: 1;
+  filter: blur(1.5px) drop-shadow(0 2px 6px rgba(0,0,0,0.10));
+  line-height: 1;
+}
+
+/* ── Logo ── */
+.page-logo {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: #000;
+  flex-shrink: 0;
+  align-self: flex-start;
+  transition: color 0.3s ease;
+}
+
+.page-logo:hover {
+  color: #5c79a7;
+  cursor: pointer;
+}
+
+.logo-animation {
+  width: 50px;
+  height: 70px;
+  padding-bottom: 20px;
+  flex-shrink: 0;
+}
+
+@media (min-width: 768px) {
+  .logo-animation { width: 60px; height: 84px; }
+  .page-logo { font-size: 1.4rem; }
+}
+
+@media (min-width: 1200px) {
+  .logo-animation { width: 70px; height: 98px; }
+  .page-logo { font-size: 1.6rem; }
+}
+
+.logo-animation svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* ── Logo SVG styles ── */
+.stream-path {
+  fill: none;
+  stroke: #5c79a7;
+  stroke-width: 4px;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.tube-liquid, .flask-liquid {
+  fill: #5c79a7;
+}
+
+.tube-outline {
+  fill: none;
+  stroke: #231f20;
+  stroke-width: 6px;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.flask-outline {
+  fill: none;
+  stroke: #231f20;
+  stroke-width: 6px;
+  stroke-linecap: round;
+  stroke-miterlimit: 10;
+}
+
+.flask-rim {
+  fill: #fff;
+  stroke: #231f20;
+  stroke-width: 6px;
+  stroke-linecap: round;
+  stroke-miterlimit: 10;
+}
+
+.flask-clip-contacts {
+  clip-path: url(#contacts-clippath);
+}
+
+.tube-clip-contacts {
+  clip-path: url(#contacts-clippath-1);
+}
+
+.tube-container {
+  transform: translate(0, 0);
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.contacts-tube-glass {
+  transform: rotate(0deg);
+  transform-origin: 77px 80px;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tube-liquid-hidden {
+  opacity: 0;
+  transform: translate(0px, 0px);
+  transition: opacity 0.1s ease 0s;
+}
+
+.stream-hidden {
+  opacity: 0;
+}
+
+.stream-hidden .stream-path {
+  stroke-dasharray: 250;
+  stroke-dashoffset: 250;
+}
+
+.contacts-flask-fill {
+  transform: translateY(50px);
+  transition: transform 0.2s ease 0s;
+}
+
+/* Hover animations */
+.page-logo:hover .tube-container {
+  transform: translate(46px, -35px);
+}
+
+.page-logo:hover .contacts-tube-glass {
+  transform: rotate(75deg);
+}
+
+.page-logo:hover .tube-liquid-hidden {
+  opacity: 1;
+  transform: translate(-50px, 30px);
+  transition: opacity 0.3s ease 0.6s;
+}
+
+.page-logo:hover .stream-hidden {
+  opacity: 1;
+}
+
+.page-logo:hover .stream-hidden .stream-path {
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 0.5s ease-out 0.8s, opacity 0.1s 0.8s;
+}
+
+.page-logo:hover .contacts-flask-fill {
+  transform: translateY(0px);
+  transition: transform 1.2s ease 0.8s;
+}
+
+.page-logo:not(:hover) .tube-container,
+.page-logo:not(:hover) .contacts-tube-glass {
+  transition: all 0.2s ease;
+}
+
+.page-logo:not(:hover) .tube-liquid-hidden,
+.page-logo:not(:hover) .contacts-flask-fill,
+.page-logo:not(:hover) .stream-hidden {
+  transition: all 0s ease;
+}
+
+/* ── Section ── */
+.contacts-section {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: clamp(12px, 2vh, 24px) 24px 48px;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 2;
+}
+
+.contacts-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 16px;
+  box-sizing: border-box;
+}
+
+@media (min-width: 576px) {
+  .contacts-container { padding: 0 32px; }
+}
+
+/* ── Header ── */
+.contacts-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+@media (min-width: 576px) {
+  .contacts-header { margin-bottom: 64px; }
+}
+
+.contacts-title {
+  font-size: 30px;
+  font-weight: 700;
+  color: #000;
+  margin: 0 0 12px 0;
+  padding: 0 16px;
+}
+
+@media (min-width: 576px) { .contacts-title { font-size: 48px; margin-bottom: 16px; } }
+@media (min-width: 768px) { .contacts-title { font-size: 60px; } }
+@media (min-width: 992px) { .contacts-title { font-size: 72px; } }
+
+.contacts-subtitle {
+  font-size: 16px;
+  color: #4b5563;
+  margin: 0;
+  padding: 0 16px;
+}
+
+@media (min-width: 576px) { .contacts-subtitle { font-size: 18px; } }
+@media (min-width: 768px) { .contacts-subtitle { font-size: 20px; } }
+
+/* ── Cards grid ── */
+.contacts-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 80px 96px;
+  padding: 0 8px;
+}
+
+@media (min-width: 992px) {
+  .contacts-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+/* ── Individual card ── */
+.contact-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+@media (min-width: 576px) {
+  .contact-card { gap: 16px; }
+}
+
+/* ── Avatar circle — matches footer .social-icon ── */
+.contact-circle {
+  width: clamp(80px, 16vw, 140px);
+  height: clamp(80px, 16vw, 140px);
+  border-radius: 50%;
+  border: 1px solid #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 150ms ease, border 150ms ease;
+  flex-shrink: 0;
+}
+
+.contact-circle:hover {
+  background-color: #FCF6E8;
+  border: 1px solid #5c79a7;
+}
+
+.contact-circle svg {
+  width: 45%;
+  height: 45%;
+  display: block;
+}
+
+/* fill-based icons (pin, github, linkedin) */
+.contact-circle svg path,
+.contact-circle svg rect {
+  transition: fill 150ms ease;
+}
+
+.contact-circle:hover svg path,
+.contact-circle:hover svg rect {
+  fill: #5c79a7;
+}
+
+/* stroke-based icon (email) */
+.contact-stroke-circle svg path,
+.contact-stroke-circle svg rect {
+  fill: none;
+  transition: stroke 150ms ease;
+}
+
+.contact-stroke-circle:hover svg path,
+.contact-stroke-circle:hover svg rect {
+  fill: none;
+  stroke: #5c79a7;
+}
+
+/* ── Text — matches featuressection bullet-heading / bullet-subtitle ── */
+.contact-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: #000;
+  margin: 0 0 6px 0;
+  text-align: center;
+}
+
+@media (min-width: 576px) { .contact-name { font-size: 20px; margin-bottom: 8px; } }
+@media (min-width: 768px) { .contact-name { font-size: 24px; } }
+
+.contact-credential {
+  font-size: 1rem;
+  color: #444;
+  line-height: 1.6;
+  margin: 0;
+  text-align: center;
+}
+
+.contact-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  color: #444;
+  transition: color 150ms ease;
+}
+
+.contact-link:hover {
+  color: #5c79a7;
+}
+
+.contact-arrow {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+@media (min-width: 576px) {
+  .contact-arrow { width: 16px; height: 16px; }
+}

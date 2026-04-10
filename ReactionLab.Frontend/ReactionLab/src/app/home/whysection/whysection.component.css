@@ -21,53 +21,116 @@
   line-height: 1;
 }
 
-/* ── Paper wrapper ── */
+/* ── Paper wrapper — height driven by content; SVG stretches to fill ── */
 .paper-wrapper {
   position: relative;
-  display: inline-flex;
   z-index: 2;
   margin: 5vh 0;
-}
-
-/* ── Binder paper SVG ── */
-.paper-svg {
-  position: relative;
-  z-index: 2;
-  display: block;
   width: min(90vw, 420px);
-  height: auto;
+  /* minimum height = natural paper proportions so it never collapses */
+  min-height: calc(min(90vw, 420px) * 632 / 482);
+  container-type: inline-size;
+  container-name: paper;
 }
 
 @media (min-width: 640px) {
-  .paper-svg {
-    width: auto;
-    height: 70vh;
+  .paper-wrapper {
+    /* natural width for a 70vh-tall paper */
+    width: calc(70vh * 482 / 632);
+    min-height: 70vh;
   }
 }
 
-/* ── Paper content typography ── */
+/* ── Binder paper SVG — absolutely fills the wrapper, stretches with it ── */
+.paper-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* ── Content overlay — sits in normal flow, drives the wrapper height ── */
+.paper-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 16% 12% 8%;
+  box-sizing: border-box;
+}
+
+/* ── Paper content typography — same px steps as featuressection, triggered by paper width ── */
+/*    featuressection breakpoints: 576 / 768 / 992px viewport                                */
+/*    paper widths at those viewports: ~420px (capped) / ~410px / ~530px                     */
+/*    → container breakpoints: 420px / 520px / 640px                                         */
+
 .why-title {
-  font-size: 42px;
+  font-size: 30px;
   font-weight: 700;
-  color: #1a1a1a;
-  letter-spacing: -0.3px;
-  line-height: 1.15;
+  color: #000;
+  margin: 0 0 12px;
   text-align: center;
-  margin: 0;
+  line-height: 1.15;
+}
+
+@container paper (min-width: 420px) { .why-title { font-size: 48px; margin-bottom: 16px; } }
+@container paper (min-width: 520px) { .why-title { font-size: 60px; } }
+@container paper (min-width: 640px) { .why-title { font-size: 72px; } }
+
+.why-divider {
+  width: 100%;
+  height: 1.5px;
+  background: #5C79A7;
+  border-radius: 2px;
+  margin: 0 0 clamp(6px, 2.6cqi, 18px);
+  flex-shrink: 0;
+}
+
+.why-bullets {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(6px, 4cqi, 22px);
+}
+
+.why-bullet {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2px, 1cqi, 6px);
+}
+
+.why-bullet-header {
+  display: flex;
+  align-items: center;
+  gap: clamp(4px, 1.5cqi, 10px);
+}
+
+.why-dot {
+  width: clamp(6px, 2cqi, 11px);
+  height: clamp(6px, 2cqi, 11px);
+  border-radius: 50%;
+  flex-shrink: 0;
 }
 
 .why-heading {
   font-size: 16px;
   font-weight: 700;
-  color: #1a1a1a;
+  color: #000;
+  margin: 0 0 6px;
   line-height: 1.2;
-  margin: 0;
 }
 
+@container paper (min-width: 420px) { .why-heading { font-size: 20px; margin-bottom: 8px; } }
+@container paper (min-width: 520px) { .why-heading { font-size: 24px; } }
+
 .why-subtitle {
-  font-size: 13px;
+  font-size: 1rem;
   color: #444;
   line-height: 1.6;
-  padding-left: 18px;
+  padding-left: clamp(8px, 3cqi, 18px);
   margin: 0;
 }

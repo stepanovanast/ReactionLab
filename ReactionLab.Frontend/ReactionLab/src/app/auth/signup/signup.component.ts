@@ -40,17 +40,17 @@ export class SignupComponent {
     this.errorMessage = '';
 
     if (!this.name || !this.email || !this.password) {
-      this.errorMessage = 'Please fill in all fields';
+      this.errorMessage = 'Please fill in all fields!';
       return;
     }
 
     if (this.password !== this.confirmPassword) {
-      this.errorMessage = 'Passwords do not match';
+      this.errorMessage = 'The passwords do not match!';
       return;
     }
 
     if (this.password.length < 6) {
-      this.errorMessage = 'Password must be at least 6 characters';
+      this.errorMessage = 'The password must be at least 6 characters long!';
       return;
     }
 
