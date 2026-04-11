@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
+import { FooterComponent } from '../footer/footer.component';
 
 @Component({
   selector: 'app-tutorials',
   standalone: true,
-  imports: [],
+  imports: [FooterComponent],
   templateUrl: './tutorials.component.html',
   styleUrl: './tutorials.component.css'
 })

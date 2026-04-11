@@ -22,7 +22,7 @@
       #cbd5e1 32px
     );
   background-attachment: fixed;
-  overflow: hidden;
+  overflow-y: auto;
 }
 
 :host.sidebar-collapsed {
@@ -50,8 +50,8 @@ body {
 .container {
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: 100%;
+    align-items: flex-start;
+    min-height: 100%;
     padding: 32px;
 }
 

@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -27,22 +28,34 @@ public class TopicsController : ControllerBase
         var query = _context.Topics.AsQueryable();
 
         if (!string.IsNullOrWhiteSpace(search))
-        {
             query = query.Where(t => t.Title.Contains(search));
+
+        var topics = await query.OrderBy(t => t.Order).ToListAsync();
+
+        // Try to read user ID from the JWT if present (endpoint is public but auth-aware)
+        int? userId = null;
+        var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        if (!string.IsNullOrEmpty(userIdClaim) && int.TryParse(userIdClaim, out var parsedId))
+            userId = parsedId;
+
+        List<UserProgress> userProgress = new();
+        if (userId.HasValue)
+        {
+            userProgress = await _context.UserProgress
+                .Where(p => p.UserId == userId.Value)
+                .ToListAsync();
         }
 
-        var topics = await query
-            .OrderBy(t => t.Order)
-            .Select(t => new
-            {
-                t.Id,
-                t.Title,
-                t.Description,
-                Status = "available" // TODO: Get actual status from UserProgress
-            })
-            .ToListAsync();
+        var result = topics.Select(t =>
+        {
+            var progress = userProgress.FirstOrDefault(p => p.TopicId == t.Id);
+            var status = progress != null
+                ? progress.Status.ToString().ToLower()
+                : (t.Order == 1 ? "available" : "locked"); // default: first topic open, rest locked
+            return new { t.Id, t.Title, t.Description, Status = status };
+        });
 
-        return Ok(topics);
+        return Ok(result);
     }
 
     [HttpGet("{id}")]

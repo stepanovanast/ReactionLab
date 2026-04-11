@@ -48,8 +48,18 @@
         @if (showAuthButtons) {
           <div class="auth-btn-container d-none d-md-flex align-items-center gap-3 flex-shrink-0">
             @if (isLearningPage) {
-              <a routerLink="/user" id="loginBtn">My profile</a>
-              <a routerLink="/topics" id="signUpBtn">My learning</a>
+              <div class="profile-dropdown-wrapper">
+                <button class="profile-btn" (click)="toggleProfileDropdown()">My profile</button>
+                @if (profileDropdownOpen) {
+                  <div class="profile-dropdown">
+                    <div class="dropdown-avatar">{{ avatarEmoji }}</div>
+                    <div class="dropdown-name">{{ userName }}</div>
+                    <hr class="dropdown-divider">
+                    <button class="dropdown-signout" (click)="signOut()">Sign out</button>
+                  </div>
+                }
+              </div>
+              <a routerLink="/topics" id="signUpBtn" (click)="profileDropdownOpen = false">My learning</a>
             } @else {
               <a routerLink="/login" id="loginBtn">Log in</a>
               <a routerLink="/signup" id="signUpBtn">Sign up</a>
@@ -77,8 +87,12 @@
       @if (showAuthButtons && menuOpen) {
         <div class="mobile-menu d-md-none">
           @if (isLearningPage) {
-            <a routerLink="/user" id="loginBtnMobile" (click)="toggleMenu()">My profile</a>
+            <div class="mobile-profile-info">
+              <span class="mobile-avatar">{{ avatarEmoji }}</span>
+              <span class="mobile-name">{{ userName }}</span>
+            </div>
             <a routerLink="/topics" id="signUpBtnMobile" (click)="toggleMenu()">My learning</a>
+            <button id="loginBtnMobile" (click)="signOut()">Sign out</button>
           } @else {
             <a routerLink="/login" id="loginBtnMobile" (click)="toggleMenu()">Log in</a>
             <a routerLink="/signup" id="signUpBtnMobile" (click)="toggleMenu()">Sign up</a>

@@ -1,15 +1,11 @@
 :host {
   display: block;
-  min-height: 100vh;
 }
 
-/* Layout Container */
+/* ── Layout Container ── */
 .topics-page-container {
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  padding: 140px 24px 80px;
-  overflow: auto;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   position: relative;
   z-index: 2;
@@ -17,34 +13,111 @@
   line-height: 1.6;
 }
 
-/* Header & Search */
+/* ── Two-column layout (mobile: stacked) ── */
+.content-layout {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Mobile columns: each is one full 100vh screen ── */
+.left-col {
+  height: 100vh;
+  padding: 140px 24px 24px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.right-col {
+  height: 100vh;
+  padding: 80px 24px 24px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* ── Desktop: simple side-by-side flex columns ── */
+@media (min-width: 768px) {
+  :host {
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .topics-page-container {
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  /*
+   * Each column is an independent flex container.
+   * Both have the same 140px top padding, so both h1s land at the same y.
+   * The right header is just an h1 (~32px) vs the left header (~85px with
+   * search + filters), so the right-grid — and the progress-nextup-row —
+   * starts ~53px higher than the topics-grid on the left.
+   */
+  .content-layout {
+    flex-direction: row;
+    flex: 1;
+    overflow: hidden;
+    height: 100%;
+  }
+
+  .left-col {
+    width: 50%;
+    height: 100%;
+    padding: 140px 2rem 80px 24px;
+    border-right: 2px dashed #e5e7eb;
+  }
+
+  .right-col {
+    width: 50%;
+    height: 100%;
+    padding: 140px 24px 80px 2rem;
+  }
+
+  .topics-grid {
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .right-grid {
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+  }
+}
+
+/* ── Left column header (has search + filters) ── */
 .topics-header {
   margin-bottom: 1.5rem;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: 1rem;
+  flex-shrink: 0;
+}
+
+.header-top {
+  display: flex;
   align-items: flex-start;
+  justify-content: space-between;
   gap: 1.5rem;
 }
 
-.header-text h1 {
+.header-top h1 {
   font-size: 2rem;
-  color: #000000;
+  color: #000;
   font-weight: 700;
-  margin-bottom: 0.5rem;
+  margin: 0;
   line-height: 1;
 }
 
-.header-text p {
-  font-size: 18px;
-  color: #4b5563;
-  line-height: 28px;
-}
-
-/* Search Bar */
+/* Search bar */
 .search-wrapper {
   position: relative;
   width: 20rem;
-  margin-top: 0.25rem;
 }
 
 .search-icon {
@@ -74,22 +147,62 @@
   border-color: #4b5563;
 }
 
-/* Grid System */
+/* Filter buttons */
+.filter-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.filter-btn {
+  padding: 0.375rem 0.875rem;
+  border: 2px dashed #9ca3af;
+  border-radius: 9999px;
+  background: #fff;
+  font-size: 0.875rem;
+  font-family: inherit;
+  color: #4b5563;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.filter-btn:hover {
+  border-color: #4b5563;
+  color: #000;
+}
+
+.filter-btn.active {
+  border-style: solid;
+  border-color: #000;
+  background: #000;
+  color: #fff;
+}
+
+/* ── Right column header (title only) ── */
+.col-header {
+  flex-shrink: 0;
+  margin-bottom: 1.75rem;
+}
+
+.col-header h1 {
+  font-size: 2rem;
+  color: #000;
+  font-weight: 700;
+  margin: 0;
+  line-height: 1;
+}
+
+/* ── Topics grid ── */
 .topics-grid {
   display: grid;
-  grid-template-columns: repeat(1, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: repeat(4, 1fr);
   gap: 1.5rem;
+  flex: 1;
+  overflow: hidden;
 }
 
-@media (min-width: 1024px) {
-  .topics-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-}
-
-/* Topic Cards */
+/* ── Topic Cards ── */
 .topic-card {
-  height: 18rem;
   padding: 1.5rem;
   border-radius: 0.5rem;
   border: 2px dashed #9ca3af;
@@ -98,6 +211,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  min-height: 0;
 }
 
 .card-top {
@@ -108,38 +222,19 @@
 
 .topic-title {
   font-size: 1.125rem;
-  color: #000000;
+  color: #000;
   font-weight: 700;
   line-height: 1.25;
 }
 
-/* Status Variations */
-.status-current {
-  border-color: #000;
-  background-color: #f3f4f6;
-}
-.status-current:hover { background-color: #e5e7eb; }
-
-.status-completed {
-  border-color: #4b5563;
-  background-color: #f3f4f6;
-}
+.status-current  { border-color: #000;    background-color: #f3f4f6; }
+.status-current:hover  { background-color: #e5e7eb; }
+.status-completed { border-color: #4b5563; background-color: #f3f4f6; }
 .status-completed:hover { background-color: #e5e7eb; }
-
-.status-locked {
-  border-color: #9ca3af;
-  background-color: #f9fafb;
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.status-available {
-  border-color: #9ca3af;
-  background-color: #fff;
-}
+.status-locked    { border-color: #9ca3af; background-color: #f9fafb; opacity: 0.5; cursor: not-allowed; }
+.status-available { border-color: #9ca3af; background-color: #fff; }
 .status-available:hover { background-color: #f9fafb; }
 
-/* Indicators & Badges */
 .indicator-dot {
   width: 0.75rem;
   height: 0.75rem;
@@ -155,21 +250,10 @@
   align-self: flex-start;
 }
 
-.status-current .status-badge, 
-.status-completed .status-badge {
-  background-color: #d1d5db;
-  color: #000;
-}
-
-.status-available .status-badge {
-  background-color: #e5e7eb;
-  color: #374151;
-}
-
-.status-locked .status-badge {
-  background-color: #f3f4f6;
-  color: #4b5563;
-}
+.status-current .status-badge,
+.status-completed .status-badge { background-color: #d1d5db; color: #000; }
+.status-available .status-badge { background-color: #e5e7eb; color: #374151; }
+.status-locked .status-badge    { background-color: #f3f4f6; color: #4b5563; }
 
 .no-results {
   grid-column: 1 / -1;
@@ -177,3 +261,181 @@
   padding: 3rem 0;
   color: #6b7280;
 }
+
+/* ── Right grid: 3 rows ── */
+.right-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr 1fr;
+  gap: 1.5rem;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* ── Row 1: Progress + Next up side by side ── */
+.progress-nextup-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  min-height: 0;
+}
+
+/* ── Row 1: Progress section ── */
+.progress-section {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1.25rem;
+  border: 2px dashed #9ca3af;
+  border-radius: 0.5rem;
+  background: #fff;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.progress-ring { flex-shrink: 0; }
+
+.progress-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  min-width: 0;
+}
+
+.progress-title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #000;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0;
+}
+
+.stat-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+}
+
+.stat-pill {
+  font-size: 0.7rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 9999px;
+}
+
+.stat-completed { background: #d1d5db; color: #000; }
+.stat-available { background: #e5e7eb; color: #374151; }
+.stat-locked    { background: #f3f4f6; color: #6b7280; }
+
+.badges-earned {
+  font-size: 0.75rem;
+  color: #6b7280;
+  margin: 0;
+}
+
+/* ── Rows 2–3: Badge rows ── */
+.badges-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.75rem;
+  min-height: 0;
+}
+
+.badge-item {
+  border: 2px dashed #d1d5db;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  padding: 0.5rem;
+  background: #fff;
+  opacity: 0.4;
+  transition: all 0.2s ease;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.badge-item.earned {
+  border-color: #000;
+  background: #f3f4f6;
+  opacity: 1;
+}
+
+.badge-icon {
+  width: 28px;
+  height: 28px;
+  color: #9ca3af;
+  flex-shrink: 0;
+}
+
+.badge-item.earned .badge-icon { color: #000; }
+
+.badge-label {
+  font-size: 0.6rem;
+  text-align: center;
+  color: #9ca3af;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.badge-item.earned .badge-label { color: #000; }
+
+/* ── Row 4: Next up section ── */
+.next-up-section {
+  padding: 1.25rem;
+  border: 2px dashed #000;
+  border-radius: 0.5rem;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.next-up-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #6b7280;
+  margin: 0;
+}
+
+.next-up-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #000;
+  margin: 0;
+  line-height: 1.25;
+}
+
+.next-up-description {
+  font-size: 0.8rem;
+  color: #4b5563;
+  margin: 0;
+  line-height: 1.4;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.next-up-btn {
+  align-self: flex-start;
+  margin-top: 0.25rem;
+  padding: 0.375rem 0.875rem;
+  background: #000;
+  color: #fff;
+  border: none;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.2s;
+  flex-shrink: 0;
+}
+
+.next-up-btn:hover { background: #374151; }

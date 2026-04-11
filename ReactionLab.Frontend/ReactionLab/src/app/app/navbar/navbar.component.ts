@@ -1,4 +1,4 @@
-import { Component, Input, inject } from '@angular/core';
+import { Component, ElementRef, HostListener, Input, inject } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
@@ -12,9 +12,15 @@ import { AuthService } from '../../services/auth.service';
 export class NavbarComponent {
   @Input() showAuthButtons = true;
   menuOpen = false;
+  profileDropdownOpen = false;
 
   private authService = inject(AuthService);
   private router = inject(Router);
+  private elementRef = inject(ElementRef);
+
+  private readonly avatarMap: Record<number, string> = {
+    1: '🧪', 2: '⚗️', 3: '🔬', 4: '🧬', 5: '⚡',
+  };
 
   get isLearningPage(): boolean {
     const url = this.router.url;
@@ -25,7 +31,33 @@ export class NavbarComponent {
     return this.authService.isLoggedIn();
   }
 
-  toggleMenu() {
+  get userName(): string {
+    return this.authService.getCurrentUser()?.name ?? '';
+  }
+
+  get avatarEmoji(): string {
+    const id = this.authService.getCurrentUser()?.avatarId ?? 1;
+    return this.avatarMap[id] ?? '🧪';
+  }
+
+  toggleMenu(): void {
     this.menuOpen = !this.menuOpen;
+  }
+
+  toggleProfileDropdown(): void {
+    this.profileDropdownOpen = !this.profileDropdownOpen;
+  }
+
+  signOut(): void {
+    this.profileDropdownOpen = false;
+    this.authService.logout();
+  }
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent): void {
+    if (!this.elementRef.nativeElement.contains(event.target)) {
+      this.profileDropdownOpen = false;
+      this.menuOpen = false;
+    }
   }
 }

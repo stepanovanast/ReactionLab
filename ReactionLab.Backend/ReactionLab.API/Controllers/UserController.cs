@@ -116,9 +116,41 @@ public class UserController : ControllerBase
 
         await _context.SaveChangesAsync();
 
-        // Check and award any newly earned completion badges
         if (progress.Status == Data.Models.ProgressStatus.Completed)
+        {
+            // Award badges
             await _badgeService.CheckCompletionBadgesAsync(userId.Value, request.TopicId);
+
+            // Unlock the next topic by order
+            var completedTopic = await _context.Topics.FindAsync(request.TopicId);
+            if (completedTopic != null)
+            {
+                var nextTopic = await _context.Topics
+                    .FirstOrDefaultAsync(t => t.Order == completedTopic.Order + 1);
+
+                if (nextTopic != null)
+                {
+                    var nextProgress = await _context.UserProgress
+                        .FirstOrDefaultAsync(p => p.UserId == userId.Value && p.TopicId == nextTopic.Id);
+
+                    if (nextProgress == null)
+                    {
+                        _context.UserProgress.Add(new Data.Models.UserProgress
+                        {
+                            UserId = userId.Value,
+                            TopicId = nextTopic.Id,
+                            Status = Data.Models.ProgressStatus.Available
+                        });
+                    }
+                    else if (nextProgress.Status == Data.Models.ProgressStatus.Locked)
+                    {
+                        nextProgress.Status = Data.Models.ProgressStatus.Available;
+                    }
+
+                    await _context.SaveChangesAsync();
+                }
+            }
+        }
 
         return Ok(new { message = "Progress updated" });
     }

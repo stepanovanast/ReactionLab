@@ -4,6 +4,42 @@
   margin-top: auto;
 }
 
+/* Compact single-bar variant */
+.main-footer.compact {
+  padding: 16px 24px;
+  position: relative;
+  z-index: 2;
+}
+
+.main-footer.compact .footer-container {
+  max-width: none;
+}
+
+.footer-compact {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  font-size: 14px;
+  color: #4b5563;
+}
+
+.compact-links {
+  display: flex;
+  gap: 1.25rem;
+}
+
+.compact-links a {
+  color: #4b5563;
+  text-decoration: none;
+  transition: color 150ms ease;
+}
+
+.compact-links a:hover {
+  color: #000;
+}
+
 @media (min-width: 576px) {
   .main-footer {
     padding: 32px 24px;

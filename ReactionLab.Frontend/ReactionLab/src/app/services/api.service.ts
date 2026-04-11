@@ -82,12 +82,14 @@ export class ApiService {
   // TOPICS (Public endpoints)
   // =====================================================
 
-  // Get all topics
+  // Get all topics — sends auth header when logged in so the backend returns personalized statuses
   getTopics(search?: string): Observable<Topic[]> {
     const url = search
       ? `${this.apiUrl}/topics?search=${encodeURIComponent(search)}`
       : `${this.apiUrl}/topics`;
-    return this.http.get<Topic[]>(url);
+    const token = this.authService.getToken();
+    const options = token ? { headers: this.getAuthHeaders() } : {};
+    return this.http.get<Topic[]>(url, options);
   }
 
   // Get single topic with reactions

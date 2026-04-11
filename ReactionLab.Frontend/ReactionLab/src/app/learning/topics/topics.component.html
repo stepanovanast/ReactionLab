@@ -1,65 +1,159 @@
 <app-navbar></app-navbar>
 <div class="topics-page-container notebook-bg">
-  <!-- Header Section -->
-  <header class="topics-header">
-    <div class="header-text">
-      <h1>Topics to Review</h1>
-      <p>Select a topic to visualize and explore</p>
+  <div class="content-layout">
+
+    <!-- Left column: header + grid -->
+    <div class="left-col">
+      <header class="topics-header">
+        <div class="header-top">
+          <h1>My topics</h1>
+          <div class="search-wrapper">
+            <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <path d="m21 21-4.3-4.3"></path>
+            </svg>
+            <input
+              type="text"
+              placeholder="Search topics..."
+              [(ngModel)]="searchQuery"
+              class="search-input"
+            />
+          </div>
+        </div>
+        <div class="filter-buttons" #filterButtonsEl>
+          <button class="filter-btn" [class.active]="activeFilter === 'all'" (click)="setFilter('all')">All</button>
+          <button class="filter-btn" [class.active]="activeFilter === 'available'" (click)="setFilter('available')">Available</button>
+          <button class="filter-btn" [class.active]="activeFilter === 'completed'" (click)="setFilter('completed')">Completed</button>
+        </div>
+      </header>
+
+      <div class="topics-grid" #topicsGridEl>
+        @if (isLoading) {
+          <div class="no-results">Loading topics...</div>
+        } @else if (error) {
+          <div class="no-results">{{ error }}</div>
+        } @else if (filteredTopics.length > 0) {
+          @for (topic of filteredTopics; track topic.id) {
+            <div
+              (click)="topic.status !== 'locked' && onTopicClick(topic)"
+              [class]="'topic-card status-' + topic.status"
+            >
+              <div class="card-top">
+                <h3 class="topic-title">{{ topic.title }}</h3>
+                @if (topic.status === 'current') {
+                  <div class="indicator-dot"></div>
+                }
+                @if (topic.status === 'completed') {
+                  <span class="status-icon">✓</span>
+                }
+                @if (topic.status === 'locked') {
+                  <span class="status-icon">🔒</span>
+                }
+              </div>
+              <span class="status-badge">
+                @switch (topic.status) {
+                  @case ('current') { In Progress }
+                  @case ('completed') { Completed }
+                  @case ('available') { Available }
+                  @case ('locked') { Locked }
+                }
+              </span>
+            </div>
+          }
+        } @else {
+          <div class="no-results">No topics found matching "{{ searchQuery }}"</div>
+        }
+      </div>
     </div>
 
-    <div class="search-wrapper">
-      <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="11" cy="11" r="8"></circle>
-        <path d="m21 21-4.3-4.3"></path>
-      </svg>
-      <input
-        type="text"
-        placeholder="Search topics..."
-        [(ngModel)]="searchQuery"
-        class="search-input"
-      />
-    </div>
-  </header>
+    <!-- Right column: header + 4-row grid aligned with left grid -->
+    <div class="right-col">
+      <header class="col-header">
+        <h1>My progress</h1>
+      </header>
 
-  <!-- Grid Section -->
-  <div class="topics-grid">
-    @if (isLoading) {
-      <div class="no-results">Loading topics...</div>
-    } @else if (error) {
-      <div class="no-results">{{ error }}</div>
-    } @else if (filteredTopics.length > 0) {
-      @for (topic of filteredTopics; track topic.id) {
-        <div
-          (click)="topic.status !== 'locked' && onTopicClick(topic)"
-          [class]="'topic-card status-' + topic.status"
-        >
-          <div class="card-top">
-            <h3 class="topic-title">{{ topic.title }}</h3>
-            @if (topic.status === 'current') {
-              <div class="indicator-dot"></div>
-            }
-            @if (topic.status === 'completed') {
-              <span class="status-icon">✓</span>
-            }
-            @if (topic.status === 'locked') {
-              <span class="status-icon">🔒</span>
-            }
+      <div class="right-grid">
+
+        <!-- Row 1: Progress + Next up side by side -->
+        <div class="progress-nextup-row" [style.height]="progressNextupHeight ? progressNextupHeight + 'px' : null">
+          <div class="progress-section">
+            <div class="progress-ring">
+              <svg width="88" height="88" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="40" fill="none" stroke="#e5e7eb" stroke-width="8"/>
+                <circle
+                  cx="50" cy="50" r="40"
+                  fill="none" stroke="#000" stroke-width="8"
+                  stroke-linecap="round"
+                  [style.stroke-dasharray]="circumference"
+                  [style.stroke-dashoffset]="progressRingOffset"
+                  transform="rotate(-90 50 50)"
+                />
+                <text x="50" y="46" text-anchor="middle" dominant-baseline="middle" font-size="22" font-weight="700" fill="#000">{{ completedCount }}</text>
+                <text x="50" y="63" text-anchor="middle" font-size="10" fill="#6b7280">of {{ topics.length }}</text>
+              </svg>
+            </div>
+            <div class="progress-info">
+              <p class="progress-title">Your progress</p>
+              <div class="stat-pills">
+                <span class="stat-pill stat-completed">{{ completedCount }} completed</span>
+                <span class="stat-pill stat-available">{{ availableCount }} available</span>
+                <span class="stat-pill stat-locked">{{ lockedCount }} locked</span>
+              </div>
+              <p class="badges-earned">{{ earnedBadgesCount }} / {{ badges.length }} badges earned</p>
+            </div>
           </div>
 
-          <span class="status-badge">
-            @switch (topic.status) {
-              @case ('current') { In Progress }
-              @case ('completed') { Completed }
-              @case ('available') { Available }
-              @case ('locked') { Locked }
-            }
-          </span>
+          @if (nextTopic) {
+            <div class="next-up-section">
+              <p class="next-up-label">{{ nextTopic.status === 'current' ? 'Continue learning' : 'Next up' }}</p>
+              <h3 class="next-up-title">{{ nextTopic.title }}</h3>
+              <p class="next-up-description">{{ nextTopic.description }}</p>
+              <button class="next-up-btn" (click)="onTopicClick(nextTopic)">
+                {{ nextTopic.status === 'current' ? 'Continue' : 'Start' }} →
+              </button>
+            </div>
+          } @else {
+            <div></div>
+          }
         </div>
-      }
-    } @else {
-      <div class="no-results">
-        No topics found matching "{{ searchQuery }}"
+
+
+        <!-- Row 2: Badges 1–4 -->
+        <div class="badges-row">
+          @for (badge of badgesRow1; track badge.id) {
+            <div class="badge-item" [class.earned]="badge.earned" [title]="badge.description">
+              <svg class="badge-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/>
+                <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/>
+                <path d="M4 22h16"/>
+                <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/>
+                <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/>
+                <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>
+              </svg>
+              <p class="badge-label">{{ badge.name }}</p>
+            </div>
+          }
+        </div>
+
+        <!-- Row 3: Badges 5–8 -->
+        <div class="badges-row">
+          @for (badge of badgesRow2; track badge.id) {
+            <div class="badge-item" [class.earned]="badge.earned" [title]="badge.description">
+              <svg class="badge-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/>
+                <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/>
+                <path d="M4 22h16"/>
+                <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/>
+                <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/>
+                <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>
+              </svg>
+              <p class="badge-label">{{ badge.name }}</p>
+            </div>
+          }
+        </div>
+
       </div>
-    }
+    </div>
+
   </div>
 </div>
