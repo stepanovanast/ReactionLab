@@ -22,6 +22,7 @@ export class VisualizationsComponent implements OnInit {
 
   private visitedSteps = new Set<number>();
   private completionTriggered = false;
+  private fullCircuitTriggered = false;
 
   @HostBinding('class.sidebar-collapsed')
 
@@ -53,8 +54,18 @@ export class VisualizationsComponent implements OnInit {
   }
 
   private checkCompletion(): void {
-    if (this.completionTriggered) return;
     if (this.totalSteps === 0) return;
+
+    // Award Full Circuit badge the first time the user reaches the final step
+    if (!this.fullCircuitTriggered && this.currentStepIndex === this.totalSteps - 1) {
+      this.fullCircuitTriggered = true;
+      this.apiService.awardFullCircuit().subscribe({
+        next: () => this.apiService.badgeRefresh$.next(),
+        error: (err) => console.error('awardFullCircuit failed:', err)
+      });
+    }
+
+    if (this.completionTriggered) return;
 
     // Must be on the last step
     if (this.currentStepIndex !== this.totalSteps - 1) return;
@@ -65,7 +76,10 @@ export class VisualizationsComponent implements OnInit {
     }
 
     this.completionTriggered = true;
-    this.apiService.updateProgress(this.topicId, 'completed').subscribe();
+    this.apiService.updateProgress(this.topicId, 'completed').subscribe({
+      next: () => this.apiService.badgeRefresh$.next(),
+      error: (err) => console.error('updateProgress failed:', err)
+    });
   }
 
   onSidebarCollapse(collapsed: boolean): void {}

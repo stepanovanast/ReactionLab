@@ -103,11 +103,7 @@ export class MaincanvasComponent implements AfterViewInit, OnChanges, OnDestroy 
     }
 
     if (changes['currentStepIndex']) {
-      const idx: number = changes['currentStepIndex'].currentValue;
-      if (idx === this.totalSteps - 1 && this.totalSteps > 1 && !this.hasAwardedFullCircuit) {
-        this.hasAwardedFullCircuit = true;
-        this.apiService.awardFullCircuit().subscribe();
-      }
+      // Full Circuit badge is awarded by the parent VisualizationsComponent
     }
   }
 

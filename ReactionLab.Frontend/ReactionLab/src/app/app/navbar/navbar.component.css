@@ -235,6 +235,23 @@
   color: #5c79a7;
 }
 
+/* ── New badge alert dot ── */
+.my-learning-link {
+  position: relative;
+}
+
+.badge-alert-dot {
+  position: absolute;
+  top: 0;
+  right: 0;
+  translate: 50% -50%;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #F687C6;
+  border: 2px solid #F687C6;
+}
+
 /* ── Profile dropdown ── */
 .profile-dropdown-wrapper {
   position: relative;

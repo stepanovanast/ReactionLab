@@ -109,23 +109,34 @@
   gap: clamp(4px, 1.5cqi, 10px);
 }
 
-.why-dot {
+.why-bullet-header:before {
+    content: ""; /* Required to make the element appear */
+  
+  /* Your specific styles */
   width: clamp(6px, 2cqi, 11px);
   height: clamp(6px, 2cqi, 11px);
   border-radius: 50%;
   flex-shrink: 0;
+
+  /* Visuals */
+  background-color: currentColor;
 }
 
 .why-heading {
   font-size: 16px;
   font-weight: 700;
   color: #000;
-  margin: 0 0 6px;
   line-height: 1.2;
+  margin: 0;
 }
 
-@container paper (min-width: 420px) { .why-heading { font-size: 20px; margin-bottom: 8px; } }
+@container paper (min-width: 420px) { .why-heading { font-size: 20px; } }
 @container paper (min-width: 520px) { .why-heading { font-size: 24px; } }
+
+.why-bullet:nth-child(1) .why-bullet-header::before { background-color: #A75C87; }
+.why-bullet:nth-child(2) .why-bullet-header::before { background-color: #5C79A7; }
+.why-bullet:nth-child(3) .why-bullet-header::before { background-color: #7ABD77; }
+.why-bullet:nth-child(4) .why-bullet-header::before { background-color: #F2CE85; }
 
 .why-subtitle {
   font-size: 1rem;

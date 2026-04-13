@@ -4,30 +4,17 @@
 
     <!-- Left column: header + grid -->
     <div class="left-col">
+      <div class="left-col-content">
       <header class="topics-header">
-        <div class="header-top">
-          <h1>My topics</h1>
-          <div class="search-wrapper">
-            <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="11" cy="11" r="8"></circle>
-              <path d="m21 21-4.3-4.3"></path>
-            </svg>
-            <input
-              type="text"
-              placeholder="Search topics..."
-              [(ngModel)]="searchQuery"
-              class="search-input"
-            />
-          </div>
-        </div>
-        <div class="filter-buttons" #filterButtonsEl>
+        <h1>My topics</h1>
+        <div class="filter-buttons">
           <button class="filter-btn" [class.active]="activeFilter === 'all'" (click)="setFilter('all')">All</button>
           <button class="filter-btn" [class.active]="activeFilter === 'available'" (click)="setFilter('available')">Available</button>
           <button class="filter-btn" [class.active]="activeFilter === 'completed'" (click)="setFilter('completed')">Completed</button>
         </div>
       </header>
 
-      <div class="topics-grid" #topicsGridEl>
+      <div class="topics-grid">
         @if (isLoading) {
           <div class="no-results">Loading topics...</div>
         } @else if (error) {
@@ -40,15 +27,6 @@
             >
               <div class="card-top">
                 <h3 class="topic-title">{{ topic.title }}</h3>
-                @if (topic.status === 'current') {
-                  <div class="indicator-dot"></div>
-                }
-                @if (topic.status === 'completed') {
-                  <span class="status-icon">✓</span>
-                }
-                @if (topic.status === 'locked') {
-                  <span class="status-icon">🔒</span>
-                }
               </div>
               <span class="status-badge">
                 @switch (topic.status) {
@@ -61,13 +39,15 @@
             </div>
           }
         } @else {
-          <div class="no-results">No topics found matching "{{ searchQuery }}"</div>
+          <div class="no-results">No topics found</div>
         }
       </div>
+    </div>
     </div>
 
     <!-- Right column: header + 4-row grid aligned with left grid -->
     <div class="right-col">
+      <div class="right-col-content">
       <header class="col-header">
         <h1>My progress</h1>
       </header>
@@ -75,39 +55,47 @@
       <div class="right-grid">
 
         <!-- Row 1: Progress + Next up side by side -->
-        <div class="progress-nextup-row" [style.height]="progressNextupHeight ? progressNextupHeight + 'px' : null">
+        <div class="progress-nextup-row">
           <div class="progress-section">
-            <div class="progress-ring">
-              <svg width="88" height="88" viewBox="0 0 100 100">
-                <circle cx="50" cy="50" r="40" fill="none" stroke="#e5e7eb" stroke-width="8"/>
-                <circle
-                  cx="50" cy="50" r="40"
-                  fill="none" stroke="#000" stroke-width="8"
-                  stroke-linecap="round"
-                  [style.stroke-dasharray]="circumference"
-                  [style.stroke-dashoffset]="progressRingOffset"
-                  transform="rotate(-90 50 50)"
-                />
-                <text x="50" y="46" text-anchor="middle" dominant-baseline="middle" font-size="22" font-weight="700" fill="#000">{{ completedCount }}</text>
-                <text x="50" y="63" text-anchor="middle" font-size="10" fill="#6b7280">of {{ topics.length }}</text>
-              </svg>
-            </div>
-            <div class="progress-info">
-              <p class="progress-title">Your progress</p>
-              <div class="stat-pills">
-                <span class="stat-pill stat-completed">{{ completedCount }} completed</span>
-                <span class="stat-pill stat-available">{{ availableCount }} available</span>
-                <span class="stat-pill stat-locked">{{ lockedCount }} locked</span>
+            <p class="progress-title">Stats</p>
+            <div class="progress-grid">
+
+              <!-- Topics ring: completed -->
+              <div class="progress-ring">
+                <svg viewBox="0 0 100 100">
+                  <circle class="ring-backdrop" cx="50" cy="50" r="50"/>
+                  <circle class="ring-track" cx="50" cy="50" r="40"/>
+                  <circle class="ring-progress" cx="50" cy="50" r="40"
+                    [style.stroke-dasharray]="circumference"
+                    [style.stroke-dashoffset]="progressRingOffset"/>
+                  <text class="ring-count" x="50" y="46">{{ completedCount }}</text>
+                  <text class="ring-total" x="50" y="63">topics</text>
+                </svg>
               </div>
-              <p class="badges-earned">{{ earnedBadgesCount }} / {{ badges.length }} badges earned</p>
+
+              <!-- Badges ring -->
+              <div class="progress-ring">
+                <svg viewBox="0 0 100 100">
+                  <circle class="ring-backdrop" cx="50" cy="50" r="50"/>
+                  <circle class="ring-track" cx="50" cy="50" r="40"/>
+                  <circle class="ring-progress" cx="50" cy="50" r="40"
+                    [style.stroke-dasharray]="circumference"
+                    [style.stroke-dashoffset]="badgeProgressOffset"/>
+                  <text class="ring-count" x="50" y="46">{{ earnedBadgesCount }}</text>
+                  <text class="ring-total" x="50" y="63">badges</text>
+                </svg>
+              </div>
+
             </div>
           </div>
 
           @if (nextTopic) {
             <div class="next-up-section">
-              <p class="next-up-label">{{ nextTopic.status === 'current' ? 'Continue learning' : 'Next up' }}</p>
-              <h3 class="next-up-title">{{ nextTopic.title }}</h3>
-              <p class="next-up-description">{{ nextTopic.description }}</p>
+              <div class="next-up-body">
+                <p class="next-up-label">{{ nextTopic.status === 'current' ? 'Continue learning' : 'Next up' }}</p>
+                <h3 class="next-up-title">{{ nextTopic.title }}</h3>
+                <p class="next-up-description">{{ nextTopic.description }}</p>
+              </div>
               <button class="next-up-btn" (click)="onTopicClick(nextTopic)">
                 {{ nextTopic.status === 'current' ? 'Continue' : 'Start' }} →
               </button>
@@ -152,6 +140,7 @@
           }
         </div>
 
+      </div>
       </div>
     </div>
 

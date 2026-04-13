@@ -1,5 +1,4 @@
-import { Component, ElementRef, HostListener, ViewChild, AfterViewInit, inject, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NavbarComponent } from '../../app/navbar/navbar.component';
 import { ApiService, Topic, Badge } from '../../services/api.service';
@@ -18,43 +17,21 @@ const DEFAULT_BADGES: Badge[] = [
 @Component({
   selector: 'app-topics',
   standalone: true,
-  imports: [FormsModule, NavbarComponent],
+  imports: [NavbarComponent],
   templateUrl: './topics.component.html',
   styleUrl: './topics.component.css'
 })
-export class TopicsComponent implements OnInit, AfterViewInit {
+export class TopicsComponent implements OnInit {
   private router = inject(Router);
   private apiService = inject(ApiService);
 
-  @ViewChild('filterButtonsEl') filterButtonsRef!: ElementRef<HTMLElement>;
-  @ViewChild('topicsGridEl') topicsGridRef!: ElementRef<HTMLElement>;
-
-  progressNextupHeight: number | null = null;
-  searchQuery = '';
   activeFilter: 'all' | 'available' | 'completed' = 'all';
   topics: Topic[] = [];
   badges: Badge[] = DEFAULT_BADGES.map(b => ({ ...b }));
   isLoading = true;
   error: string | null = null;
 
-  readonly circumference = 2 * Math.PI * 40; // r=40
-
-  ngAfterViewInit(): void {
-    setTimeout(() => this.updateProgressNextupHeight());
-  }
-
-  @HostListener('window:resize')
-  updateProgressNextupHeight(): void {
-    if (window.innerWidth < 768 || !this.filterButtonsRef || !this.topicsGridRef) {
-      this.progressNextupHeight = null;
-      return;
-    }
-    const filterH = this.filterButtonsRef.nativeElement.offsetHeight;
-    const gridH = this.topicsGridRef.nativeElement.offsetHeight;
-    const gap = 24; // 1.5rem gap
-    const cardH = (gridH - 3 * gap) / 4;
-    this.progressNextupHeight = filterH + 24 + cardH;
-  }
+  readonly circumference = 2 * Math.PI * 40;
 
   ngOnInit(): void {
     this.apiService.getTopics().subscribe({
@@ -85,8 +62,6 @@ export class TopicsComponent implements OnInit, AfterViewInit {
 
   get filteredTopics(): Topic[] {
     return this.topics.filter(topic => {
-      const matchesSearch = topic.title.toLowerCase().includes(this.searchQuery.toLowerCase());
-      if (!matchesSearch) return false;
       if (this.activeFilter === 'available') return topic.status === 'available' || topic.status === 'current';
       if (this.activeFilter === 'completed') return topic.status === 'completed';
       return true;
@@ -109,13 +84,14 @@ export class TopicsComponent implements OnInit, AfterViewInit {
     return this.badges.filter(b => b.earned).length;
   }
 
-  get progressPercent(): number {
-    if (this.topics.length === 0) return 0;
-    return (this.completedCount / this.topics.length) * 100;
+  get progressRingOffset(): number {
+    if (!this.topics.length) return this.circumference;
+    return this.circumference * (1 - this.completedCount / this.topics.length);
   }
 
-  get progressRingOffset(): number {
-    return this.circumference * (1 - this.progressPercent / 100);
+  get badgeProgressOffset(): number {
+    if (!this.badges.length) return this.circumference;
+    return this.circumference * (1 - this.earnedBadgesCount / this.badges.length);
   }
 
   get nextTopic(): Topic | null {

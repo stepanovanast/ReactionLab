@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, forkJoin, of } from 'rxjs';
+import { Observable, Subject, forkJoin, of } from 'rxjs';
 import { switchMap, map } from 'rxjs/operators';
 import { AuthService } from './auth.service';
 
@@ -72,6 +72,9 @@ export interface UserProfile {
 })
 export class ApiService {
   private apiUrl = 'http://localhost:5177/api';
+
+  /** Emit here whenever a badge may have been awarded so the navbar re-checks. */
+  readonly badgeRefresh$ = new Subject<void>();
 
   constructor(
     private http: HttpClient,

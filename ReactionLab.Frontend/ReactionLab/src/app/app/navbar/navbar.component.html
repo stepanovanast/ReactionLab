@@ -59,7 +59,12 @@
                   </div>
                 }
               </div>
-              <a routerLink="/topics" id="signUpBtn" (click)="profileDropdownOpen = false">My learning</a>
+              <a routerLink="/topics" id="signUpBtn" class="my-learning-link" (click)="profileDropdownOpen = false; clearBadgeAlert()">
+                My learning
+                @if (hasNewBadge) {
+                  <span class="badge-alert-dot"></span>
+                }
+              </a>
             } @else {
               <a routerLink="/login" id="loginBtn">Log in</a>
               <a routerLink="/signup" id="signUpBtn">Sign up</a>
@@ -91,7 +96,12 @@
               <span class="mobile-avatar">{{ avatarEmoji }}</span>
               <span class="mobile-name">{{ userName }}</span>
             </div>
-            <a routerLink="/topics" id="signUpBtnMobile" (click)="toggleMenu()">My learning</a>
+            <a routerLink="/topics" id="signUpBtnMobile" class="my-learning-link" (click)="toggleMenu(); clearBadgeAlert()">
+              My learning
+              @if (hasNewBadge) {
+                <span class="badge-alert-dot"></span>
+              }
+            </a>
             <button id="loginBtnMobile" (click)="signOut()">Sign out</button>
           } @else {
             <a routerLink="/login" id="loginBtnMobile" (click)="toggleMenu()">Log in</a>
