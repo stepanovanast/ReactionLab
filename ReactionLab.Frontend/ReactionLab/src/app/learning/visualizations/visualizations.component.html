@@ -1,7 +1,21 @@
 <app-navbar></app-navbar>
 <div class="visualization-layout">
   @if (reaction) {
-    <app-leftpanel [reaction]="reaction" [currentStepIndex]="currentStepIndex" (stepChange)="onStepChange($event)"></app-leftpanel>
+    <div class="left-col">
+      <div class="viz-header">
+        <span class="header-label">Equation</span>
+        <span class="header-equation">{{ reaction.equation }}</span>
+        <div class="header-legend">
+          @for (item of uniqueElements; track item.element) {
+            <div class="legend-item">
+              <div class="legend-dot" [style.background-color]="item.color"></div>
+              {{ item.element }}
+            </div>
+          }
+        </div>
+      </div>
+      <app-leftpanel [reaction]="reaction" [currentStepIndex]="currentStepIndex" (stepChange)="onStepChange($event)"></app-leftpanel>
+    </div>
     <app-maincanvas [reaction]="reaction" [currentStepIndex]="currentStepIndex" [step]="currentStep" (stepChange)="onStepChange($event)"></app-maincanvas>
   } @else {
     <div class="loading">Loading reaction...</div>

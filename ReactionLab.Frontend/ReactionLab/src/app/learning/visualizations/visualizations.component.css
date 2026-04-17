@@ -1,35 +1,125 @@
 :host {
   display: block;
   position: fixed;
-  top: 64px;
+  top: 0;
   right: 0;
   bottom: 0;
-  left: 192px;
-  background-color: #f9f7f4;
+  left: 0;
   overflow: hidden;
-}
-
-:host.sidebar-collapsed {
-  left: 64px;
-}
-
-@media (max-width: 768px) {
-  :host {
-    left: 64px;
-  }
 }
 
 .visualization-layout {
-  display: flex;
+  display: grid;
   height: 100%;
+  padding-top: 140px;
+  padding-bottom: 24px;
+  box-sizing: border-box;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr 2fr 2fr;
+  grid-template-areas:
+    "left-col main main"
+    "left-col main main"
+    "left-col main main";
+}
+
+@media (max-width: 768px) {
+  .visualization-layout {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-areas:
+      "main main main"
+      "main main main"
+      "header sidebar sidebar";
+  }
+}
+
+/* Grid area assignments */
+.left-col      { grid-area: left-col; }
+app-maincanvas { grid-area: main; }
+
+/* Left column — shared container for header + panel */
+.left-col {
+  display: grid;
+  grid-template-rows: 1fr 2fr;
+  gap: 24px;
+  padding-left: 24px;
+  min-height: 0;
+}
+
+.left-col .viz-header  { min-height: 0; }
+.left-col app-leftpanel { min-height: 0; }
+
+/* Header */
+.viz-header {
+  background: #FFF8F0;
+  border: 1px solid #000;
+  border-radius: 4px;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 12px;
   overflow: hidden;
+  min-width: 0;
+  min-height: 0;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.15);
+}
+
+.header-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #919647;
+  margin: 0;
+}
+
+.header-equation {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #000;
+  margin: 0;
+}
+
+.header-legend {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.legend-item {
+  padding: 0.25rem 0.875rem;
+  border: 2px dashed #7397D1;
+  border-radius: 9999px;
+  background: #FCF6E8;
+  font-size: 0.875rem;
+  color: #4b5563;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.15);
+  transition: all 0.2s;
+}
+
+.legend-item:hover {
+  border-color: #4b5563;
+  color: #000;
+}
+
+.legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
 }
 
 .loading {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
+  grid-column: 1 / -1;
   color: #6b7280;
   font-size: 14px;
 }

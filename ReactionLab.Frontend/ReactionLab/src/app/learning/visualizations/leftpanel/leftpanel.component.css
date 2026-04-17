@@ -1,17 +1,19 @@
 :host {
     display: block;
-    height: 100%;
-    flex-shrink: 0;
+    position: relative;
+    min-height: 0;
 }
 
 .left-panel {
-    width: 320px; /* w-80 = 20rem = 320px */
-    background-color: white;
-    border-right: 1px solid #000;
+    position: absolute;
+    inset: 0;
+    background-color: #FFF8F0;
+    border: 1px solid #000;
+    border-radius: 4px;
     display: flex;
     flex-direction: column;
-    height: 100%;
-    flex-shrink: 0;
+    overflow: hidden;
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.15);
 }
 
 .section {
@@ -27,80 +29,9 @@
     margin-bottom: 12px;
 }
 
-/* Symbolic View Section */
-.symbolic-view .equation {
-    font-size: 24px;
-    font-weight: 300;
-    color: #000;
-    margin-bottom: 16px;
-}
-
-.legend-container {
-    display: flex;
-    gap: 8px;
-}
-
-.legend-item {
-    border: 1px dashed #000;
-    border-radius: 9999px;
-    padding: 4px 12px;
-    font-size: 12px;
-    color: #000;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-}
-
-.legend-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-}
-
-.legend-dot.oxygen {
-    background-color: #666;
-}
-
-.legend-dot.hydrogen {
-    background-color: #000;
-}
-
-/* Micro View Section */
-.molecule-container {
-    border: 2px dashed #000;
-    border-radius: 4px;
-    height: 128px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-}
-
-.molecule-group {
-    display: flex;
-    gap: 8px;
-    transform: scale(0.75);
-}
-
-.atom {
-    width: 64px;
-    height: 64px;
-    border: 2px dashed #000;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.atom-symbol {
-    font-size: 20px;
-    color: #000;
-    font-weight: 300;
-}
 
 /* Reaction Steps Section */
 .reaction-steps {
-    flex: 1;
     overflow-y: auto;
 }
 
@@ -155,12 +86,13 @@
 }
 
 .step.active {
-  background-color: #f3f4f6;
+  background-color: #E8F0FC;
 }
 
 .step.active .step-number {
   border-style: solid;
-  background-color: #000;
+  background-color: #5c79a7;
+  border-color: #5c79a7;
   color: #fff;
 }
 
@@ -206,6 +138,22 @@
 .step-counter {
   font-size: 13px;
   color: #374151;
+}
+
+/* Mobile: show only the active step */
+@media (max-width: 768px) {
+  .section-label {
+    display: none;
+  }
+
+  .step:not(.active) {
+    display: none;
+  }
+
+  .step.active {
+    padding: 0;
+    background: none;
+  }
 }
 
 /* Scrollbar Styling */

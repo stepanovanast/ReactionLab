@@ -1,31 +1,15 @@
 :host {
     display: block;
-    flex: 1;
-    height: 100%;
-    overflow: hidden;
+    position: relative;
+    min-height: 0;
 }
 
 .main-canvas {
-    flex: 1;
-    position: relative;
-    width: 100%;
-    height: 100%;
-    background-color: #f9f7f4;
-    background-image:
-        repeating-linear-gradient(
-            to right,
-            transparent 0,
-            transparent 31px,
-            #cbd5e1 31px,
-            #cbd5e1 32px
-        ),
-        repeating-linear-gradient(
-            to bottom,
-            transparent 0,
-            transparent 31px,
-            #cbd5e1 31px,
-            #cbd5e1 32px
-        );
+    position: absolute;
+    top: 0;
+    right: 24px;
+    bottom: 0;
+    left: 24px;
 }
 
 /* Grid Background - now using main-canvas background instead */
@@ -33,20 +17,17 @@
     display: none;
 }
 
-/* Centered Container — centers the visualization-container only */
+/* Canvas center fills the padded main-canvas */
 .canvas-center {
     position: absolute;
     inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .visualization-container {
     position: relative;
-    width: 600px;
-    height: 600px;
-    overflow: visible; /* allow toggle and playback to hang outside */
+    width: 100%;
+    height: 100%;
+    overflow: visible;
 }
 
 /* Top Indicators Row */
@@ -73,48 +54,51 @@
     flex-shrink: 1;
 }
 
-/* View Mode Toggle — floats above the viewport, does not affect centering */
-.view-mode-row {
-    position: absolute;
-    bottom: 100%;
-    left: 0;
-    right: 0;
+.indicators-right {
     display: flex;
-    justify-content: center;
-    padding-bottom: 10px;
+    flex-direction: column;
+    gap: 8px;
+    align-items: stretch;
 }
 
+/* View Mode Toggle — same size/style as indicator boxes */
 .view-mode-toggle {
+    border: 2px dashed #000;
+    border-radius: 4px;
+    padding: 8px 16px;
     display: flex;
+    flex-direction: row;
     gap: 8px;
-    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
 }
 
 .mode-btn {
-    padding: 6px 14px;
-    font-size: 12px;
-    background: white;
-    border: 2px dashed #000;
-    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+    border: 2px dashed #9ca3af;
+    border-radius: 3px;
+    background: transparent;
     cursor: pointer;
     color: #000;
-    transition: 0.2s ease;
+    transition: background 0.2s;
+}
+
+.mode-btn svg {
+    width: 18px;
+    height: 18px;
+    display: block;
 }
 
 .mode-btn:hover:not(.active) {
-    border-color: #ef4444;
-    color: #ef4444;
+    background: #f3f4f6;
 }
 
 .mode-btn.active {
-    background: #000;
-    color: #fff;
-    border: 2px solid #000;
-}
-
-.mode-btn.active:hover {
-    background: #ef4444;
-    border-color: #ef4444;
+    background: #f3f4f6;
+    border-style: solid;
 }
 
 .indicator-label {
@@ -134,13 +118,14 @@
 
 /* Main Visualization Box */
 .visualization-box {
-    border: 2px dashed #000;
+    border: 1px solid #000;
     border-radius: 8px;
     padding: 48px;
     position: relative;
     overflow: hidden;
     width: 100%;
     height: 100%;
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.15);
 }
 
 .visualization-content {
@@ -159,21 +144,21 @@
     display: block;
 }
 
-/* Playback Bar — floats below the viewport, does not affect centering */
+/* Playback Bar — overlay at bottom of canvas */
 .playback-bar {
     position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
+    bottom: 16px;
+    left: 16px;
+    right: 16px;
     border: 2px dashed #9ca3af;
     border-radius: 8px;
     padding: 12px;
     display: flex;
     align-items: center;
     gap: 12px;
-    margin-top: 12px;
     cursor: pointer;
     transition: background 0.2s;
+    z-index: 10;
 }
 
 .playback-bar:hover {
@@ -226,11 +211,7 @@
 
 /* Canvas Info Label */
 .canvas-info {
-    position: absolute;
-    bottom: 96px;
-    left: 50%;
-    transform: translateX(-50%);
-    text-align: center;
+    display: none;
 }
 
 .info-title {
@@ -251,31 +232,10 @@
     }
 }
 
-@media (max-width: 768px) {
-    .visualization-container {
-        width: 90vw;
-        height: 90vw;
-        max-width: 500px;
-        max-height: 500px;
-    }
-
-    .indicators-row {
-        flex-wrap: wrap;
-    }
-
-    .canvas-info {
-        bottom: 48px;
-    }
-}
-
 @media (max-width: 480px) {
-    .visualization-container {
-        width: 95vw;
-        height: 95vw;
-    }
-
     .indicators-row {
         gap: 8px;
+        flex-wrap: wrap;
     }
 
     .indicator {

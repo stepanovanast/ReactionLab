@@ -6,29 +6,39 @@
         <div class="canvas-center">
             <div class="visualization-container">
 
-                <!-- View Mode Toggle — absolutely above the viewport -->
-                <div class="view-mode-row">
-                    <div class="view-mode-toggle">
-                        <button class="mode-btn" [class.active]="viewMode === 'ball-stick'" (click)="setViewMode('ball-stick')">Ball & Stick</button>
-                        <button class="mode-btn" [class.active]="viewMode === 'space-fill'" (click)="setViewMode('space-fill')">Space Fill</button>
-                    </div>
-                </div>
-
                 <!-- Top Indicators Row -->
                 <div class="indicators-row">
-                    <div class="indicator">
-                        <div class="indicator-label">Current State</div>
-                        <div class="indicator-value">{{ currentStepIndex + 1 }} / {{ reaction?.steps?.length }}</div>
-                    </div>
 
                     <!-- Visualization Title - Hidden on small screens -->
                     <div class="indicator visualization-title">
                         <div class="indicator-value">{{ step?.title }}</div>
                     </div>
 
-                    <div class="indicator">
-                        <div class="indicator-label">Temperature</div>
-                        <div class="indicator-value">{{ displayedTemperature }}°C</div>
+                    <div class="indicators-right">
+                        <div class="indicator">
+                            <div class="indicator-label">Current State</div>
+                            <div class="indicator-value">{{ currentStepIndex + 1 }} / {{ reaction?.steps?.length }}</div>
+                        </div>
+                        <div class="indicator">
+                            <div class="indicator-label">Temperature</div>
+                            <div class="indicator-value">{{ displayedTemperature }}°C</div>
+                        </div>
+                        <div class="view-mode-toggle">
+                            <button class="mode-btn" [class.active]="viewMode === 'ball-stick'" (click)="setViewMode('ball-stick')" title="Ball & Stick">
+                                <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <line x1="6.0" y1="8.0" x2="4.7" y2="6.9" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+                                    <line x1="10.0" y1="8.0" x2="11.3" y2="6.9" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+                                    <circle cx="8" cy="9.5" r="2.5" stroke="currentColor" stroke-width="1"/>
+                                    <circle cx="3.5" cy="6" r="1.5" stroke="currentColor" stroke-width="1"/>
+                                    <circle cx="12.5" cy="6" r="1.5" stroke="currentColor" stroke-width="1"/>
+                                </svg>
+                            </button>
+                            <button class="mode-btn" [class.active]="viewMode === 'space-fill'" (click)="setViewMode('space-fill')" title="Space Fill">
+                                <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M 4.54 8.46 A 2.5 2.5 0 1 1 7.46 5.54 A 3.5 3.5 0 0 1 8.54 5.54 A 2.5 2.5 0 1 1 11.46 8.46 A 3.5 3.5 0 1 1 4.54 8.46 Z" stroke="currentColor" stroke-width="1" stroke-linejoin="round"/>
+                                </svg>
+                            </button>
+                        </div>
                     </div>
                 </div>
 

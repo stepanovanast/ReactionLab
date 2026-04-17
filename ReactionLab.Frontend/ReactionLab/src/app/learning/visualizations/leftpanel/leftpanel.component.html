@@ -1,19 +1,5 @@
 <div class="left-panel">
 
-  <!-- Equation Section -->
-  <div class="section symbolic-view">
-    <div class="section-label">Symbolic View — Equation</div>
-    <div class="equation">{{ reaction.equation }}</div>
-    <div class="legend-container">
-      @for (item of uniqueElements; track item.element) {
-        <div class="legend-item">
-          <div class="legend-dot" [style.background-color]="item.color"></div>
-          {{ item.element }}
-        </div>
-      }
-    </div>
-  </div>
-
   <!-- Reaction Steps Section -->
   <div class="section reaction-steps">
     <div class="section-label">Reaction Steps</div>

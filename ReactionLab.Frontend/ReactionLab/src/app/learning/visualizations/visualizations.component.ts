@@ -5,12 +5,22 @@ import { LeftpanelComponent } from './leftpanel/leftpanel.component';
 import { MaincanvasComponent } from './maincanvas/maincanvas.component';
 import { ApiService, Reaction, ReactionStep } from '../../services/api.service';
 
+const ELEMENT_COLORS: Record<string, string> = {
+  'Fe': '#B8B8B8',
+  'S':  '#FFCC00',
+  'H':  '#EEEEEE',
+  'O':  '#FF4444',
+  'C':  '#333333',
+  'N':  '#3366FF',
+};
+
 @Component({
   selector: 'app-visualizations',
   standalone: true,
   imports: [NavbarComponent, LeftpanelComponent, MaincanvasComponent],
   templateUrl: './visualizations.component.html',
-  styleUrl: './visualizations.component.css'
+  styleUrl: './visualizations.component.css',
+  host: { class: 'notebook-bg' }
 })
 export class VisualizationsComponent implements OnInit {
   private route = inject(ActivatedRoute);
@@ -32,6 +42,20 @@ export class VisualizationsComponent implements OnInit {
 
   get currentStep(): ReactionStep | null {
     return this.reaction?.steps?.[this.currentStepIndex] ?? null;
+  }
+
+  get uniqueElements(): { element: string; color: string }[] {
+    const seen = new Set<string>();
+    const result: { element: string; color: string }[] = [];
+    for (const step of this.reaction?.steps ?? []) {
+      for (const atom of step.atoms ?? []) {
+        if (!seen.has(atom.element)) {
+          seen.add(atom.element);
+          result.push({ element: atom.element, color: ELEMENT_COLORS[atom.element] ?? '#888888' });
+        }
+      }
+    }
+    return result;
   }
 
   ngOnInit(): void {

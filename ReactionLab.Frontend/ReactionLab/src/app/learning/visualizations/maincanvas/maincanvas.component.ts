@@ -176,7 +176,7 @@ export class MaincanvasComponent implements AfterViewInit, OnChanges, OnDestroy 
     const h = container.clientHeight || 600;
 
     this.scene = new THREE.Scene();
-    this.scene.background = new THREE.Color(0xf9f7f4);
+    this.scene.background = new THREE.Color(0xFFF8F0);
 
     this.camera = new THREE.PerspectiveCamera(50, w / h, 0.1, 100);
     this.camera.position.set(0, 2, 12);
