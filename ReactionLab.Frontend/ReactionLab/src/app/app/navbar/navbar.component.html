@@ -6,7 +6,7 @@
       <div class="d-flex align-items-center justify-content-between nav-main-row">
 
         <!-- Logo -->
-        <a routerLink="/" class="logo d-flex align-items-center gap-2 flex-shrink-0">
+        <a [routerLink]="isLoggedIn ? '/topics' : '/'" class="logo d-flex align-items-center gap-2 flex-shrink-0">
           <div class="logo-animation">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
               <defs>

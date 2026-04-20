@@ -90,9 +90,35 @@ public class AppDbContext : DbContext
                 TopicId = 1,
                 Title = "Iron sulfide formation",
                 Equation = "8 Fe + 8 S → 8 FeS",
-                Temperature = 900,
                 MoleculeData = "[]",
                 StepsData = StepJsonBuilder.Build(IronSulfideReaction.GetSpec())
+            },
+            new Reaction
+            {
+                Id = 2,
+                TopicId = 2,
+                Title = "Production of hydrogen gas",
+                Equation = "Fe + 2HCl → FeCl₂ + H₂",
+                MoleculeData = "[]",
+                StepsData = StepJsonBuilder.Build(HydrogenGasReaction.GetSpec())
+            },
+            new Reaction
+            {
+                Id = 3,
+                TopicId = 3,
+                Title = "Glowing splint test",
+                Equation = "2H₂O₂ → 2H₂O + O₂",
+                MoleculeData = "[]",
+                StepsData = StepJsonBuilder.Build(GlowingSplintReaction.GetSpec())
+            },
+            new Reaction
+            {
+                Id = 4,
+                TopicId = 4,
+                Title = "Sodium-water reaction",
+                Equation = "2Na + 2H₂O → 2NaOH + H₂",
+                MoleculeData = "[]",
+                StepsData = StepJsonBuilder.Build(SodiumWaterReaction.GetSpec())
             }
         );
     }

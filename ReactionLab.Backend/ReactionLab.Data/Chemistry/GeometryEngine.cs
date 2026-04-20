@@ -28,6 +28,9 @@ public static class GeometryEngine
         ["Na-Cl"] = 2.36f,
         ["Cu-Cu"] = 2.56f,
         ["Zn-S"]  = 2.34f,
+        ["Fe-Cl"] = 2.15f,   // FeCl₂ ionic bond
+        ["H-Cl"]  = 1.27f,   // HCl covalent bond
+        ["Na-O"]  = 2.23f,   // NaOH ionic bond
     };
 
     public record AtomPosition(string Id, string Element, float X, float Y, float Z);

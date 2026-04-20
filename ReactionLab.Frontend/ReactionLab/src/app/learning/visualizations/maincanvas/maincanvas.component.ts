@@ -11,6 +11,8 @@ const ELEMENT_PROPS: Record<string, { color: number; radius: number }> = {
   'S':  { color: 0xFFCC00, radius: 0.60 },
   'C':  { color: 0x222222, radius: 0.45 },
   'N':  { color: 0x3366FF, radius: 0.50 },
+  'Na': { color: 0xAB82FF, radius: 0.90 },
+  'Cl': { color: 0x00CC44, radius: 0.65 },
 };
 const DEFAULT_PROPS = { color: 0x888888, radius: 0.5 };
 
@@ -24,6 +26,8 @@ const ELEMENT_VDW: Record<string, number> = {
   'S':  1.80 * 0.6,
   'C':  1.70 * 0.6,
   'N':  1.55 * 0.6,
+  'Na': 2.27 * 0.6,
+  'Cl': 1.75 * 0.6,
 };
 const DEFAULT_VDW = 1.50 * 0.6;
 
@@ -47,7 +51,6 @@ export class MaincanvasComponent implements AfterViewInit, OnChanges, OnDestroy 
   @Input() step: ReactionStep | null = null;
   @Output() stepChange = new EventEmitter<number>();
 
-  displayedTemperature = 0;
   playing = false;
   viewMode: ViewMode = 'ball-stick';
 
@@ -72,7 +75,6 @@ export class MaincanvasComponent implements AfterViewInit, OnChanges, OnDestroy 
   private bondMeshes: THREE.Mesh[] = [];
   private renderLoopId = 0;
   private tweenId = 0;
-  private tempTweenId = 0;
   private glowAnimId = 0;
   private initialized = false;
   private resizeObserver?: ResizeObserver;
@@ -88,7 +90,6 @@ export class MaincanvasComponent implements AfterViewInit, OnChanges, OnDestroy 
         this.buildAtoms(this.step.atoms);
         this.buildBonds(this.step.bonds, this.step.atoms);
         this.applyAtomOverrides(this.step);
-        this.displayedTemperature = this.step.temperatureRange?.start ?? (this.reaction?.temperature ?? 0);
       }
     });
   }
@@ -161,7 +162,6 @@ export class MaincanvasComponent implements AfterViewInit, OnChanges, OnDestroy 
     this.stopPlay();
     cancelAnimationFrame(this.renderLoopId);
     cancelAnimationFrame(this.tweenId);
-    cancelAnimationFrame(this.tempTweenId);
     cancelAnimationFrame(this.glowAnimId);
     this.resizeObserver?.disconnect();
     window.removeEventListener('resize', this.onResize);
@@ -218,12 +218,10 @@ export class MaincanvasComponent implements AfterViewInit, OnChanges, OnDestroy 
       this.buildAtoms(curr.atoms);
       this.buildBonds(curr.bonds, curr.atoms);
       this.applyAtomOverrides(curr);
-      this.animateTemperature(curr.temperatureRange?.start ?? 0, curr.temperatureRange?.end ?? 0);
       return;
     }
 
     this.clearBonds();
-    this.animateTemperature(curr.temperatureRange?.start ?? 0, curr.temperatureRange?.end ?? 0);
 
     // Add new atoms that didn't exist before
     for (const atom of curr.atoms) {
@@ -436,31 +434,7 @@ export class MaincanvasComponent implements AfterViewInit, OnChanges, OnDestroy 
     this.glowAnimId = requestAnimationFrame(tick);
   }
 
-  private animateTemperature(from: number, to: number): void {
-    cancelAnimationFrame(this.tempTweenId);
-    const duration = 2000;
-    const start = performance.now();
-    const startTemp = this.displayedTemperature;
 
-    const tick = (now: number) => {
-      const t = Math.min((now - start) / duration, 1);
-      this.displayedTemperature = Math.round(startTemp + (from - startTemp) * Math.min(t * 3, 1));
-
-      // After snapping to range start, count to end
-      if (t > 0.33) {
-        const t2 = Math.min((t - 0.33) / 0.67, 1);
-        this.displayedTemperature = Math.round(from + (to - from) * t2);
-      }
-
-      if (t < 1) {
-        this.tempTweenId = requestAnimationFrame(tick);
-      } else {
-        this.displayedTemperature = to;
-      }
-    };
-
-    this.tempTweenId = requestAnimationFrame(tick);
-  }
 
   private onResize = (): void => {
     const canvas = this.canvasRef.nativeElement;

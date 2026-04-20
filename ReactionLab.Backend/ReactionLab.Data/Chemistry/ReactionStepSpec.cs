@@ -10,8 +10,6 @@ public record ReactionStepSpec(
     int Number,
     string Title,
     string Description,
-    int TempStart,
-    int TempEnd,
     List<MoleculeSpec> Molecules,
     List<(string From, string To)>? ElectronTransfers = null,
     Dictionary<string, AtomOverrideSpec>? AtomOverrides = null);

@@ -80,7 +80,6 @@ public class TopicsController : ControllerBase
                 r.Id,
                 r.Title,
                 r.Equation,
-                r.Temperature,
                 Molecules = System.Text.Json.JsonSerializer.Deserialize<object>(r.MoleculeData),
                 Steps = System.Text.Json.JsonSerializer.Deserialize<object>(r.StepsData)
             })
@@ -149,7 +148,6 @@ public class TopicsController : ControllerBase
             TopicId = id,
             Title = request.Title,
             Equation = request.Equation,
-            Temperature = request.Temperature,
             MoleculeData = request.MoleculeData ?? "[]",
             StepsData = request.StepsData ?? "[]"
         };
@@ -157,9 +155,9 @@ public class TopicsController : ControllerBase
         _context.Reactions.Add(reaction);
         await _context.SaveChangesAsync();
 
-        return Ok(new { reaction.Id, reaction.Title, reaction.Equation, reaction.Temperature });
+        return Ok(new { reaction.Id, reaction.Title, reaction.Equation });
     }
 }
 
 public record TopicRequest(string Title, string Description, int Order);
-public record ReactionRequest(string Title, string Equation, double Temperature, string? MoleculeData, string? StepsData);
+public record ReactionRequest(string Title, string Equation, string? MoleculeData, string? StepsData);

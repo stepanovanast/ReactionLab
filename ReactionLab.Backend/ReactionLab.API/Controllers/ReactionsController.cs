@@ -24,14 +24,13 @@ public class ReactionsController : ControllerBase
 
         reaction.Title = request.Title;
         reaction.Equation = request.Equation;
-        reaction.Temperature = request.Temperature;
 
         if (request.MoleculeData != null) reaction.MoleculeData = request.MoleculeData;
         if (request.StepsData != null) reaction.StepsData = request.StepsData;
 
         await _context.SaveChangesAsync();
 
-        return Ok(new { reaction.Id, reaction.Title, reaction.Equation, reaction.Temperature });
+        return Ok(new { reaction.Id, reaction.Title, reaction.Equation });
     }
 
     [HttpDelete("{id}")]

@@ -53,7 +53,6 @@ public static class IronSulfideReaction
                      "lattice. Sulfur (S) forms S₈ crown rings — 8 yellow atoms bonded in a " +
                      "circle. The two substances are physically separate; a magnet would still " +
                      "pull the grey particles away.",
-        TempStart: 20, TempEnd: 115,
         Molecules:
         [
             new MoleculeSpec(
@@ -80,7 +79,6 @@ public static class IronSulfideReaction
         Description: "At 119 °C the S₈ rings break apart. Sulfur becomes fluid, surrounding " +
                      "and coating the iron particles. The yellow atoms flow around the " +
                      "stationary iron blocks — the wetting phase.",
-        TempStart: 119, TempEnd: 445,
         Molecules:
         [
             new MoleculeSpec(
@@ -106,7 +104,6 @@ public static class IronSulfideReaction
         Description: "The high-energy moment: electrons leap from each iron atom to a sulfur " +
                      "neighbour. Iron shrinks as it becomes Fe²⁺ and sulfur expands as it " +
                      "becomes S²⁻. The reaction releases ~100 kJ/mol.",
-        TempStart: 600, TempEnd: 900,
         Molecules:
         [
             new MoleculeSpec(
@@ -159,7 +156,6 @@ public static class IronSulfideReaction
                      "lattice — each iron atom locked between sulfur neighbours above and below. " +
                      "The glow fades into a dull charcoal-black solid: non-magnetic, brittle, " +
                      "and complete.",
-        TempStart: 900, TempEnd: 25,
         Molecules:
         [
             new MoleculeSpec(

@@ -245,11 +245,11 @@
   top: 0;
   right: 0;
   translate: 50% -50%;
-  width: 30px;
-  height: 30px;
+  width: 15px;
+  height: 15px;
   border-radius: 50%;
   background-color: #F687C6;
-  border: 2px solid #F687C6;
+  border: 2px solid #CA6FA3;
 }
 
 /* ── Profile dropdown ── */

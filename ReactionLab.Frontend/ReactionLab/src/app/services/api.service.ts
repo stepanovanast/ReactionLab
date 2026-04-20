@@ -23,7 +23,6 @@ export interface Reaction {
   id: number;
   title: string;
   equation: string;
-  temperature: number;
   molecules: any[];
   steps: ReactionStep[];
 }
@@ -47,7 +46,6 @@ export interface ReactionStep {
   description: string;
   atoms: Atom[];
   bonds: Bond[];
-  temperatureRange: { start: number; end: number };
   background: 'default' | 'glow' | 'dark';
   electronTransfers: { from: string; to: string }[];
   atomOverrides: Record<string, { radiusScale?: number; dimmed?: boolean; glowing?: boolean; darkened?: boolean }>;

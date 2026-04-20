@@ -42,7 +42,6 @@ public static class StepJsonBuilder
             number = step.Number,
             title = step.Title,
             description = step.Description,
-            temperatureRange = new { start = step.TempStart, end = step.TempEnd },
             background = "default",
             atoms = allPositions.Select(a => new
             {

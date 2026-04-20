@@ -30,90 +30,68 @@
     overflow: visible;
 }
 
-/* Top Indicators Row */
-.indicators-row {
+/* Top Bar */
+.top-bar {
     position: absolute;
     top: 16px;
     left: 16px;
     right: 16px;
+    border: 2px dashed #9ca3af;
+    border-radius: 8px;
+    background-color: #FFF8F0;
+    padding: 12px;
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: space-between;
     gap: 16px;
     z-index: 10;
 }
 
-.indicator {
-    border: 2px dashed #000;
-    padding: 8px 16px;
-    border-radius: 4px;
-    flex-shrink: 0;
+.step-title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #5c79a7;
+  margin: 0;
 }
 
-.visualization-title {
-    flex-shrink: 1;
-}
-
-.indicators-right {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    align-items: stretch;
-}
-
-/* View Mode Toggle — same size/style as indicator boxes */
-.view-mode-toggle {
-    border: 2px dashed #000;
-    border-radius: 4px;
-    padding: 8px 16px;
+.mode-btn-row {
     display: flex;
     flex-direction: row;
     gap: 8px;
     align-items: center;
-    justify-content: center;
+    flex-shrink: 0;
 }
 
 .mode-btn {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 4px;
-    border: 2px dashed #9ca3af;
+    padding: 3px;
+    border: 2px dashed #7397D1;
     border-radius: 3px;
     background: transparent;
     cursor: pointer;
-    color: #000;
-    transition: background 0.2s;
+    color: #4b5563;
+    transition: all 0.2s;
 }
 
 .mode-btn svg {
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
     display: block;
 }
 
 .mode-btn:hover:not(.active) {
-    background: #f3f4f6;
+    border-color: #4b5563;
+    color: #000;
 }
 
 .mode-btn.active {
-    background: #f3f4f6;
     border-style: solid;
-}
-
-.indicator-label {
-    font-size: 12px;
-    color: #374151; /* text-gray-700 */
-}
-
-.indicator-value {
+    border-color: #4b5563;
     color: #000;
-    font-size: 18px;
-}
-
-.visualization-title .indicator-value {
-    text-align: center;
-    white-space: nowrap;
 }
 
 /* Main Visualization Box */
@@ -152,6 +130,7 @@
     right: 16px;
     border: 2px dashed #9ca3af;
     border-radius: 8px;
+    background-color: #FFF8F0;
     padding: 12px;
     display: flex;
     align-items: center;
@@ -168,19 +147,21 @@
 .play-button {
     width: 28px;
     height: 28px;
-    border: 2px solid #000;
+    border: 2px solid #7397D1;
     border-radius: 4px;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    transition: background 0.2s, color 0.2s;
+    color: #4b5563;
+    transition: all 0.2s;
 }
 
 .play-button.active,
 .playback-bar:hover .play-button {
-    background: #000;
-    color: #fff;
+    border-style: solid;
+    border-color: #4b5563;
+    color: #000;
 }
 
 .playback-icon {
@@ -226,26 +207,18 @@
 }
 
 /* Responsive Design */
-@media (max-width: 1024px) {
-    .visualization-title {
-        display: none;
+@media (max-width: 767px) {
+    .main-canvas {
+        right: 0;
+        left: 0;
+    }
+
+    .step-title {
+        font-size: clamp(0.55rem, 1.8vw, 0.75rem);
     }
 }
 
 @media (max-width: 480px) {
-    .indicators-row {
-        gap: 8px;
-        flex-wrap: wrap;
-    }
-
-    .indicator {
-        padding: 6px 12px;
-    }
-
-    .indicator-value {
-        font-size: 16px;
-    }
-
     .visualization-box {
         padding: 24px;
     }
