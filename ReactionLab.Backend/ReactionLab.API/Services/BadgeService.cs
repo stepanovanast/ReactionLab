@@ -79,8 +79,8 @@ public class BadgeService
     }
 
     // =====================================================
-    // Called when the user has viewed every step of a
-    // reaction at least once — awards Curious Mind (id 8)
+    // Called when the user revisits a reaction they've
+    // already completed — awards Curious Mind (id 8)
     // =====================================================
     public async Task AwardCuriousMindAsync(int userId)
     {

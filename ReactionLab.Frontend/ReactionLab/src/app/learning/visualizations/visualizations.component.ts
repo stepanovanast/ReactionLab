@@ -65,8 +65,18 @@ export class VisualizationsComponent implements OnInit {
       next: (topic) => {
         if (topic.reactions && topic.reactions.length > 0) {
           this.reaction = topic.reactions[0];
-          // Step 0 is visible immediately on load
           this.visitedSteps.add(0);
+        }
+      }
+    });
+    this.apiService.getTopics().subscribe({
+      next: (topics) => {
+        const topic = topics.find(t => t.id === this.topicId);
+        if (topic?.status === 'completed' && !this.curiousMindTriggered) {
+          this.curiousMindTriggered = true;
+          this.apiService.awardCuriousMind().subscribe({
+            error: (err) => console.error('awardCuriousMind failed:', err)
+          });
         }
       }
     });
@@ -85,17 +95,7 @@ export class VisualizationsComponent implements OnInit {
     if (!this.fullCircuitTriggered && this.currentStepIndex === this.totalSteps - 1) {
       this.fullCircuitTriggered = true;
       this.apiService.awardFullCircuit().subscribe({
-        next: () => this.apiService.badgeRefresh$.next(),
         error: (err) => console.error('awardFullCircuit failed:', err)
-      });
-    }
-
-    // Award Curious Mind badge the first time every step has been visited
-    if (!this.curiousMindTriggered && this.visitedSteps.size === this.totalSteps) {
-      this.curiousMindTriggered = true;
-      this.apiService.awardCuriousMind().subscribe({
-        next: () => this.apiService.badgeRefresh$.next(),
-        error: (err) => console.error('awardCuriousMind failed:', err)
       });
     }
 
@@ -111,7 +111,6 @@ export class VisualizationsComponent implements OnInit {
 
     this.completionTriggered = true;
     this.apiService.updateProgress(this.topicId, 'completed').subscribe({
-      next: () => this.apiService.badgeRefresh$.next(),
       error: (err) => console.error('updateProgress failed:', err)
     });
   }

@@ -10,4 +10,5 @@ import { RouterLink } from '@angular/router';
 })
 export class FooterComponent {
   @Input() compact = false;
+  @Input() compactLinks: { label: string; route: string }[] = [];
 }

@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, Input, OnInit, OnDestroy, inject } from '@angular/core';
+import { Component, ElementRef, HostListener, Input, OnInit, OnDestroy, inject, computed } from '@angular/core';
 import { Router, RouterLink, NavigationEnd } from '@angular/router';
 import { Subscription, filter } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
@@ -15,7 +15,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
   @Input() showAuthButtons = true;
   menuOpen = false;
   profileDropdownOpen = false;
-  hasNewBadge = false;
 
   private authService = inject(AuthService);
   private apiService = inject(ApiService);
@@ -23,9 +22,11 @@ export class NavbarComponent implements OnInit, OnDestroy {
   private elementRef = inject(ElementRef);
 
   private readonly BADGE_STORAGE_KEY = 'rl_seen_badge_count';
-  private lastEarnedCount = 0;
   private routerSub?: Subscription;
-  private badgeRefreshSub?: Subscription;
+
+  readonly hasNewBadge = computed(() =>
+    this.apiService.earnedBadgeCount() > Number(localStorage.getItem(this.BADGE_STORAGE_KEY) ?? 0)
+  );
 
   private readonly avatarMap: Record<number, string> = {
     1: '🧪', 2: '⚗️', 3: '🔬', 4: '🧬', 5: '⚡',
@@ -50,39 +51,25 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.checkBadges();
+    if (this.authService.isLoggedIn()) {
+      this.apiService.getUserBadges().subscribe();
+    }
     this.routerSub = this.router.events
       .pipe(filter(e => e instanceof NavigationEnd))
       .subscribe((e) => {
         const url = (e as NavigationEnd).urlAfterRedirects;
         if (url.startsWith('/topics')) {
           this.clearBadgeAlert();
-        } else {
-          this.checkBadges();
         }
       });
-    this.badgeRefreshSub = this.apiService.badgeRefresh$.subscribe(() => this.checkBadges());
   }
 
   ngOnDestroy(): void {
     this.routerSub?.unsubscribe();
-    this.badgeRefreshSub?.unsubscribe();
-  }
-
-  private checkBadges(): void {
-    if (!this.authService.isLoggedIn()) return;
-    this.apiService.getUserBadges().subscribe({
-      next: (badges) => {
-        this.lastEarnedCount = badges.filter(b => b.earned).length;
-        const seenCount = Number(localStorage.getItem(this.BADGE_STORAGE_KEY) ?? 0);
-        this.hasNewBadge = this.lastEarnedCount > seenCount;
-      }
-    });
   }
 
   clearBadgeAlert(): void {
-    localStorage.setItem(this.BADGE_STORAGE_KEY, String(this.lastEarnedCount));
-    this.hasNewBadge = false;
+    localStorage.setItem(this.BADGE_STORAGE_KEY, String(this.apiService.earnedBadgeCount()));
   }
 
   toggleMenu(): void {

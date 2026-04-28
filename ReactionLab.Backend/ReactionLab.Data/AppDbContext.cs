@@ -71,7 +71,7 @@ public class AppDbContext : DbContext
             new Badge { Id = 5, Name = "Chemistry Champion",  Description = "Complete your fourth topic" },
             new Badge { Id = 6, Name = "Molecular Vision",  Description = "Switch visualization mode for the first time" },
             new Badge { Id = 7, Name = "Full Circuit",      Description = "Reach the final step of any reaction" },
-            new Badge { Id = 8, Name = "Curious Mind",       Description = "View every step of a reaction at least once" }
+            new Badge { Id = 8, Name = "Curious Mind",       Description = "Revisit a reaction you've already completed" }
         );
 
         // Seed topics

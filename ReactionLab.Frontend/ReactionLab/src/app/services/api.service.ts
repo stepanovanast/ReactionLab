@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, Subject, forkJoin, of } from 'rxjs';
-import { switchMap, map } from 'rxjs/operators';
+import { Observable, forkJoin, of } from 'rxjs';
+import { switchMap, map, tap } from 'rxjs/operators';
 import { AuthService } from './auth.service';
 
 // Types matching our backend responses
@@ -71,8 +71,7 @@ export interface UserProfile {
 export class ApiService {
   private apiUrl = 'http://localhost:5177/api';
 
-  /** Emit here whenever a badge may have been awarded so the navbar re-checks. */
-  readonly badgeRefresh$ = new Subject<void>();
+  readonly earnedBadgeCount = signal(0);
 
   constructor(
     private http: HttpClient,
@@ -136,6 +135,8 @@ export class ApiService {
     return this.http.get<Badge[]>(
       `${this.apiUrl}/user/badges`,
       { headers: this.getAuthHeaders() }
+    ).pipe(
+      tap(badges => this.earnedBadgeCount.set(badges.filter(b => b.earned).length))
     );
   }
 
@@ -145,7 +146,7 @@ export class ApiService {
       `${this.apiUrl}/user/badges/molecular-vision`,
       {},
       { headers: this.getAuthHeaders() }
-    );
+    ).pipe(tap(() => this.earnedBadgeCount.update(n => n + 1)));
   }
 
   // Award Full Circuit badge (reached final step of any reaction)
@@ -154,7 +155,7 @@ export class ApiService {
       `${this.apiUrl}/user/badges/full-circuit`,
       {},
       { headers: this.getAuthHeaders() }
-    );
+    ).pipe(tap(() => this.earnedBadgeCount.update(n => n + 1)));
   }
 
   // Award Curious Mind badge (viewed every step of a reaction at least once)
@@ -163,7 +164,7 @@ export class ApiService {
       `${this.apiUrl}/user/badges/curious-mind`,
       {},
       { headers: this.getAuthHeaders() }
-    );
+    ).pipe(tap(() => this.earnedBadgeCount.update(n => n + 1)));
   }
 
   // Update progress on a topic

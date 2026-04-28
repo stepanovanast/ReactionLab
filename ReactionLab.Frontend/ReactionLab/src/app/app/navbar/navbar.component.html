@@ -61,7 +61,7 @@
               </div>
               <a routerLink="/topics" id="signUpBtn" class="my-learning-link" (click)="profileDropdownOpen = false; clearBadgeAlert()">
                 My learning
-                @if (hasNewBadge) {
+                @if (hasNewBadge()) {
                   <span class="badge-alert-dot"></span>
                 }
               </a>
@@ -98,7 +98,7 @@
             </div>
             <a routerLink="/topics" id="signUpBtnMobile" class="my-learning-link" (click)="toggleMenu(); clearBadgeAlert()">
               My learning
-              @if (hasNewBadge) {
+              @if (hasNewBadge()) {
                 <span class="badge-alert-dot"></span>
               }
             </a>

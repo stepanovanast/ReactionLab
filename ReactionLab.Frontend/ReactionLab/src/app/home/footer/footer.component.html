@@ -6,8 +6,9 @@
       <div class="footer-compact">
         <span class="footer-copyright">© 2026 ReactionLab.</span>
         <div class="compact-links">
-          <a routerLink="/terms-of-use">Terms of Use</a>
-          <a routerLink="/privacy-policy">Privacy Policy</a>
+          @for (link of compactLinks; track link.route) {
+            <a [routerLink]="link.route">{{ link.label }}</a>
+          }
         </div>
         <div class="footer-socials">
           <a href="https://github.com/stepanovanast" class="social-icon" aria-label="GitHub" target="_blank" rel="noopener noreferrer">
@@ -32,7 +33,6 @@
         <h3 class="footer-heading">Resources</h3>
         <ul class="footer-links">
           <li><a routerLink="/documentation">Documentation</a></li>
-          <li><a routerLink="/tutorials">Tutorials</a></li>
         </ul>
       </div>
 
