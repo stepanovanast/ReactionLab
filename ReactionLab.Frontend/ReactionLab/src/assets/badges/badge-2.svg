@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" width="102.24" height="114" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 102.24 114">
+  <defs>
+    <filter id="drop-shadow-1" x="0" y="0" width="102.24" height="114" filterUnits="userSpaceOnUse">
+      <feOffset dx="0" dy="0"/>
+      <feGaussianBlur result="blur" stdDeviation="3"/>
+      <feFlood flood-color="#231f20" flood-opacity=".75"/>
+      <feComposite in2="blur" operator="in"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="drop-shadow-2" x="28.08" y="34.32" width="45.84" height="45.6" filterUnits="userSpaceOnUse">
+      <feOffset dx="0" dy="0"/>
+      <feGaussianBlur result="blur-2" stdDeviation="1"/>
+      <feFlood flood-color="#231f20" flood-opacity=".25"/>
+      <feComposite in2="blur-2" operator="in"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <path id="Bottom" d="M83.08,77.86l-30,17.32c-1.24.71-2.76.71-4,0l-30-17.32c-1.24-.71-2-2.04-2-3.46v-34.64c0-1.43.76-2.75,2-3.46l30-17.32c1.24-.71,2.76-.71,4,0l30,17.32c1.24.71,2,2.04,2,3.46v34.64c0,1.43-.76,2.75-2,3.46Z" fill="#8e5122"/>
+  <g filter="url(#drop-shadow-1)">
+    <path id="Frame" d="M11.08,31.68L49.08,9.74c1.24-.71,2.76-.71,4,0l38,21.94c1.24.71,2,2.04,2,3.46v43.88c0,1.43-.76,2.75-2,3.46l-38,21.94c-1.24.71-2.76.71-4,0l-38-21.94c-1.24-.71-2-2.04-2-3.46v-43.88c0-1.43.76-2.75,2-3.46ZM85.08,74.4v-34.64c0-1.43-.76-2.75-2-3.46l-30-17.32c-1.24-.71-2.76-.71-4,0l-30,17.32c-1.24.71-2,2.04-2,3.46v34.64c0,1.43.76,2.75,2,3.46l30,17.32c1.24.71,2.76.71,4,0l30-17.32c1.24-.71,2-2.04,2-3.46Z" fill="#b76728"/>
+  </g>
+  <g filter="url(#drop-shadow-2)">
+    <path d="M34.7,76.82c-1.66,0-3-1.34-3-3v-6.12c0-1.66,1.34-3,3-3h7.62v-10.19c-2.41.28-5.03.41-8.04.41-1.66,0-3-1.34-3-3v-5.4c0-1.58,1.22-2.89,2.8-2.99,7.09-.47,11.17-.91,12.61-4.35.47-1.11,1.56-1.84,2.77-1.84h8.4c1.66,0,3,1.34,3,3v24.36h7.02c1.66,0,3,1.34,3,3v6.12c0,1.66-1.34,3-3,3h-33.18Z" fill="#b76828"/>
+  </g>
+  <path d="M34.7,67.7h8.28c1.14,0,2.34-.6,2.34-2.22v-14.46c-3.72.72-7.5.9-11.04.9v-5.4c7.2-.48,12.96-.9,15.18-6.18h8.4v25.08c0,1.14.6,2.28,2.52,2.28h7.5v6.12h-33.18v-6.12Z" fill="#b93528"/>
+</svg>

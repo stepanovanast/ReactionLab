@@ -16,7 +16,7 @@ namespace ReactionLab.API.Services;
 ///   5  Chemistry Master   — complete topic 4
 ///   6  Molecular Vision   — switch visualization mode for the first time
 ///   7  Full Circuit       — reach the final step of any reaction
-///   8  Completionist      — complete all topics
+///   8  Curious Mind       — view every step of a reaction at least once
 /// </summary>
 public class BadgeService
 {
@@ -47,22 +47,13 @@ public class BadgeService
 
     // =====================================================
     // Called after a topic is marked Completed.
-    // Awards the per-topic badge and the Completionist
-    // badge if all topics are now done.
+    // Awards the per-topic badge (ids 2–5).
     // =====================================================
     public async Task CheckCompletionBadgesAsync(int userId, int completedTopicId)
     {
         // Per-topic badge
         if (TopicBadgeMap.TryGetValue(completedTopicId, out var badgeId))
             await AwardIfNotEarnedAsync(userId, badgeId);
-
-        // Completionist — all topics done
-        var totalTopics    = await _context.Topics.CountAsync();
-        var completedCount = await _context.UserProgress
-            .CountAsync(p => p.UserId == userId && p.Status == ProgressStatus.Completed);
-
-        if (totalTopics > 0 && completedCount >= totalTopics)
-            await AwardIfNotEarnedAsync(userId, badgeId: 8);
 
         await _context.SaveChangesAsync();
     }
@@ -84,6 +75,16 @@ public class BadgeService
     public async Task AwardFullCircuitAsync(int userId)
     {
         await AwardIfNotEarnedAsync(userId, badgeId: 7);
+        await _context.SaveChangesAsync();
+    }
+
+    // =====================================================
+    // Called when the user has viewed every step of a
+    // reaction at least once — awards Curious Mind (id 8)
+    // =====================================================
+    public async Task AwardCuriousMindAsync(int userId)
+    {
+        await AwardIfNotEarnedAsync(userId, badgeId: 8);
         await _context.SaveChangesAsync();
     }
 

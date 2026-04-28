@@ -67,6 +67,7 @@ public class UserController : ControllerBase
 
         // Get all badges with earned status for this user
         var badges = await _context.Badges
+            .OrderBy(badge => badge.Id)
             .Select(badge => new
             {
                 id = badge.Id,
@@ -184,6 +185,22 @@ public class UserController : ControllerBase
             return Unauthorized(new { error = "Invalid token" });
 
         await _badgeService.AwardFullCircuitAsync(userId.Value);
+        return Ok(new { message = "Badge awarded" });
+    }
+
+    // =====================================================
+    // POST /api/user/badges/curious-mind
+    // Awards Curious Mind badge when user views every step
+    // of a reaction at least once
+    // =====================================================
+    [HttpPost("badges/curious-mind")]
+    public async Task<IActionResult> AwardCuriousMind()
+    {
+        var userId = GetUserIdFromToken();
+        if (userId == null)
+            return Unauthorized(new { error = "Invalid token" });
+
+        await _badgeService.AwardCuriousMindAsync(userId.Value);
         return Ok(new { message = "Badge awarded" });
     }
 

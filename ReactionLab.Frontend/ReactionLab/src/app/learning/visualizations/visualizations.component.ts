@@ -33,6 +33,7 @@ export class VisualizationsComponent implements OnInit {
   private visitedSteps = new Set<number>();
   private completionTriggered = false;
   private fullCircuitTriggered = false;
+  private curiousMindTriggered = false;
 
   @HostBinding('class.sidebar-collapsed')
 
@@ -86,6 +87,15 @@ export class VisualizationsComponent implements OnInit {
       this.apiService.awardFullCircuit().subscribe({
         next: () => this.apiService.badgeRefresh$.next(),
         error: (err) => console.error('awardFullCircuit failed:', err)
+      });
+    }
+
+    // Award Curious Mind badge the first time every step has been visited
+    if (!this.curiousMindTriggered && this.visitedSteps.size === this.totalSteps) {
+      this.curiousMindTriggered = true;
+      this.apiService.awardCuriousMind().subscribe({
+        next: () => this.apiService.badgeRefresh$.next(),
+        error: (err) => console.error('awardCuriousMind failed:', err)
       });
     }
 

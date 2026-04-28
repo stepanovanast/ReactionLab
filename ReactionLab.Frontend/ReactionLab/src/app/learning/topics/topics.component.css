@@ -376,13 +376,14 @@
 }
 
 .badge-icon {
-  width: 28px;
-  height: 28px;
-  color: #9ca3af;
+  width: 96px;
+  height: 96px;
   flex-shrink: 0;
+  filter: grayscale(1) opacity(0.35);
+  transition: filter 0.2s ease;
 }
 
-.badge-item.earned .badge-icon { color: #000; }
+.badge-item.earned .badge-icon { filter: none; }
 
 .badge-label {
   font-size: 0.6rem;

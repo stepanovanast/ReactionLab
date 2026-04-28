@@ -65,13 +65,13 @@ public class AppDbContext : DbContext
         // Seed badges
         modelBuilder.Entity<Badge>().HasData(
             new Badge { Id = 1, Name = "Early Bird",        Description = "Join ReactionLab" },
-            new Badge { Id = 2, Name = "Iron Alchemist",    Description = "Complete the Iron Sulfide Formation reaction" },
-            new Badge { Id = 3, Name = "Rising Chemist",    Description = "Complete your second topic" },
-            new Badge { Id = 4, Name = "Lab Veteran",       Description = "Complete your third topic" },
-            new Badge { Id = 5, Name = "Chemistry Master",  Description = "Complete your fourth topic" },
+            new Badge { Id = 2, Name = "Bronze Chemist",    Description = "Complete your first topic" },
+            new Badge { Id = 3, Name = "Silver Alchemist",    Description = "Complete your second topic" },
+            new Badge { Id = 4, Name = "Gold Veteran",       Description = "Complete your third topic" },
+            new Badge { Id = 5, Name = "Chemistry Champion",  Description = "Complete your fourth topic" },
             new Badge { Id = 6, Name = "Molecular Vision",  Description = "Switch visualization mode for the first time" },
             new Badge { Id = 7, Name = "Full Circuit",      Description = "Reach the final step of any reaction" },
-            new Badge { Id = 8, Name = "Completionist",     Description = "Complete all topics in the lab" }
+            new Badge { Id = 8, Name = "Curious Mind",       Description = "View every step of a reaction at least once" }
         );
 
         // Seed topics

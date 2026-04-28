@@ -3,16 +3,6 @@ import { Router } from '@angular/router';
 import { NavbarComponent } from '../../app/navbar/navbar.component';
 import { ApiService, Topic, Badge } from '../../services/api.service';
 
-const DEFAULT_BADGES: Badge[] = [
-  { id: 1, name: 'Early Bird',       description: 'Join ReactionLab',                              earned: false },
-  { id: 2, name: 'Iron Alchemist',   description: 'Complete the Iron Sulfide Formation reaction',   earned: false },
-  { id: 3, name: 'Rising Chemist',   description: 'Complete your second topic',                     earned: false },
-  { id: 4, name: 'Lab Veteran',      description: 'Complete your third topic',                      earned: false },
-  { id: 5, name: 'Chemistry Master', description: 'Complete your fourth topic',                     earned: false },
-  { id: 6, name: 'Molecular Vision', description: 'Switch visualization mode for the first time',   earned: false },
-  { id: 7, name: 'Full Circuit',     description: 'Reach the final step of any reaction',           earned: false },
-  { id: 8, name: 'Completionist',    description: 'Complete all topics in the lab',                 earned: false },
-];
 
 @Component({
   selector: 'app-topics',
@@ -27,7 +17,7 @@ export class TopicsComponent implements OnInit {
 
   activeFilter: 'all' | 'available' | 'completed' = 'all';
   topics: Topic[] = [];
-  badges: Badge[] = DEFAULT_BADGES.map(b => ({ ...b }));
+  badges: Badge[] = [];
   isLoading = true;
   error: string | null = null;
 
@@ -47,11 +37,10 @@ export class TopicsComponent implements OnInit {
 
     this.apiService.getUserBadges().subscribe({
       next: (badges) => {
-        const earnedSet = new Set(badges.filter(b => b.earned).map(b => b.id));
-        this.badges = DEFAULT_BADGES.map(b => ({ ...b, earned: earnedSet.has(b.id) }));
+        this.badges = badges;
       },
       error: () => {
-        this.badges = DEFAULT_BADGES.map(b => ({ ...b }));
+        this.badges = [];
       }
     });
   }

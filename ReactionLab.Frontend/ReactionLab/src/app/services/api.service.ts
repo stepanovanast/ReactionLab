@@ -157,6 +157,15 @@ export class ApiService {
     );
   }
 
+  // Award Curious Mind badge (viewed every step of a reaction at least once)
+  awardCuriousMind(): Observable<any> {
+    return this.http.post(
+      `${this.apiUrl}/user/badges/curious-mind`,
+      {},
+      { headers: this.getAuthHeaders() }
+    );
+  }
+
   // Update progress on a topic
   updateProgress(topicId: number, status: string): Observable<any> {
     return this.http.put(
