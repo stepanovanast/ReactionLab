@@ -1,2 +1,108 @@
-<p>faq works!</p>
-<app-footer [compact]="true" [compactLinks]="[{label:'Documentation',route:'/documentation'},{label:'Contacts',route:'/contacts'},{label:'Terms of Use',route:'/terms-of-use'},{label:'Privacy Policy',route:'/privacy-policy'}]"></app-footer>
+<div class="page-layout">
+
+  <!-- Emoji background -->
+  <span class="emoji" style="top:5%;left:6%;transform:rotate(13deg);font-size:clamp(1.8rem,3vw,3.6rem)">❓</span>
+  <span class="emoji" style="top:3%;left:62%;transform:rotate(-9deg);font-size:clamp(2rem,3.5vw,4rem)">❗️</span>
+  <span class="emoji" style="top:1%;left:85%;transform:rotate(21deg);font-size:clamp(1.8rem,3vw,3.6rem)">❓</span>
+  <span class="emoji" style="top:12%;left:34%;transform:rotate(-16deg);font-size:clamp(2rem,3.5vw,4rem)">❗️</span>
+  <span class="emoji" style="top:7%;left:48%;transform:rotate(8deg);font-size:clamp(1.8rem,3vw,3.6rem)">❓</span>
+  <span class="emoji" style="top:9%;left:20%;transform:rotate(-22deg);font-size:clamp(1.8rem,3vw,3.6rem)">❗️</span>
+  <span class="emoji" style="top:2%;left:75%;transform:rotate(14deg);font-size:clamp(2rem,3.5vw,4rem)">❓</span>
+  <span class="emoji" style="top:18%;left:90%;transform:rotate(-6deg);font-size:clamp(1.8rem,3vw,3.6rem)">❗️</span>
+  <span class="emoji" style="top:22%;left:12%;transform:rotate(19deg);font-size:clamp(2rem,3.5vw,4rem)">❓</span>
+  <span class="emoji" style="top:25%;left:50%;transform:rotate(-13deg);font-size:clamp(1.8rem,3vw,3.6rem)">❗️</span>
+  <span class="emoji" style="top:30%;left:92%;transform:rotate(-11deg);font-size:clamp(2rem,3.5vw,4rem)">❓</span>
+  <span class="emoji" style="top:35%;left:28%;transform:rotate(7deg);font-size:clamp(1.8rem,3vw,3.6rem)">❗️</span>
+  <span class="emoji" style="top:38%;left:70%;transform:rotate(-18deg);font-size:clamp(2rem,3.5vw,4rem)">❓</span>
+  <span class="emoji" style="top:42%;left:44%;transform:rotate(11deg);font-size:clamp(1.8rem,3vw,3.6rem)">❗️</span>
+  <span class="emoji" style="top:48%;left:3%;transform:rotate(17deg);font-size:clamp(1.8rem,3vw,3.6rem)">❓</span>
+  <span class="emoji" style="top:52%;left:80%;transform:rotate(-8deg);font-size:clamp(2rem,3.5vw,4rem)">❗️</span>
+  <span class="emoji" style="top:57%;left:18%;transform:rotate(24deg);font-size:clamp(1.8rem,3vw,3.6rem)">❓</span>
+  <span class="emoji" style="top:60%;left:58%;transform:rotate(-15deg);font-size:clamp(2rem,3.5vw,4rem)">❗️</span>
+  <span class="emoji" style="top:65%;left:89%;transform:rotate(-4deg);font-size:clamp(2rem,3.5vw,4rem)">❓</span>
+  <span class="emoji" style="top:70%;left:36%;transform:rotate(10deg);font-size:clamp(1.8rem,3vw,3.6rem)">❗️</span>
+  <span class="emoji" style="top:74%;left:8%;transform:rotate(-20deg);font-size:clamp(2rem,3.5vw,4rem)">❓</span>
+  <span class="emoji" style="top:77%;left:68%;transform:rotate(16deg);font-size:clamp(1.8rem,3vw,3.6rem)">❗️</span>
+  <span class="emoji" style="top:80%;left:5%;transform:rotate(23deg);font-size:clamp(1.8rem,3vw,3.6rem)">❓</span>
+  <span class="emoji" style="top:84%;left:82%;transform:rotate(-12deg);font-size:clamp(2rem,3.5vw,4rem)">❗️</span>
+  <span class="emoji" style="top:88%;left:25%;transform:rotate(5deg);font-size:clamp(1.8rem,3vw,3.6rem)">❓</span>
+  <span class="emoji" style="top:92%;left:55%;transform:rotate(-19deg);font-size:clamp(2rem,3.5vw,4rem)">❗️</span>
+  <span class="emoji" style="top:95%;left:42%;transform:rotate(9deg);font-size:clamp(1.8rem,3vw,3.6rem)">❓</span>
+  <span class="emoji" style="top:97%;left:14%;transform:rotate(-7deg);font-size:clamp(2rem,3.5vw,4rem)">❗️</span>
+
+  <section class="faq-section">
+
+    <!-- Logo -->
+    <a class="page-logo" routerLink="/">
+      <div class="logo-animation">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+          <defs>
+            <clipPath id="faq-clippath">
+              <path d="M183.45,174.51l-28.2-77.47v-17.94h-15.89v17.94l-28.2,77.47c-2.49,6.83,1.68,14.49,7.89,14.49h56.51c6.21,0,10.37-7.65,7.89-14.49Z"/>
+            </clipPath>
+            <clipPath id="faq-clippath-1">
+              <path d="M62.33,6.8h24.58v97.86c0,6.78-5.51,12.29-12.29,12.29h0c-6.78,0-12.29-5.51-12.29-12.29V6.8h0Z" transform="translate(115.08 -26.21) rotate(75)"/>
+            </clipPath>
+          </defs>
+          <g class="stream-hidden">
+            <path class="stream-path" d="M128.1,55.37c37.97,53.96,25.27,133.63,25.27,133.63"/>
+          </g>
+          <g>
+            <g>
+              <g class="flask-clip-faq">
+                <rect class="flask-liquid faq-flask-fill" x="84.57" y="148.03" width="122.21" height="41.05"/>
+              </g>
+            </g>
+            <g>
+              <path class="flask-outline" d="M183.45,174.51l-28.2-77.47v-17.94h-15.89v17.94l-28.2,77.47c-2.49,6.83,1.68,14.49,7.89,14.49h56.51c6.21,0,10.37-7.65,7.89-14.49Z"/>
+              <line class="flask-rim" x1="132.3" y1="78.85" x2="162.31" y2="78.85"/>
+            </g>
+          </g>
+          <g class="tube-container">
+            <g class="tube-liquid-hidden">
+              <g class="tube-clip-faq">
+                <rect class="tube-liquid" x="17.96" y="53.41" width="133.81" height="42.09"/>
+              </g>
+            </g>
+            <path class="tube-outline faq-tube-glass" d="M65.5,78.85h24.58v97.86c0,6.78-5.51,12.29-12.29,12.29h0c-6.78,0-12.29-5.51-12.29-12.29v-97.86h0Z"/>
+          </g>
+        </svg>
+      </div>
+      ReactionLab
+    </a>
+
+    <div class="faq-container">
+
+      <div class="faq-header">
+        <h2 class="faq-title">Frequently Asked Questions</h2>
+        <p class="faq-subtitle">Can't find your answer? Reach out on the <a routerLink="/contacts" class="faq-link">Contacts</a> page.</p>
+      </div>
+
+      @for (section of sections; track section.title; let si = $index) {
+        <div class="faq-group">
+          <h3 class="faq-group-title">{{ section.title }}</h3>
+          <div class="faq-list">
+            @for (item of section.items; track item.question; let ii = $index) {
+              <div class="faq-item" [class.open]="isOpen(si + '-' + ii)">
+                <button class="faq-question" (click)="toggle(si + '-' + ii)">
+                  <span>{{ item.question }}</span>
+                  <svg class="faq-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="6 9 12 15 18 9"/>
+                  </svg>
+                </button>
+                <div class="faq-answer">
+                  <p>{{ item.answer }}</p>
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+      }
+
+    </div>
+
+  </section>
+
+  <app-footer [compact]="true" [compactLinks]="[{label:'Documentation',route:'/documentation'},{label:'Contacts',route:'/contacts'},{label:'Terms of Use',route:'/terms-of-use'},{label:'Privacy Policy',route:'/privacy-policy'}]"></app-footer>
+
+</div>

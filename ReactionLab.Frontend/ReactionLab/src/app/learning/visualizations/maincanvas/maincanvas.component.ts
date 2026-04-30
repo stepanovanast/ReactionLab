@@ -3,36 +3,14 @@ import { CommonModule } from '@angular/common';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { ApiService, Reaction, ReactionStep, Atom, Bond } from '../../../services/api.service';
+import { ELEMENT_DATA, DEFAULT_ELEMENT_DATA, ELEMENT_VDW, DEFAULT_VDW, BALL_STICK_RADIUS } from '../element-data';
 
-const ELEMENT_PROPS: Record<string, { color: number; radius: number }> = {
-  'H':  { color: 0xEEEEEE, radius: 0.35 },
-  'O':  { color: 0xFF4444, radius: 0.55 },
-  'Fe': { color: 0xB8B8B8, radius: 0.75 },
-  'S':  { color: 0xFFCC00, radius: 0.60 },
-  'C':  { color: 0x222222, radius: 0.45 },
-  'N':  { color: 0x3366FF, radius: 0.50 },
-  'Na': { color: 0xAB82FF, radius: 0.90 },
-  'Cl': { color: 0x00CC44, radius: 0.65 },
-};
-const DEFAULT_PROPS = { color: 0x888888, radius: 0.5 };
+const toHex = (css: string) => parseInt(css.slice(1), 16);
 
-// Van der Waals radii in Ångströms (experimental values).
-// Used by space-filling mode — atoms are sized accurately relative to each other.
-// Scale factor 0.6 matches GeometryEngine (1 Three.js unit ≈ 1.67 Å).
-const ELEMENT_VDW: Record<string, number> = {
-  'H':  1.20 * 0.6,
-  'O':  1.52 * 0.6,
-  'Fe': 2.05 * 0.6,
-  'S':  1.80 * 0.6,
-  'C':  1.70 * 0.6,
-  'N':  1.55 * 0.6,
-  'Na': 2.27 * 0.6,
-  'Cl': 1.75 * 0.6,
-};
-const DEFAULT_VDW = 1.50 * 0.6;
-
-// In ball-and-stick all atoms are rendered at the same small radius
-const BALL_STICK_RADIUS = 0.4;
+const ELEMENT_PROPS: Record<string, { color: number; radius: number }> = Object.fromEntries(
+  Object.entries(ELEMENT_DATA).map(([k, v]) => [k, { color: toHex(v.color), radius: v.radius }])
+);
+const DEFAULT_PROPS = { color: toHex(DEFAULT_ELEMENT_DATA.color), radius: DEFAULT_ELEMENT_DATA.radius };
 
 type ViewMode = 'ball-stick' | 'space-fill';
 
@@ -290,7 +268,7 @@ export class MaincanvasComponent implements AfterViewInit, OnChanges, OnDestroy 
     const props = ELEMENT_PROPS[atom.element] ?? DEFAULT_PROPS;
     // Always build geometry at the covalent radius; scale handles the rest
     const geo = new THREE.SphereGeometry(props.radius, 32, 32);
-    const mat = new THREE.MeshPhongMaterial({ color: props.color, shininess: 90 });
+    const mat = new THREE.MeshStandardMaterial({ color: props.color, roughness: 1, metalness: 0 });
     const mesh = new THREE.Mesh(geo, mat);
     mesh.position.set(atom.x, atom.y, atom.z);
     mesh.scale.setScalar(this.getBaseScale(atom.element));
@@ -335,7 +313,7 @@ export class MaincanvasComponent implements AfterViewInit, OnChanges, OnDestroy 
       const mid = new THREE.Vector3().addVectors(v1, v2).multiplyScalar(0.5);
 
       const geo = new THREE.CylinderGeometry(0.1, 0.1, length, 16);
-      const mat = new THREE.MeshPhongMaterial({ color: 0x666666 });
+      const mat = new THREE.MeshStandardMaterial({ color: 0x000000, roughness: 1, metalness: 0 });
       const cylinder = new THREE.Mesh(geo, mat);
       cylinder.position.copy(mid);
       cylinder.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), dir.normalize());
@@ -348,7 +326,7 @@ export class MaincanvasComponent implements AfterViewInit, OnChanges, OnDestroy 
     for (const [, mesh] of this.atomMeshes) {
       const element = mesh.userData['element'] as string;
       const props = ELEMENT_PROPS[element] ?? DEFAULT_PROPS;
-      const mat = mesh.material as THREE.MeshPhongMaterial;
+      const mat = mesh.material as THREE.MeshStandardMaterial;
       mat.color.setHex(props.color);
       mat.emissive.setHex(0x000000);
       mat.emissiveIntensity = 0;
@@ -362,7 +340,7 @@ export class MaincanvasComponent implements AfterViewInit, OnChanges, OnDestroy 
       const override = overrides[id];
       if (!override) continue;
 
-      const mat = mesh.material as THREE.MeshPhongMaterial;
+      const mat = mesh.material as THREE.MeshStandardMaterial;
       if (override.radiusScale !== undefined) {
         const element = mesh.userData['element'] as string;
         this.animateScale(mesh, this.getBaseScale(element) * override.radiusScale, 600);
@@ -372,12 +350,11 @@ export class MaincanvasComponent implements AfterViewInit, OnChanges, OnDestroy 
         mat.emissive.setHex(0x000000);
         mat.emissiveIntensity = 0;
       }
-      if (override.glowing) {
-        mat.emissive.setHex(0xFFAA00);
-        mat.emissiveIntensity = 0.3;
-      }
       if (override.darkened) {
-        mat.color.setHex(0x3D3520);
+        const element = mesh.userData['element'] as string;
+        const props = ELEMENT_PROPS[element] ?? DEFAULT_PROPS;
+        const blended = new THREE.Color(props.color).lerp(new THREE.Color(0x000000), 0.8);
+        mat.color.set(blended);
         mat.emissive.setHex(0x000000);
         mat.emissiveIntensity = 0;
       }
@@ -405,11 +382,14 @@ export class MaincanvasComponent implements AfterViewInit, OnChanges, OnDestroy 
     const receiverIds = new Set((step.electronTransfers ?? []).map((t: { from: string; to: string }) => t.to));
     if (receiverIds.size === 0) return;
 
-    const receivers: THREE.MeshPhongMaterial[] = [];
+    const receivers: THREE.MeshStandardMaterial[] = [];
     for (const id of receiverIds) {
       const mesh = this.atomMeshes.get(id);
       if (mesh) {
-        const mat = mesh.material as THREE.MeshPhongMaterial;
+        const element = mesh.userData['element'] as string;
+        const props = ELEMENT_PROPS[element] ?? DEFAULT_PROPS;
+        const mat = mesh.material as THREE.MeshStandardMaterial;
+        mat.color.setHex(props.color);   // restore base color so overrides don't bleed through
         mat.emissive.setHex(0xFF8800);
         mat.emissiveIntensity = 0;
         receivers.push(mat);

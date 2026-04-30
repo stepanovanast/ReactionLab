@@ -1,16 +1,6 @@
 using ReactionLab.Data.Chemistry;
 
 namespace ReactionLab.Data.Reactions;
-
-/// <summary>
-/// 2Na + 2H₂O → 2NaOH + H₂  (Sodium–Water Reaction)
-///
-/// 4 phases:
-///   1. Reactants         — two Na atoms (left) and two H₂O molecules (right)
-///   2. Na–Water Contact  — Na atoms approach the water molecules; O–H bonds weaken
-///   3. Electron Transfer — Na → Na⁺ + e⁻; each e⁻ breaks an O–H bond; H atoms freed; OH⁻ pairs with Na⁺
-///   4. Products          — two NaOH units + H₂ gas rising from solution
-/// </summary>
 public static class SodiumWaterReaction
 {
     private static readonly AtomSpec Na1 = new("na1", "Na");
@@ -30,24 +20,19 @@ public static class SodiumWaterReaction
 
     public static ReactionSpec GetSpec() => new(
     [
-        Step1_Reactants(),
-        Step2_NaWaterContact(),
-        Step3_ElectronTransfer(),
-        Step4_Products(),
+        Step1_SurfaceContact(),
+        Step2_Tearing(),
+        Step3_CreatingNaOH(),
+        Step4_HydrogenAndEnergy(),
     ]);
 
-    // -------------------------------------------------------------------------
-    // Step 1 — Reactants
-    // Two Na atoms on the left; two H₂O molecules on the right.
-    // -------------------------------------------------------------------------
-    private static ReactionStepSpec Step1_Reactants() => new(
+    // Step 1
+        private static ReactionStepSpec Step1_SurfaceContact() => new(
         Number: 1,
-        Title: "Reactants",
-        Description: "Two sodium (Na) atoms sit on the left — each is a soft, silvery metal " +
-                     "with a single loosely held outer electron. " +
-                     "Two water (H₂O) molecules sit on the right — " +
-                     "each has two hydrogen atoms bonded to a central oxygen in a bent shape. " +
-                     "The reactants have not yet made contact.",
+        Title: "The surface contact",
+        Description: "When the solid sodium hits the water, it doesn't just sink. " +
+                     "It is less dense than water, so it floats on the surface. " +
+                     "Because sodium is so reactive, the chemical reaction starts the millisecond they touch.",
         Molecules:
         [
             // Na atom 1 (upper left)
@@ -77,18 +62,14 @@ public static class SodiumWaterReaction
                 CenterX:  2.8f, CenterY: -1.0f, CenterZ: 0f),
         ]);
 
-    // -------------------------------------------------------------------------
-    // Step 2 — Na–Water Contact
-    // Sodium atoms approach the water molecules. The O–H bonds start to weaken.
-    // -------------------------------------------------------------------------
-    private static ReactionStepSpec Step2_NaWaterContact() => new(
+    // Step 2
+    private static ReactionStepSpec Step2_Tearing() => new(
         Number: 2,
-        Title: "Na–Water Contact",
-        Description: "The sodium atoms are drawn towards the polar water molecules. " +
-                     "Water molecules are polar — the oxygen end is slightly negative, " +
-                     "attracting the electropositive sodium. " +
-                     "The Na outer electron is pulled toward the oxygen, " +
-                     "and one O–H bond in each water molecule begins to stretch and weaken.",
+        Title: "Tearing water apart",
+        Description: "The sodium atoms are aggressive and need to lose an electron to become stable. " +
+                     "They force their way into the water molecules, snapping the bonds between the oxygen and hydrogen. " + 
+                     "This releases a huge amount of heat energy, often melting the sodium.",
+
         Molecules:
         [
             // Na1 moved closer to O1
@@ -118,18 +99,14 @@ public static class SodiumWaterReaction
                 CenterX:  2.4f, CenterY: -0.9f, CenterZ: 0f),
         ]);
 
-    // -------------------------------------------------------------------------
-    // Step 3 — Electron Transfer
-    // Na donates its outer electron to water; O–H bond breaks; H• atoms freed.
-    // -------------------------------------------------------------------------
-    private static ReactionStepSpec Step3_ElectronTransfer() => new(
+    // Step 3
+    private static ReactionStepSpec Step3_CreatingNaOH() => new(
         Number: 3,
-        Title: "Electron Transfer",
-        Description: "Each sodium atom donates its single outer electron to a water molecule. " +
-                     "Na becomes Na⁺ (oxidised). " +
-                     "The electron breaks one O–H bond — releasing a hydrogen radical (H•) " +
-                     "and leaving an OH⁻ group. The two H• atoms drift toward each other, " +
-                     "ready to form H₂. The Na⁺ ions are drawn to the OH⁻ groups.",
+        Title: "Creating sodium hydroxide",
+        Description: "Each sodium atom donates its single electron to a water molecule. " +
+                     "Sodium becomes oxidised. " +
+                     "This is a strong base that dissolves instantly into the water. " +
+                     "If you added a special indicator liquid, the water would change color to show a base is now present.",
         Molecules:
         [
             // Na1⁺ near O1
@@ -171,17 +148,14 @@ public static class SodiumWaterReaction
             ["na2"] = new AtomOverrideSpec(RadiusScale: 0.7f, Dimmed: true),
         });
 
-    // -------------------------------------------------------------------------
-    // Step 4 — Products
-    // Two NaOH units remain in solution; H₂ gas is released as bubbles.
-    // -------------------------------------------------------------------------
-    private static ReactionStepSpec Step4_Products() => new(
+    // Step 4
+    
+    private static ReactionStepSpec Step4_HydrogenAndEnergy() => new(
         Number: 4,
-        Title: "Products Formed",
+        Title: "Hydrogen gas and energy",
         Description: "The reaction is complete. " +
-                     "Two sodium hydroxide (NaOH) units are formed in solution — " +
-                     "each Na⁺ ion is paired with an OH⁻ group. " +
-                     "The two freed hydrogen atoms bond together as H₂ gas, " +
+                     "Two sodium hydroxide (NaOH) units are formed in solution. " +
+                     "The two freed hydrogen atoms bond together as a gas, " +
                      "producing the energetic fizzing and popping you see when sodium " +
                      "is dropped into water.",
         Molecules:

@@ -14,23 +14,23 @@ public static class GeometryEngine
     private const float Scale = 0.6f;
 
     // Experimental bond lengths in Ångströms (covalent/metallic radii sums)
-    private static readonly Dictionary<string, float> BondLengths = new()
+private static readonly Dictionary<string, float> BondLengths = new()
     {
-        ["S-S"]   = 2.05f,   // S₈ covalent bond
-        ["Fe-Fe"] = 2.48f,   // Fe metallic bond
-        ["Fe-S"]  = 2.26f,   // FeS ionic bond
-        ["H-H"]   = 0.74f,
-        ["O-O"]   = 1.21f,
-        ["H-O"]   = 0.96f,
-        ["N-N"]   = 1.45f,
-        ["C-C"]   = 1.54f,
-        ["C-H"]   = 1.09f,
-        ["Na-Cl"] = 2.36f,
-        ["Cu-Cu"] = 2.56f,
-        ["Zn-S"]  = 2.34f,
-        ["Fe-Cl"] = 2.15f,   // FeCl₂ ionic bond
-        ["H-Cl"]  = 1.27f,   // HCl covalent bond
-        ["Na-O"]  = 2.23f,   // NaOH ionic bond
+        ["S-S"]   = 2.05f,   // Standard single bond (e.g., S₈)
+        ["Fe-Fe"] = 2.48f,   // Metallic bond distance
+        ["Fe-S"]  = 2.26f,   // Typical in Iron-Sulfur clusters
+        ["H-H"]   = 0.74f,   // H₂ molecule
+        ["O-O"]   = 1.48f,   // Single bond (Peroxides). Use 1.21f for O₂ gas.
+        ["H-O"]   = 0.96f,   // Water / Hydroxyl
+        ["N-N"]   = 1.45f,   // Single bond (Hydrazine). Use 1.10f for N₂ gas.
+        ["C-C"]   = 1.54f,   // Single bond (Alkane)
+        ["C-H"]   = 1.09f,   // Standard Organic C-H
+        ["Na-Cl"] = 2.82f,   // Crystal lattice distance (more common for Na-Cl)
+        ["Cu-Cu"] = 2.56f,   // Metallic bond
+        ["Zn-S"]  = 2.42f,   // Sphalerite (Zinc Blende) structure
+        ["Fe-Cl"] = 2.15f,   // FeCl₂ monomer
+        ["H-Cl"]  = 1.27f,   // HCl molecule
+        ["Na-O"]  = 2.40f,   // More accurate for ionic coordination in NaOH
     };
 
     public record AtomPosition(string Id, string Element, float X, float Y, float Z);

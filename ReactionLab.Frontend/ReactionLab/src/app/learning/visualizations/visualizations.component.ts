@@ -4,15 +4,7 @@ import { NavbarComponent } from '../../app/navbar/navbar.component';
 import { LeftpanelComponent } from './leftpanel/leftpanel.component';
 import { MaincanvasComponent } from './maincanvas/maincanvas.component';
 import { ApiService, Reaction, ReactionStep } from '../../services/api.service';
-
-const ELEMENT_COLORS: Record<string, string> = {
-  'Fe': '#B8B8B8',
-  'S':  '#FFCC00',
-  'H':  '#EEEEEE',
-  'O':  '#FF4444',
-  'C':  '#333333',
-  'N':  '#3366FF',
-};
+import { ELEMENT_DATA, DEFAULT_ELEMENT_DATA } from './element-data';
 
 @Component({
   selector: 'app-visualizations',
@@ -52,7 +44,7 @@ export class VisualizationsComponent implements OnInit {
       for (const atom of step.atoms ?? []) {
         if (!seen.has(atom.element)) {
           seen.add(atom.element);
-          result.push({ element: atom.element, color: ELEMENT_COLORS[atom.element] ?? '#888888' });
+          result.push({ element: atom.element, color: (ELEMENT_DATA[atom.element] ?? DEFAULT_ELEMENT_DATA).color });
         }
       }
     }

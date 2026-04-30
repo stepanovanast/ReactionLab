@@ -1,19 +1,8 @@
 using ReactionLab.Data.Chemistry;
 
 namespace ReactionLab.Data.Reactions;
-
-/// <summary>
-/// Fe + S → FeS  (Iron Sulfide Formation)
-///
-/// 4 phases:
-///   1. Ambient Mixture       — Fe metallic lattice + S₈ crown ring, physically separate
-///   2. Activation            — S₈ ring breaks, molten S atoms surround Fe cluster
-///   3. Exothermic Fusion     — electron transfer Fe→S, both ions form
-///   4. Lattice Solidification — Fe²⁺ and S²⁻ lock into NiAs-type crystal
-/// </summary>
 public static class IronSulfideReaction
 {
-    // Atom IDs used consistently across all steps so Three.js can tween positions
     private static readonly List<AtomSpec> FeAtoms =
     [
         new("fe1", "Fe"), new("fe2", "Fe"), new("fe3", "Fe"), new("fe4", "Fe"),
@@ -48,24 +37,22 @@ public static class IronSulfideReaction
     // -------------------------------------------------------------------------
     private static ReactionStepSpec Step1_AmbientMixture() => new(
         Number: 1,
-        Title: "Ambient Mixture",
-        Description: "Iron (Fe) appears as grey magnetic particles arranged in a metallic " +
-                     "lattice. Sulfur (S) forms S₈ crown rings — 8 yellow atoms bonded in a " +
-                     "circle. The two substances are physically separate; a magnet would still " +
+        Title: "Ambient mixture",
+        Description: "Iron appears as grey magnetic particles arranged in a metallic " +
+                     "grid. Sulfur forms crown rings. " +
+                     "The two substances are physically separate; a magnet would still " +
                      "pull the grey particles away.",
         Molecules:
         [
             new MoleculeSpec(
                 GeometryType: "metallic_cluster",
                 Atoms: FeAtoms,
-                Bonds: FeMetallicBonds(),
-                CenterX: -2.8f),
+                CenterX: -4.5f),
 
             new MoleculeSpec(
                 GeometryType: "crown_ring",
                 Atoms: SAtoms,
-                Bonds: S8Bonds(),
-                CenterX: 2.8f)
+                CenterX: 4.5f)
         ]
     );
 
@@ -75,21 +62,20 @@ public static class IronSulfideReaction
     // -------------------------------------------------------------------------
     private static ReactionStepSpec Step2_ActivationAndLiquefaction() => new(
         Number: 2,
-        Title: "Activation and Liquefaction",
-        Description: "At 119 °C the S₈ rings break apart. Sulfur becomes fluid, surrounding " +
+        Title: "Activation and liquefaction",
+        Description: "With heat, the sulfur rings break apart. Sulfur becomes fluid, surrounding " +
                      "and coating the iron particles. The yellow atoms flow around the " +
-                     "stationary iron blocks — the wetting phase.",
+                     "stationary iron blocks",
         Molecules:
         [
             new MoleculeSpec(
                 GeometryType: "metallic_cluster",
-                Atoms: FeAtoms,
-                Bonds: FeMetallicBonds()),
+                Atoms: FeAtoms),
 
             new MoleculeSpec(
                 GeometryType: "free_sphere",
                 Atoms: SAtoms,
-                Bonds: [])   // no bonds — S₈ ring has broken
+                Bonds: [])   // explicitly no bonds — S₈ ring has broken
         ]
     );
 
@@ -100,10 +86,10 @@ public static class IronSulfideReaction
     // -------------------------------------------------------------------------
     private static ReactionStepSpec Step3_ExothermicFusion() => new(
         Number: 3,
-        Title: "Exothermic Fusion",
-        Description: "The high-energy moment: electrons leap from each iron atom to a sulfur " +
-                     "neighbour. Iron shrinks as it becomes Fe²⁺ and sulfur expands as it " +
-                     "becomes S²⁻. The reaction releases ~100 kJ/mol.",
+        Title: "Exothermic fusion",
+        Description: "Electrons leap from each iron atom to a sulfur " +
+                     "neighbour. Iron shrinks as it becomes oxidised and sulfur expands " +
+                     "as it receives electrons. The reaction releases a massive amount of energy.",
         Molecules:
         [
             new MoleculeSpec(
@@ -151,17 +137,15 @@ public static class IronSulfideReaction
     // -------------------------------------------------------------------------
     private static ReactionStepSpec Step4_LatticeSolidification() => new(
         Number: 4,
-        Title: "Lattice Solidification",
-        Description: "The chaos stops. Fe²⁺ and S²⁻ ions snap into a rigid NiAs-type crystal " +
-                     "lattice — each iron atom locked between sulfur neighbours above and below. " +
-                     "The glow fades into a dull charcoal-black solid: non-magnetic, brittle, " +
-                     "and complete.",
+        Title: "Lattice solidification",
+        Description: "The chaos stops. Iron and sulfur ions snap into a rigid crystal " +
+                     "and each iron atom is locked between sulfur neighbors above and below. " +
+                     "The glow fades into a dull charcoal-black solid",
         Molecules:
         [
             new MoleculeSpec(
                 GeometryType: "NiAs_crystal",
-                Atoms: [..FeIons, ..SIons],   // 4 Fe²⁺ + 8 S²⁻ in one crystal
-                Bonds: NiAsBonds())
+                Atoms: [..FeIons, ..SIons])   // 8 Fe²⁺ + 8 S²⁻ — bonds auto-generated by BondRules
         ],
         AtomOverrides: new()
         {
@@ -184,61 +168,4 @@ public static class IronSulfideReaction
         }
     );
 
-    // -------------------------------------------------------------------------
-    // Bond helpers
-    // -------------------------------------------------------------------------
-
-    // Fe 2×2×2 metallic cube: 12 edges of the cube.
-    // Bottom layer: fe1(-,-,-) fe2(+,-,-) fe3(-,-,+) fe4(+,-,+)
-    // Top layer:    fe5(-,+,-) fe6(+,+,-) fe7(-,+,+) fe8(+,+,+)
-    // These bonds break in step 3 when the metallic lattice disrupts during ionisation.
-    private static List<BondSpec> FeMetallicBonds() =>
-    [
-        // Bottom face
-        new("fe1", "fe2", "metallic"), new("fe3", "fe4", "metallic"),
-        new("fe1", "fe3", "metallic"), new("fe2", "fe4", "metallic"),
-        // Top face
-        new("fe5", "fe6", "metallic"), new("fe7", "fe8", "metallic"),
-        new("fe5", "fe7", "metallic"), new("fe6", "fe8", "metallic"),
-        // Vertical pillars
-        new("fe1", "fe5", "metallic"), new("fe2", "fe6", "metallic"),
-        new("fe3", "fe7", "metallic"), new("fe4", "fe8", "metallic"),
-    ];
-
-    // S₈ crown ring: each atom bonds to the next, last bonds back to first
-    private static List<BondSpec> S8Bonds() =>
-    [
-        new("s1","s2"), new("s2","s3"), new("s3","s4"), new("s4","s5"),
-        new("s5","s6"), new("s6","s7"), new("s7","s8"), new("s8","s1"),
-    ];
-
-    // NiAs crystal bonds — S atoms sit at edge-midpoints of the Fe square.
-    // Each bottom Fe (fe1–fe4) bonds to its 2 nearest S in the outer layer (s1–s4)
-    // AND its 2 nearest S in the shared middle layer (s5–s8) → 4-fold coordination.
-    // Each top Fe (fe5–fe8) bonds to its 2 nearest S in the shared middle layer → 2-fold (surface).
-    //
-    // XZ layout:  feXZ corners (-h,-h),(+h,-h),(-h,+h),(+h,+h)
-    //             sXZ  edges   (0,-h),(+h,0),(0,+h),(-h,0)
-    //             → fe1(SW) nearest: s1(S-edge), s4(W-edge)
-    //               fe2(SE) nearest: s1(S-edge), s2(E-edge)
-    //               fe3(NW) nearest: s3(N-edge), s4(W-edge)
-    //               fe4(NE) nearest: s2(E-edge), s3(N-edge)
-    private static List<BondSpec> NiAsBonds() =>
-    [
-        // fe1–fe4 → outer S (s1–s4) below
-        new("fe1","s1","ionic"), new("fe1","s4","ionic"),
-        new("fe2","s1","ionic"), new("fe2","s2","ionic"),
-        new("fe3","s3","ionic"), new("fe3","s4","ionic"),
-        new("fe4","s2","ionic"), new("fe4","s3","ionic"),
-        // fe1–fe4 → shared S (s5–s8) above
-        new("fe1","s5","ionic"), new("fe1","s8","ionic"),
-        new("fe2","s5","ionic"), new("fe2","s6","ionic"),
-        new("fe3","s7","ionic"), new("fe3","s8","ionic"),
-        new("fe4","s6","ionic"), new("fe4","s7","ionic"),
-        // fe5–fe8 → shared S (s5–s8) below
-        new("fe5","s5","ionic"), new("fe5","s8","ionic"),
-        new("fe6","s5","ionic"), new("fe6","s6","ionic"),
-        new("fe7","s7","ionic"), new("fe7","s8","ionic"),
-        new("fe8","s6","ionic"), new("fe8","s7","ionic"),
-    ];
 }

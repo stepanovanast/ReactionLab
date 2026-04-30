@@ -24,23 +24,24 @@ public static class GlowingSplintReaction
 
     public static ReactionSpec GetSpec() => new(
     [
-        Step1_Reactants(),
-        Step2_OOCleavage(),
-        Step3_Rearrangement(),
-        Step4_Products(),
+        Step1_StartingLiquid(),
+        Step2_Breakup(),
+        Step3_GasAndWater(),
+        Step4_GasRelease(),
     ]);
 
     // -------------------------------------------------------------------------
     // Step 1 — Reactants
     // Two H₂O₂ molecules. Each has a weak O–O peroxide bond in the middle.
     // -------------------------------------------------------------------------
-    private static ReactionStepSpec Step1_Reactants() => new(
+    private static ReactionStepSpec Step1_StartingLiquid() => new(
         Number: 1,
-        Title: "Reactants",
-        Description: "Two hydrogen peroxide (H₂O₂) molecules are present. " +
-                     "Each molecule has the structure H–O–O–H with a weak central " +
-                     "O–O peroxide bond. In the presence of a catalyst (MnO₂ or catalase) " +
-                     "this bond is easily broken.",
+        Title: "The starting liquid",
+        Description: "You begin with hydrogen peroxide, which is unstable. " +
+                     "Its atoms are loosely held together and are ready to rearrange into something more stable. ",
+
+
+                     
         Molecules:
         [
             // H₂O₂ molecule 1 (upper row)
@@ -70,12 +71,12 @@ public static class GlowingSplintReaction
     // Step 2 — O–O Bond Cleavage
     // The catalyst breaks the peroxide bonds. Four OH radicals are released.
     // -------------------------------------------------------------------------
-    private static ReactionStepSpec Step2_OOCleavage() => new(
+    private static ReactionStepSpec Step2_Breakup() => new(
         Number: 2,
-        Title: "O–O Bond Cleavage",
-        Description: "The catalyst weakens and snaps the O–O peroxide bond in each molecule. " +
-                     "Four hydroxyl radicals (OH•) are released — each is an oxygen atom " +
-                     "with a hydrogen still attached. The O–O bonds are now broken.",
+        Title: "The breakup",
+        Description: "The chemical bonds in the hydrogen peroxide snap apart. " +
+                     "This usually happens faster if you add a catalyst (a helper substance) or heat. " +
+                     "Once the bonds break, the hydrogen and oxygen atoms are free to find new partners.",
         Molecules:
         [
             // OH radicals from H₂O₂ #1
@@ -107,10 +108,10 @@ public static class GlowingSplintReaction
     // Step 3 — Rearrangement
     // Each pair of OH radicals recombines into H₂O. The lone O atoms approach each other.
     // -------------------------------------------------------------------------
-    private static ReactionStepSpec Step3_Rearrangement() => new(
+    private static ReactionStepSpec Step3_GasAndWater() => new(
         Number: 3,
         Title: "Rearrangement",
-        Description: "The OH radicals pair up and rearrange. " +
+        Description: "As the atoms rearrange, most of them form liquid water.  " +
                      "Each oxygen atom picks up two hydrogen atoms to form a water molecule. " +
                      "The two remaining oxygen atoms are drawn toward each other, " +
                      "beginning to form the O₂ molecule.",
@@ -145,13 +146,13 @@ public static class GlowingSplintReaction
     // Step 4 — Products
     // Two water molecules and one O₂ gas molecule. The O₂ relights a glowing splint.
     // -------------------------------------------------------------------------
-    private static ReactionStepSpec Step4_Products() => new(
+    private static ReactionStepSpec Step4_GasRelease() => new(
         Number: 4,
-        Title: "Products Formed",
+        Title: "Releasing oxygen gas",
         Description: "The reaction is complete. Two water molecules (H₂O) are formed, " +
                      "and the two lone oxygen atoms bond together as O₂ gas. " +
-                     "This oxygen is what relights a glowing splint held at the mouth " +
-                     "of the test tube — the classic positive test result.",
+                     "Instead of staying in the liquid, this gas bubbles up and fills the empty space in the tube. " +
+                     "This high concentration of oxygen is what provides the fuel to relight the glowing splint.",
         Molecules:
         [
             // H₂O molecule 1

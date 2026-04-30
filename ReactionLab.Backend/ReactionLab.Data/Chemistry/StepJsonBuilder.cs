@@ -32,9 +32,9 @@ public static class StepJsonBuilder
             .SelectMany(mol => GeometryEngine.ComputePositions(mol))
             .ToList();
 
-        // Collect all bonds across all molecules
+        // Collect bonds: explicit list if provided, otherwise auto-generate from geometry rules
         var allBonds = step.Molecules
-            .SelectMany(mol => mol.Bonds)
+            .SelectMany(mol => mol.Bonds ?? BondRules.Generate(mol))
             .ToList();
 
         return new

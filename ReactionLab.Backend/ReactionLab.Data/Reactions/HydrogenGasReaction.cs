@@ -1,16 +1,6 @@
 using ReactionLab.Data.Chemistry;
 
 namespace ReactionLab.Data.Reactions;
-
-/// <summary>
-/// Fe + 2HCl → FeCl₂ + H₂  (Production of Hydrogen Gas)
-///
-/// 4 phases:
-///   1. Reactants         — Fe solid separate from 2 HCl molecules
-///   2. Acid Dissociation — HCl splits into H⁺ and Cl⁻, ions approach Fe
-///   3. Electron Transfer — Fe → Fe²⁺ + 2e⁻; 2H⁺ + 2e⁻ → H₂
-///   4. Products          — FeCl₂ ionic compound + H₂ gas bubble
-/// </summary>
 public static class HydrogenGasReaction
 {
     private static readonly AtomSpec Fe1  = new("fe1", "Fe");
@@ -18,8 +8,6 @@ public static class HydrogenGasReaction
     private static readonly AtomSpec H2   = new("h2",  "H");
     private static readonly AtomSpec Cl1  = new("cl1", "Cl");
     private static readonly AtomSpec Cl2  = new("cl2", "Cl");
-
-    // Ions (after oxidation/reduction)
     private static readonly AtomSpec Fe1Ion  = Fe1 with { OxidationState =  2 };
     private static readonly AtomSpec H1Ion   = H1  with { OxidationState =  1 };
     private static readonly AtomSpec H2Ion   = H2  with { OxidationState =  1 };
@@ -28,55 +16,46 @@ public static class HydrogenGasReaction
 
     public static ReactionSpec GetSpec() => new(
     [
-        Step1_Reactants(),
-        Step2_AcidDissociation(),
-        Step3_ElectronTransfer(),
-        Step4_Products(),
+        Step1_InitialCollision(),
+        Step2_Displacement(),
+        Step3_IronChloride(),
+        Step4_ReleasingHydrogenGas(),
     ]);
 
-    // -------------------------------------------------------------------------
-    // Step 1 — Reactants (room temperature)
-    // Fe solid on the left; two HCl molecules on the right, H covalently bonded to Cl.
-    // -------------------------------------------------------------------------
-    private static ReactionStepSpec Step1_Reactants() => new(
+    // Step 1
+    private static ReactionStepSpec Step1_InitialCollision() => new(
         Number: 1,
-        Title: "Reactants",
-        Description: "Iron (Fe) is a solid metal on the left. " +
-                     "Two hydrochloric acid (HCl) molecules sit on the right — " +
-                     "each is a hydrogen atom covalently bonded to a chlorine atom. " +
-                     "The reactants are not yet in contact.",
+        Title: "The initial collision",
+        Description: "The solid iron atoms come into contact with the hydrochloric acid liquid " +
+                     "The acid is corrosive, its molecules are moving fast and hitting the surface of the metal with enough energy to start breaking chemical bonds.",
         Molecules:
         [
-            // Fe solid — single atom centred at left
+            // Fe solid
             new MoleculeSpec("metallic_cluster", [Fe1], [],
-                CenterX: -2.5f, CenterY: 0f, CenterZ: 0f),
+                CenterX: -4.0f, CenterY: 0f, CenterZ: 0f),
 
-            // HCl molecule 1 (upper)
+            // HCl molecule 1
             new MoleculeSpec("metallic_cluster", [H1], [],
-                CenterX: 1.5f, CenterY: 0.5f, CenterZ: 0f),
+                CenterX: 2.5f, CenterY: 1.5f, CenterZ: 0f),
             new MoleculeSpec("metallic_cluster", [Cl1],
                 [new BondSpec("h1", "cl1")],
-                CenterX: 2.3f, CenterY: 0.5f, CenterZ: 0f),
+                CenterX: 3.3f, CenterY: 1.5f, CenterZ: 0f),
 
-            // HCl molecule 2 (lower)
+            // HCl molecule 2
             new MoleculeSpec("metallic_cluster", [H2], [],
-                CenterX: 1.5f, CenterY: -0.5f, CenterZ: 0f),
+                CenterX: 2.5f, CenterY: -1.5f, CenterZ: 0f),
             new MoleculeSpec("metallic_cluster", [Cl2],
                 [new BondSpec("h2", "cl2")],
-                CenterX: 2.3f, CenterY: -0.5f, CenterZ: 0f),
+                CenterX: 3.3f, CenterY: -1.5f, CenterZ: 0f),
         ]);
 
-    // -------------------------------------------------------------------------
-    // Step 2 — Acid Dissociation
-    // HCl ionises in the presence of Fe; H⁺ and Cl⁻ ions float freely around the surface.
-    // -------------------------------------------------------------------------
-    private static ReactionStepSpec Step2_AcidDissociation() => new(
+    // Step 2
+        private static ReactionStepSpec Step2_Displacement() => new(
         Number: 2,
-        Title: "Acid Dissociation",
-        Description: "Hydrochloric acid dissociates into H⁺ and Cl⁻ ions. " +
-                     "The ions surround the iron surface — the H–Cl covalent bonds are broken. " +
-                     "Chloride ions are attracted to the positive iron surface; " +
-                     "protons hover nearby, ready to accept electrons.",
+        Title: "The displacement",
+        Description: "The iron atoms are more active than the hydrogen atoms in the acid. " +
+                     "The iron pushes the hydrogen out of the way so it can take its place. " +
+                     "This is called a single replacement reaction because the iron replaces the hydrogen.",
         Molecules:
         [
             new MoleculeSpec("metallic_cluster", [Fe1],  [], CenterX:  0.0f, CenterY:  0.0f, CenterZ: 0f),
@@ -86,17 +65,14 @@ public static class HydrogenGasReaction
             new MoleculeSpec("metallic_cluster", [Cl2Ion], [], CenterX: 1.8f, CenterY: -0.9f, CenterZ: 0f),
         ]);
 
-    // -------------------------------------------------------------------------
-    // Step 3 — Electron Transfer
-    // Fe donates 2 electrons, one to each H⁺. Fe becomes Fe²⁺; H⁺ atoms are neutralised.
-    // -------------------------------------------------------------------------
-    private static ReactionStepSpec Step3_ElectronTransfer() => new(
+    // Step 3
+        private static ReactionStepSpec Step3_IronChloride() => new(
         Number: 3,
-        Title: "Electron Transfer",
-        Description: "Iron donates two electrons — one to each hydrogen ion. " +
-                     "Fe shrinks as it becomes Fe²⁺ (oxidised). " +
-                     "The two H atoms are now neutral and drawn toward each other. " +
-                     "The Cl⁻ ions close in on the iron cation.",
+        Title: "Formation of iron chloride",
+        Description: "Iron donates one electrons to each hydrogen ion. " +
+                     "Iron shrinks as it becomes oxidised. " +
+                     "The Iron atoms bond with the chlorine atoms to create a new substance called iron chloride. " +
+                     "This is a type of salt that dissolves into the liquid, often turning the solution a light green color.",
         Molecules:
         [
             new MoleculeSpec("metallic_cluster", [Fe1Ion],  [], CenterX:  0.0f, CenterY:  0.0f, CenterZ: 0f),
@@ -115,20 +91,16 @@ public static class HydrogenGasReaction
             ["fe1"] = new AtomOverrideSpec(RadiusScale: 0.8f, Dimmed: true),
         });
 
-    // -------------------------------------------------------------------------
-    // Step 4 — Products
-    // FeCl₂ ionic compound forms; H₂ gas molecule rises as a bubble.
-    // -------------------------------------------------------------------------
-    private static ReactionStepSpec Step4_Products() => new(
+    // Step 4
+    
+    private static ReactionStepSpec Step4_ReleasingHydrogenGas() => new(
         Number: 4,
-        Title: "Products Formed",
-        Description: "The reaction is complete. Fe²⁺ is flanked by two Cl⁻ ions, " +
-                     "forming iron(II) chloride (FeCl₂) dissolved in solution. " +
-                     "The two hydrogen atoms bond together as H₂ gas — " +
-                     "the colourless bubbles you see rising from the iron.",
+        Title: "Releasing hydrogen gas",
+        Description: "The hydrogen atoms that were kicked out find each other and pair up to form hydrogen gas. " +
+                     "Since gas is lighter than liquid, it forms tiny bubbles that fizz and rise to the surface, escaping into the air.",
         Molecules:
         [
-            // FeCl₂: Fe²⁺ flanked by two Cl⁻
+            // FeCl2
             new MoleculeSpec("metallic_cluster", [Fe1Ion], [], CenterX: 1.8f, CenterY: 0f, CenterZ: 0f),
             new MoleculeSpec("metallic_cluster", [Cl1Ion],
                 [new BondSpec("cl1", "fe1")],
@@ -137,7 +109,7 @@ public static class HydrogenGasReaction
                 [new BondSpec("cl2", "fe1")],
                 CenterX: 3.1f, CenterY: 0f, CenterZ: 0f),
 
-            // H₂ gas molecule
+            // H2
             new MoleculeSpec("metallic_cluster", [H1], [], CenterX: -2.0f, CenterY: 0f, CenterZ: 0f),
             new MoleculeSpec("metallic_cluster", [H2],
                 [new BondSpec("h1", "h2")],
