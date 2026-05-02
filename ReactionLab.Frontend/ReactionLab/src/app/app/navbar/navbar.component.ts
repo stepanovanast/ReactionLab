@@ -31,7 +31,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   private routerSub?: Subscription;
 
   readonly hasNewBadge = computed(() =>
-    this.apiService.earnedBadgeCount() > Number(localStorage.getItem(this.BADGE_STORAGE_KEY) ?? 0)
+    this.apiService.earnedBadgeCount() > Number(sessionStorage.getItem(this.BADGE_STORAGE_KEY) ?? 0)
   );
 
   private readonly avatarMap: Record<number, string> = {
@@ -79,7 +79,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   clearBadgeAlert(): void {
-    localStorage.setItem(this.BADGE_STORAGE_KEY, String(this.apiService.earnedBadgeCount()));
+    sessionStorage.setItem(this.BADGE_STORAGE_KEY, String(this.apiService.earnedBadgeCount()));
   }
 
   toggleMenu(): void {

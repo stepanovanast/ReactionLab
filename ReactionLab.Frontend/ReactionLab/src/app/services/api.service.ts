@@ -1,6 +1,6 @@
 import { Injectable, signal } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, forkJoin, of } from 'rxjs';
+import { Observable, forkJoin, of, EMPTY } from 'rxjs';
 import { switchMap, map, tap } from 'rxjs/operators';
 import { AuthService } from './auth.service';
 
@@ -72,6 +72,11 @@ export class ApiService {
   private apiUrl = 'http://localhost:5177/api';
 
   readonly earnedBadgeCount = signal(0);
+  readonly badges = signal<Badge[]>([]);
+
+  isBadgeEarned(id: number): boolean {
+    return this.badges().some(b => b.id === id && b.earned);
+  }
 
   constructor(
     private http: HttpClient,
@@ -136,12 +141,16 @@ export class ApiService {
       `${this.apiUrl}/user/badges`,
       { headers: this.getAuthHeaders() }
     ).pipe(
-      tap(badges => this.earnedBadgeCount.set(badges.filter(b => b.earned).length))
+      tap(badges => {
+        this.badges.set(badges);
+        this.earnedBadgeCount.set(badges.filter(b => b.earned).length);
+      })
     );
   }
 
   // Award Molecular Vision badge (first visualization mode switch)
   awardMolecularVision(): Observable<any> {
+    if (this.isBadgeEarned(6)) return EMPTY;
     return this.http.post(
       `${this.apiUrl}/user/badges/molecular-vision`,
       {},
@@ -151,6 +160,7 @@ export class ApiService {
 
   // Award Full Circuit badge (reached final step of any reaction)
   awardFullCircuit(): Observable<any> {
+    if (this.isBadgeEarned(7)) return EMPTY;
     return this.http.post(
       `${this.apiUrl}/user/badges/full-circuit`,
       {},
@@ -160,6 +170,7 @@ export class ApiService {
 
   // Award Curious Mind badge (viewed every step of a reaction at least once)
   awardCuriousMind(): Observable<any> {
+    if (this.isBadgeEarned(8)) return EMPTY;
     return this.http.post(
       `${this.apiUrl}/user/badges/curious-mind`,
       {},

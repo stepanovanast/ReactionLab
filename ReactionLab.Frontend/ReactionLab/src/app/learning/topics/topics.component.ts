@@ -50,14 +50,14 @@ export class TopicsComponent implements OnInit {
       }
     });
 
-    const lastConfettiCount = Number(localStorage.getItem(this.CONFETTI_KEY) ?? 0);
+    const lastConfettiCount = Number(sessionStorage.getItem(this.CONFETTI_KEY) ?? 0);
 
     this.apiService.getUserBadges().subscribe({
       next: (badges) => {
         this.badges = badges;
         this.animateCounter('animatedBadgeCount', this.earnedBadgesCount);
         if (this.earnedBadgesCount > lastConfettiCount) {
-          localStorage.setItem(this.CONFETTI_KEY, String(this.earnedBadgesCount));
+          sessionStorage.setItem(this.CONFETTI_KEY, String(this.earnedBadgesCount));
           setTimeout(() => this.confetti.burst(), 600);
         }
       },

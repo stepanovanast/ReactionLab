@@ -71,6 +71,8 @@ export class AuthService {
     localStorage.removeItem('user');
     sessionStorage.removeItem('token');
     sessionStorage.removeItem('user');
+    sessionStorage.removeItem('rl_confetti_badge_count');
+    sessionStorage.removeItem('rl_seen_badge_count');
 
     this.currentUserSubject.next(null);
     this.router.navigate(['/']);
