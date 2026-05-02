@@ -1,2 +1,115 @@
-<p>docs works!</p>
+<app-navbar></app-navbar>
+<div class="page-section">
+
+  <div class="page-left">
+    <div class="legal-nav-item legal-nav-item--open">
+      <div class="legal-nav-header">
+        <span class="legal-nav-title">Tutorials</span>
+        <span class="legal-nav-chevron"></span>
+      </div>
+      <div class="legal-nav-body">
+        <a class="legal-toc-link" (click)="scrollTo('getting-started')">Getting Started</a>
+        <a class="legal-toc-link" (click)="scrollTo('exploring-topics')">Exploring Topics</a>
+        <a class="legal-toc-link" (click)="scrollTo('visualizations')">Using Visualizations</a>
+        <a class="legal-toc-link" (click)="scrollTo('progress')">Tracking Your Progress</a>
+        <a class="legal-toc-link" (click)="scrollTo('account')">Your Account</a>
+        <a class="legal-toc-link" (click)="scrollTo('help')">Getting Help</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-right legal-content">
+    <h1>Tutorials</h1>
+    <p class="legal-updated">ReactionLab — User Guide</p>
+
+    <p>Welcome to ReactionLab. This guide walks you through everything you need to know to get the most out of the platform — from creating your account to completing topics and earning badges.</p>
+
+    <h2 id="getting-started">Getting Started</h2>
+    <h3>Creating an Account</h3>
+    <p>To access ReactionLab's interactive content, you need a free account. To sign up:</p>
+    <ul>
+      <li>Click <strong>Sign Up</strong> in the top navigation bar.</li>
+      <li>Enter your first name, last name, email address, and a password.</li>
+      <li>Click <strong>Create Account</strong> to complete registration.</li>
+    </ul>
+    <p>Once registered, you will be taken directly to the Topics page where you can start learning.</p>
+
+    <h3>Logging In</h3>
+    <p>If you already have an account:</p>
+    <ul>
+      <li>Click <strong>Log In</strong> in the top navigation bar.</li>
+      <li>Enter your email and password.</li>
+      <li>Click <strong>Log In</strong> to access your account.</li>
+    </ul>
+    <p>Your progress and badges are saved to your account and will be there every time you return.</p>
+
+    <h2 id="exploring-topics">Exploring Topics</h2>
+    <h3>The Topic Library</h3>
+    <p>After logging in, you land on the <strong>Topics</strong> page. This is your learning hub — all available chemistry topics are listed here, each represented as a card showing the topic name, a short description, and your current progress.</p>
+
+    <h3>Topic States</h3>
+    <p>Each topic card can be in one of several states:</p>
+    <ul>
+      <li><strong>Locked</strong> — this topic is not yet available. Complete earlier topics to unlock it.</li>
+      <li><strong>Available</strong> — the topic is ready to start. Click the card to begin.</li>
+      <li><strong>In Progress</strong> — you have started this topic but not yet completed all its visualizations.</li>
+      <li><strong>Completed</strong> — you have viewed all steps in every visualization for this topic and earned its badge.</li>
+    </ul>
+
+    <h3>Filtering Topics</h3>
+    <p>You can filter the topic list using the tabs at the top of the library:</p>
+    <ul>
+      <li><strong>All</strong> — shows every topic regardless of state.</li>
+      <li><strong>Available</strong> — shows only topics you can currently access.</li>
+      <li><strong>Completed</strong> — shows topics you have already finished.</li>
+    </ul>
+
+    <h2 id="visualizations">Using Visualizations</h2>
+    <h3>Opening a Visualization</h3>
+    <p>Click on any available topic card to open its visualization page. The page is split into two panels:</p>
+    <ul>
+      <li><strong>Left panel</strong> — lists all the reactions within the topic. Click a reaction to load it.</li>
+      <li><strong>Main canvas</strong> — displays the interactive step-by-step visualization of the selected reaction.</li>
+    </ul>
+
+    <h3>Navigating Steps</h3>
+    <p>Each reaction is broken down into individual steps that walk you through the chemistry. Use the navigation controls on the main canvas to move between steps:</p>
+    <ul>
+      <li>Click <strong>Next</strong> to advance to the following step.</li>
+      <li>Click <strong>Back</strong> to return to the previous step.</li>
+      <li>The step counter shows your current position (e.g. Step 2 of 5).</li>
+    </ul>
+    <p>Each step shows atoms and molecules involved in the reaction, colour-coded by element to help you identify them at a glance.</p>
+
+    <h3>Completing a Reaction</h3>
+    <p>A reaction is marked as complete once you have viewed every step from beginning to end. You must go through all steps in order — skipping ahead is not counted as completion. Once all reactions within a topic are completed, the topic itself is marked as done and you earn its badge.</p>
+
+    <h2 id="progress">Tracking Your Progress</h2>
+    <h3>Progress Indicators</h3>
+    <p>Each topic card displays a circular progress indicator showing how many of its reactions you have completed. For example, if a topic has 4 reactions and you have finished 2, the indicator shows 50%.</p>
+
+    <h3>Achievement Badges</h3>
+    <p>Completing a topic earns you an achievement badge. Badges are displayed on your profile and on the topic card itself once unlocked. They are a record of everything you have learned on the platform.</p>
+    <p>Badges cannot be lost — once a topic is completed and a badge is earned, it stays on your profile permanently.</p>
+
+    <h2 id="account">Your Account</h2>
+    <h3>Profile and Settings</h3>
+    <p>Your account page shows your profile information, earned badges, and overall progress across all topics. You can access it by clicking your name or avatar in the navigation bar.</p>
+
+    <h3>Updating Your Information</h3>
+    <p>To update your name, email, or password, go to your account settings. Changes take effect immediately.</p>
+
+    <h3>Deleting Your Account</h3>
+    <p>You can delete your account from the account settings page. Deleting your account is permanent — all progress and badges will be removed and cannot be recovered.</p>
+
+    <h2 id="help">Getting Help</h2>
+    <p>If you run into an issue not covered in this guide, there are a few ways to get support:</p>
+    <ul>
+      <li>Check the <a routerLink="/faq">FAQ</a> for answers to the most common questions.</li>
+      <li>Reach out via the <a routerLink="/contacts">Contacts</a> page to send us a message directly.</li>
+    </ul>
+    <p>We typically respond within 1–2 business days.</p>
+  </div>
+
+</div>
 <app-footer [compact]="true" [compactLinks]="[{label:'FAQ',route:'/faq'},{label:'Contacts',route:'/contacts'},{label:'Terms of Use',route:'/terms-of-use'},{label:'Privacy Policy',route:'/privacy-policy'}]"></app-footer>

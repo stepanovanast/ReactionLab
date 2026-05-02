@@ -8,9 +8,30 @@
   padding: 140px 16px 120px;
   position: relative;
   overflow: hidden;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.07);
 }
 @media (min-width: 576px) {
   .hero { padding: 140px 32px 120px; }
+}
+
+/* ── Entrance animations ── */
+.hero-line {
+  clip-path: inset(0 0 100% 0);
+  animation: line-reveal 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.hero-fade-in {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fade-up 0.5s ease forwards;
+}
+
+@keyframes line-reveal {
+  to { clip-path: inset(0 0 -0.5em 0); }
+}
+
+@keyframes fade-up {
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .hero-welcome {
@@ -24,16 +45,37 @@
 
 .hero-title h1 {
   text-align: center;
-  font-weight: 700;
-  color: #000000;
+  font-family: 'DM Serif Display', serif;
+  font-weight: 400;
+  color: #000;
   margin-bottom: 0;
   padding: 0 16px;
   font-size: clamp(38px, 6vw + 1rem, 88px);
+  line-height: 1.1;
 }
+
 
 .hero-buttons {
   margin-top: auto;
   margin-bottom: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.learn-more-link {
+  font-size: clamp(13px, 1vw + 9px, 16px);
+  font-weight: 500;
+  color: #555;
+  cursor: pointer;
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: color 0.2s ease;
+}
+
+.learn-more-link:hover {
+  color: #5c79a7;
 }
 
 #startExploringBtn {
@@ -42,9 +84,10 @@
   justify-content: center;
   background-color: #000000;
   color: #ffffff;
+  border: 2px solid #000000;
   cursor: pointer;
   border-radius: 8px;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
   font-size: clamp(14px, 1.2vw + 10px, 20px);
   font-weight: 700;
   padding: clamp(14px, 1vw + 10px, 18px) clamp(20px, 2.5vw + 8px, 34px);
@@ -53,6 +96,7 @@
 
 #startExploringBtn:hover {
   background-color: #5c79a7;
+  border-color: #5c79a7;
 }
 
 .arrow-icon {

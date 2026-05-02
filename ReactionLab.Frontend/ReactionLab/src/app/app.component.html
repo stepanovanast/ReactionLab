@@ -1,1 +1,13 @@
-<router-outlet></router-outlet>
+<div class="accent-strip"></div>
+<div class="scroll-progress" [style.width.%]="scrollProgress"></div>
+<div [@routeAnimation]="getRouteState(outlet)" class="route-wrapper">
+  <router-outlet #outlet="outlet"></router-outlet>
+</div>
+<app-toast></app-toast>
+<button
+  class="back-to-top"
+  [class.back-to-top--visible]="scrollProgress > 15"
+  (click)="scrollToTop()"
+  aria-label="Back to top">
+  ↑
+</button>

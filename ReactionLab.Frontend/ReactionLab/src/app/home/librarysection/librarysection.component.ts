@@ -2,11 +2,13 @@ import { Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from '../../services/api.service';
 import { AuthService } from '../../services/auth.service';
+import { FadeInScrollDirective } from '../../shared/fade-in-scroll.directive';
+import { TiltDirective } from '../../shared/tilt.directive';
 
 @Component({
   selector: 'app-librarysection',
   standalone: true,
-  imports: [],
+  imports: [FadeInScrollDirective, TiltDirective],
   templateUrl: './librarysection.component.html',
   styleUrl: './librarysection.component.css'
 })

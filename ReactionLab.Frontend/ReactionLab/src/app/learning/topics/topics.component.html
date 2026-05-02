@@ -8,15 +8,17 @@
       <header class="topics-header">
         <h1>My topics</h1>
         <div class="filter-buttons">
-          <button class="filter-btn" [class.active]="activeFilter === 'all'" (click)="setFilter('all')">All</button>
-          <button class="filter-btn" [class.active]="activeFilter === 'available'" (click)="setFilter('available')">Available</button>
-          <button class="filter-btn" [class.active]="activeFilter === 'completed'" (click)="setFilter('completed')">Completed</button>
+          <button class="filter-btn" [class.active]="activeFilter === 'all'" (click)="setFilter('all')">All <span class="filter-count">{{ topics.length }}</span></button>
+          <button class="filter-btn" [class.active]="activeFilter === 'available'" (click)="setFilter('available')">Available <span class="filter-count">{{ availableCount }}</span></button>
+          <button class="filter-btn" [class.active]="activeFilter === 'completed'" (click)="setFilter('completed')">Completed <span class="filter-count">{{ completedCount }}</span></button>
         </div>
       </header>
 
-      <div class="topics-grid">
+      <div class="topics-grid" [class.filter-changing]="filterChanging">
         @if (isLoading) {
-          <div class="no-results">Loading topics...</div>
+          @for (i of [1,2,3,4]; track i) {
+            <div class="skeleton-card"></div>
+          }
         } @else if (error) {
           <div class="no-results">{{ error }}</div>
         } @else if (filteredTopics.length > 0) {
@@ -24,6 +26,9 @@
             <div
               (click)="topic.status !== 'locked' && onTopicClick(topic)"
               [class]="'topic-card status-' + topic.status"
+              [title]="topic.status === 'locked' ? 'Complete the previous topic to unlock' : ''"
+              appTilt
+              [tiltMax]="6"
             >
               <div class="card-top">
                 <h3 class="topic-title">{{ topic.title }}</h3>
@@ -39,7 +44,14 @@
             </div>
           }
         } @else {
-          <div class="no-results">No topics found</div>
+          @if (activeFilter === 'completed') {
+            <div class="no-results">
+              <p>Nothing completed yet — start with your first topic!</p>
+              <button class="no-results-cta" (click)="setFilter('all')">Browse all topics →</button>
+            </div>
+          } @else {
+            <div class="no-results">No topics found</div>
+          }
         }
       </div>
     </div>
@@ -68,7 +80,7 @@
                   <circle class="ring-progress" cx="50" cy="50" r="40"
                     [style.stroke-dasharray]="circumference"
                     [style.stroke-dashoffset]="progressRingOffset"/>
-                  <text class="ring-count" x="50" y="46">{{ completedCount }}</text>
+                  <text class="ring-count" x="50" y="46">{{ animatedCompletedCount }}</text>
                   <text class="ring-total" x="50" y="63">topics</text>
                 </svg>
               </div>
@@ -81,7 +93,7 @@
                   <circle class="ring-progress" cx="50" cy="50" r="40"
                     [style.stroke-dasharray]="circumference"
                     [style.stroke-dashoffset]="badgeProgressOffset"/>
-                  <text class="ring-count" x="50" y="46">{{ earnedBadgesCount }}</text>
+                  <text class="ring-count" x="50" y="46">{{ animatedBadgeCount }}</text>
                   <text class="ring-total" x="50" y="63">badges</text>
                 </svg>
               </div>
@@ -109,9 +121,17 @@
         <!-- Row 2: Badges 1–4 -->
         <div class="badges-row">
           @for (badge of badgesRow1; track badge.id) {
-            <div class="badge-item" [class.earned]="badge.earned" [title]="badge.description">
-              <img class="badge-icon" [src]="'assets/badges/badge-' + badge.id + '.svg'" [alt]="badge.name" />
-              <p class="badge-label">{{ badge.name }}</p>
+            <div class="badge-item" [class.earned]="badge.earned" [class.flipped]="flippedBadgeIds.has(badge.id)" (click)="badge.earned && toggleBadgeFlip(badge.id)">
+              <div class="badge-inner">
+                <div class="badge-front">
+                  <img class="badge-icon" [src]="'assets/badges/badge-' + badge.id + '.svg'" [alt]="badge.name" />
+                  <p class="badge-label">{{ badge.name }}</p>
+                </div>
+                <div class="badge-back">
+                  <p class="badge-back-name">{{ badge.name }}</p>
+                  <p class="badge-back-desc">{{ badge.description }}</p>
+                </div>
+              </div>
             </div>
           }
         </div>
@@ -119,9 +139,17 @@
         <!-- Row 3: Badges 5–8 -->
         <div class="badges-row">
           @for (badge of badgesRow2; track badge.id) {
-            <div class="badge-item" [class.earned]="badge.earned" [title]="badge.description">
-              <img class="badge-icon" [src]="'assets/badges/badge-' + badge.id + '.svg'" [alt]="badge.name" />
-              <p class="badge-label">{{ badge.name }}</p>
+            <div class="badge-item" [class.earned]="badge.earned" [class.flipped]="flippedBadgeIds.has(badge.id)" (click)="badge.earned && toggleBadgeFlip(badge.id)">
+              <div class="badge-inner">
+                <div class="badge-front">
+                  <img class="badge-icon" [src]="'assets/badges/badge-' + badge.id + '.svg'" [alt]="badge.name" />
+                  <p class="badge-label">{{ badge.name }}</p>
+                </div>
+                <div class="badge-back">
+                  <p class="badge-back-name">{{ badge.name }}</p>
+                  <p class="badge-back-desc">{{ badge.description }}</p>
+                </div>
+              </div>
             </div>
           }
         </div>

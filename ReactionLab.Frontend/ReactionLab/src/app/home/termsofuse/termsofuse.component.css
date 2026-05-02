@@ -4,7 +4,7 @@
   gap: 32px;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 120px 24px 80px;
+  padding: 140px 24px 80px;
 }
 
 @media (max-width: 768px) {
@@ -18,7 +18,8 @@
   flex-shrink: 0;
   width: 220px;
   position: sticky;
-  top: 110px;
+  top: 140px;
+  align-self: flex-start;
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -37,7 +38,7 @@
 }
 
 .legal-nav-item {
-  border: 2px solid #000;
+  border: 1px solid #000;
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
@@ -133,11 +134,68 @@
   font-weight: 600;
   margin-top: 40px;
   margin-bottom: 12px;
-  scroll-margin-top: 100px;
+  scroll-margin-top: 140px;
+}
+
+@media (max-width: 768px) {
+  .legal-content h2 {
+    scroll-margin-top: 100px;
+  }
+}
+
+.legal-content h3 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin-top: 28px;
+  margin-bottom: 10px;
+  color: #222;
+}
+
+.legal-content h4 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-top: 20px;
+  margin-bottom: 8px;
+  color: #444;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
 }
 
 .legal-content p {
   line-height: 1.7;
   color: #333;
   margin-bottom: 12px;
+}
+
+.legal-content ul {
+  margin: 12px 0 16px 0;
+  padding-left: 24px;
+  color: #333;
+}
+
+.legal-content ul li {
+  line-height: 1.7;
+  margin-bottom: 8px;
+}
+
+.legal-content ul ul {
+  margin-top: 6px;
+  margin-bottom: 4px;
+  padding-left: 20px;
+  list-style-type: circle;
+}
+
+.legal-content ul ul li {
+  margin-bottom: 4px;
+}
+
+.legal-content a {
+  color: #5c79a7;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.legal-content a:hover {
+  color: #3d5a8a;
+  text-decoration: underline;
 }

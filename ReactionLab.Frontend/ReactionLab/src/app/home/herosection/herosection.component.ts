@@ -20,4 +20,8 @@ export class HerosectionComponent {
       this.router.navigate(['/login']);
     }
   }
+
+  scrollToFeatures(): void {
+    document.querySelector('app-featuressection')?.scrollIntoView({ behavior: 'smooth' });
+  }
 }

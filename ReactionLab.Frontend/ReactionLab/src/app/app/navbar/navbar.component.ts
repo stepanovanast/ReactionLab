@@ -15,6 +15,12 @@ export class NavbarComponent implements OnInit, OnDestroy {
   @Input() showAuthButtons = true;
   menuOpen = false;
   profileDropdownOpen = false;
+  scrolled = false;
+
+  @HostListener('window:scroll')
+  onScroll(): void {
+    this.scrolled = window.scrollY > 20;
+  }
 
   private authService = inject(AuthService);
   private apiService = inject(ApiService);
@@ -35,6 +41,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
   get isLearningPage(): boolean {
     const url = this.router.url;
     return url.startsWith('/topics') || url.startsWith('/user') || url.startsWith('/visualizations');
+  }
+
+  get isVisualizationsPage(): boolean {
+    return this.router.url.startsWith('/visualizations');
   }
 
   get isLoggedIn(): boolean {

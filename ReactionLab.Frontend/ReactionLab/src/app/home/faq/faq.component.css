@@ -207,19 +207,16 @@
 
 /* ── Item ── */
 .faq-item {
-  border: 2px dashed #000;
+  border: 1px solid #000;
   border-radius: 8px;
   overflow: hidden;
   background-color: #FFF8F0;
-  transition: border-color 0.2s, border-style 0.2s;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  transition: border-color 0.2s;
 }
 
 .faq-item:not(.open):hover {
   border-color: #5c79a7;
-}
-
-.faq-item.open {
-  border-style: solid;
 }
 
 /* ── Question button ── */
@@ -243,7 +240,10 @@
 
 .faq-question:hover { color: #5c79a7; }
 
-.faq-item.open .faq-question { color: #5c79a7; }
+.faq-item.open .faq-question {
+  background-color: #5c79a7;
+  color: #fff;
+}
 
 /* ── Chevron ── */
 .faq-chevron {
@@ -270,5 +270,5 @@
   font-size: clamp(13px, 1.4vw, 15px);
   color: #444;
   line-height: 1.7;
-  padding: 0 clamp(14px, 2.5vw, 22px) clamp(12px, 2vw, 18px);
+  padding: clamp(12px, 2vw, 18px) clamp(14px, 2.5vw, 22px);
 }

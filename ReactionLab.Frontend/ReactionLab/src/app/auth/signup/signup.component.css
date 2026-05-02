@@ -18,6 +18,17 @@
     z-index: 1;
     filter: blur(1.5px) drop-shadow(0 2px 6px rgba(0,0,0,0.10));
     line-height: 1;
+    animation: emoji-float 4s ease-in-out infinite;
+}
+
+.emoji:nth-child(2n)   { animation-duration: 5s; animation-delay: -1.2s; }
+.emoji:nth-child(3n)   { animation-duration: 6s; animation-delay: -2.5s; }
+.emoji:nth-child(4n)   { animation-duration: 4.5s; animation-delay: -0.7s; }
+.emoji:nth-child(5n)   { animation-duration: 5.5s; animation-delay: -3.1s; }
+
+@keyframes emoji-float {
+    0%, 100% { translate: 0 0; }
+    50%       { translate: 0 -10px; }
 }
 
 /* ── Page layout ── */
@@ -222,9 +233,10 @@
 }
 
 .left-title {
+    font-family: 'DM Serif Display', serif;
     font-size: clamp(2.5rem, 5vw, 5rem);
-    font-weight: 700;
-    line-height: 1.1;
+    font-weight: 400;
+    line-height: 1.05;
     color: #000;
     margin: 0 0 16px 0;
 }
@@ -238,6 +250,12 @@
 /* ── Auth card ── */
 .auth-card {
     padding: clamp(16px, 3.5vh, 48px) clamp(20px, 3vw, 48px);
+    background: rgba(255, 248, 240, 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
@@ -299,24 +317,31 @@ h1 {
 .auth-form {
     display: flex;
     flex-direction: column;
-    gap: clamp(6px, 1.2vh, 16px);
+    gap: clamp(12px, 1.8vh, 24px);
 }
 
 .form-group {
-    display: flex;
-    flex-direction: column;
+    position: relative;
 }
 
 .form-group label {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
     font-size: 14px;
     font-weight: 500;
-    color: #000;
-    margin-bottom: 8px;
+    color: #555;
+    pointer-events: none;
+    transition: top 0.18s ease, font-size 0.18s ease, color 0.18s ease, background 0.18s ease;
+    background: transparent;
+    padding: 0 3px;
+    line-height: 1;
 }
 
 .form-group input {
     width: 100%;
-    padding: clamp(6px, 1.2vh, 12px) 14px;
+    padding: clamp(14px, 2vh, 18px) 14px clamp(6px, 1vh, 10px);
     background-color: #FFF8F0;
     border: 2px dashed #000;
     border-radius: 4px;
@@ -330,6 +355,14 @@ h1 {
     outline: none;
     border-style: solid;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.form-group input:focus + label,
+.form-group input:not(:placeholder-shown) + label {
+    top: 0;
+    font-size: 11px;
+    color: #5c79a7;
+    background: #FFF8F0;
 }
 
 .submit-btn {
@@ -385,6 +418,7 @@ h1 {
     text-align: center;
     font-size: 12px;
     color: #999;
+    margin-top: 16px;
 }
 
 .terms-link {

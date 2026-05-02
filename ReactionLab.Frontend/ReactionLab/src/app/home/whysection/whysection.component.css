@@ -19,6 +19,17 @@
   z-index: 1;
   filter: drop-shadow(0 2px 6px rgba(0,0,0,0.10));
   line-height: 1;
+  animation: emoji-float 4s ease-in-out infinite;
+}
+
+.emoji:nth-child(2n)  { animation-duration: 5s;   animation-delay: -1.2s; }
+.emoji:nth-child(3n)  { animation-duration: 6s;   animation-delay: -2.5s; }
+.emoji:nth-child(4n)  { animation-duration: 4.5s; animation-delay: -0.7s; }
+.emoji:nth-child(5n)  { animation-duration: 5.5s; animation-delay: -3.1s; }
+
+@keyframes emoji-float {
+  0%, 100% { translate: 0 0; }
+  50%       { translate: 0 -12px; }
 }
 
 /* ── Paper wrapper — height driven by content; SVG stretches to fill ── */
@@ -69,8 +80,9 @@
 /*    → container breakpoints: 420px / 520px / 640px                                         */
 
 .why-title {
+  font-family: 'DM Serif Display', serif;
   font-size: 30px;
-  font-weight: 700;
+  font-weight: 400;
   color: #000;
   margin: 0 0 12px;
   text-align: center;

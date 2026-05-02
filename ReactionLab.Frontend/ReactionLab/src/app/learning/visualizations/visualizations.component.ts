@@ -1,4 +1,5 @@
 import { Component, HostBinding, inject, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { NavbarComponent } from '../../app/navbar/navbar.component';
 import { LeftpanelComponent } from './leftpanel/leftpanel.component';
@@ -17,6 +18,7 @@ import { ELEMENT_DATA, DEFAULT_ELEMENT_DATA } from './element-data';
 export class VisualizationsComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private apiService = inject(ApiService);
+  private titleService = inject(Title);
 
   reaction: Reaction | null = null;
   currentStepIndex = 0;
@@ -57,6 +59,7 @@ export class VisualizationsComponent implements OnInit {
       next: (topic) => {
         if (topic.reactions && topic.reactions.length > 0) {
           this.reaction = topic.reactions[0];
+          this.titleService.setTitle(`${this.reaction.title} | ReactionLab`);
           this.visitedSteps.add(0);
         }
       }

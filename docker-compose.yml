@@ -1,0 +1,16 @@
+services:
+  db:
+    image: postgres:16
+    container_name: reactionlab-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: reactionlab
+    ports:
+      - "5433:5432"
+    volumes:
+      - reactionlab_pgdata:/var/lib/postgresql/data
+    restart: unless-stopped
+
+volumes:
+  reactionlab_pgdata:

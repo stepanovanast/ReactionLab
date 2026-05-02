@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
+import { FadeInScrollDirective } from '../../shared/fade-in-scroll.directive';
 
 @Component({
   selector: 'app-featuressection',
   standalone: true,
-  imports: [],
+  imports: [FadeInScrollDirective],
   templateUrl: './featuressection.component.html',
   styleUrl: './featuressection.component.css'
 })

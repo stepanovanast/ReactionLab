@@ -87,10 +87,6 @@
             <span>Already have an account? </span>
             <a routerLink="/login" class="toggle-link">Log in!</a>
           </div>
-        <div *ngIf="errorMessage" class="error-message">
-          {{ errorMessage }}
-        </div>
-
         <div class="avatar-picker">
           <p class="avatar-label">Choose your avatar:</p>
           <div class="avatar-options">
@@ -108,47 +104,48 @@
 
         <form class="auth-form" (ngSubmit)="onSignup()">
           <div class="form-group">
-            <label for="fullname">Name:</label>
             <input
               type="text"
               id="fullname"
-              placeholder="Type in your name..."
+              placeholder=" "
               [(ngModel)]="name"
               name="name"
+              maxlength="50"
               [disabled]="isLoading">
+            <label for="fullname">Name</label>
           </div>
 
           <div class="form-group">
-            <label for="email">Email:</label>
             <input
               type="email"
               id="email"
-              placeholder="Type in your email..."
+              placeholder=" "
               [(ngModel)]="email"
               name="email"
               [disabled]="isLoading">
+            <label for="email">Email</label>
           </div>
 
           <div class="form-group">
-            <label for="password">Password:</label>
             <input
               type="password"
               id="password"
-              placeholder="Type in your password..."
+              placeholder=" "
               [(ngModel)]="password"
               name="password"
               [disabled]="isLoading">
+            <label for="password">Password</label>
           </div>
 
           <div class="form-group">
-            <label for="confirm-password">Confirm password:</label>
             <input
               type="password"
               id="confirm-password"
-              placeholder="Type in your password again..."
+              placeholder=" "
               [(ngModel)]="confirmPassword"
               name="confirmPassword"
               [disabled]="isLoading">
+            <label for="confirm-password">Confirm password</label>
           </div>
 
           <button
@@ -158,11 +155,11 @@
             {{ isLoading ? 'Creating account...' : 'Create account' }}
           </button>
         </form>
-      </div>
 
-      <p class="terms-text">
-        By continuing, you agree to our <a routerLink="/terms-of-use" class="terms-link">Terms of Use</a> and <a routerLink="/privacy-policy" class="terms-link">Privacy Policy</a>
-      </p>
+        <p class="terms-text">
+          By continuing, you agree to our <a routerLink="/terms-of-use" class="terms-link">Terms of Use</a> and <a routerLink="/privacy-policy" class="terms-link">Privacy Policy</a>
+        </p>
+      </div>
     </div>
 
   </div>

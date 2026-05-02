@@ -1,6 +1,6 @@
 <nav class="navbar-wrapper">
   <div class="px-3 px-md-4 px-lg-5 py-2 py-md-3">
-    <div class="nav-inner-container px-3 px-md-4 shadow">
+    <div class="nav-inner-container px-3 px-md-4 shadow" [class.scrolled]="scrolled">
 
       <!-- Main row: Logo + Desktop Auth Buttons + Mobile Hamburger -->
       <div class="d-flex align-items-center justify-content-between nav-main-row">
@@ -48,8 +48,13 @@
         @if (showAuthButtons) {
           <div class="auth-btn-container d-none d-md-flex align-items-center gap-3 flex-shrink-0">
             @if (isLearningPage) {
+              @if (isVisualizationsPage) {
+                <a routerLink="/topics" id="loginBtn" class="my-learning-link" (click)="profileDropdownOpen = false; clearBadgeAlert()">
+                  ← Back
+                </a>
+              }
               <div class="profile-dropdown-wrapper">
-                <button class="profile-btn" (click)="toggleProfileDropdown()">My profile</button>
+                <button [class]="isLearningPage ? 'profile-btn profile-btn--filled' : 'profile-btn'" (click)="toggleProfileDropdown()">My profile</button>
                 @if (profileDropdownOpen) {
                   <div class="profile-dropdown">
                     <div class="dropdown-avatar">{{ avatarEmoji }}</div>
@@ -59,12 +64,6 @@
                   </div>
                 }
               </div>
-              <a routerLink="/topics" id="signUpBtn" class="my-learning-link" (click)="profileDropdownOpen = false; clearBadgeAlert()">
-                My learning
-                @if (hasNewBadge()) {
-                  <span class="badge-alert-dot"></span>
-                }
-              </a>
             } @else {
               <a routerLink="/login" id="loginBtn">Log in</a>
               <a routerLink="/signup" id="signUpBtn">Sign up</a>
@@ -96,12 +95,11 @@
               <span class="mobile-avatar">{{ avatarEmoji }}</span>
               <span class="mobile-name">{{ userName }}</span>
             </div>
-            <a routerLink="/topics" id="signUpBtnMobile" class="my-learning-link" (click)="toggleMenu(); clearBadgeAlert()">
-              My learning
-              @if (hasNewBadge()) {
-                <span class="badge-alert-dot"></span>
-              }
-            </a>
+            @if (isVisualizationsPage) {
+              <a routerLink="/topics" id="signUpBtnMobile" class="my-learning-link" (click)="toggleMenu(); clearBadgeAlert()">
+                ← Back
+              </a>
+            }
             <button id="loginBtnMobile" (click)="signOut()">Sign out</button>
           } @else {
             <a routerLink="/login" id="loginBtnMobile" (click)="toggleMenu()">Log in</a>

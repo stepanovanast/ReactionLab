@@ -12,10 +12,18 @@
 .nav-inner-container {
   max-width: 1200px;
   margin: 0 auto;
-  background-color: #FFF8F0;
+  background-color: rgba(255, 248, 240, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border: 2px solid #000000;
   border-radius: 0.5rem;
   box-sizing: border-box;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.nav-inner-container.scrolled {
+  background-color: rgba(255, 248, 240, 0.97);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1) !important;
 }
 
 @media (min-width: 768px) {
@@ -235,6 +243,7 @@
   color: #5c79a7;
 }
 
+
 /* ── New badge alert dot ── */
 .my-learning-link {
   position: relative;
@@ -277,6 +286,18 @@
 .profile-btn:hover {
   border-color: #5c79a7;
   color: #5c79a7;
+}
+
+.profile-btn--filled {
+  background-color: #000;
+  color: #fff;
+  border: 2px solid #000;
+}
+
+.profile-btn--filled:hover {
+  background-color: #5c79a7;
+  border-color: #5c79a7;
+  color: #fff;
 }
 
 @media (min-width: 768px) {

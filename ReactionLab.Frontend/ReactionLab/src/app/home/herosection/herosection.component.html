@@ -1,13 +1,13 @@
 <section class="hero notebook-bg">
-    <div class="hero-welcome">
+    <div class="hero-welcome hero-fade-in" style="animation-delay:0.1s">
       <span>WELCOME TO REACTIONLAB</span>
     </div>
     <div class="hero-title">
-      <h1>teaching effectively,</h1>
-      <h1>transforming chemistry,</h1>
-      <h1>inspiring tomorrow</h1>
+      <h1 class="hero-line" style="animation-delay:0.25s">teaching effectively,</h1>
+      <h1 class="hero-line" style="animation-delay:0.5s">transforming chemistry,</h1>
+      <h1 class="hero-line" style="animation-delay:0.75s">inspiring tomorrow</h1>
     </div>
-    <div class="hero-buttons">
+    <div class="hero-buttons hero-fade-in" style="animation-delay:1s">
       <a (click)="onStartExploring()" id="startExploringBtn">
         Start exploring
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="arrow-icon">
@@ -15,5 +15,6 @@
           <polyline points="12 5 19 12 12 19"></polyline>
         </svg>
       </a>
+      <a class="learn-more-link" (click)="scrollToFeatures()">Learn more ↓</a>
     </div>
 </section>

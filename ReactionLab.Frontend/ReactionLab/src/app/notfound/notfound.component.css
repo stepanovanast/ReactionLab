@@ -1,0 +1,96 @@
+:host {
+  display: block;
+}
+
+.notfound-page {
+  min-height: 100vh;
+  background-color: #FFF8F0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+/* ── Floating emojis ── */
+.emoji {
+  position: absolute;
+  user-select: none;
+  pointer-events: none;
+  opacity: 0.75;
+  filter: blur(1.5px) drop-shadow(0 2px 6px rgba(0,0,0,0.10));
+  line-height: 1;
+  animation: emoji-float 4s ease-in-out infinite;
+}
+
+.e1 { top: 8%;  left: 5%;  font-size: clamp(2rem, 4vw, 4rem); transform: rotate(-8deg);  animation-duration: 4.5s; }
+.e2 { top: 12%; right: 8%; font-size: clamp(2rem, 4vw, 4rem); transform: rotate(12deg);  animation-duration: 5s;   animation-delay: -1.2s; }
+.e3 { bottom: 20%; left: 8%;  font-size: clamp(1.8rem, 3vw, 3.5rem); transform: rotate(7deg); animation-duration: 6s; animation-delay: -2.5s; }
+.e4 { bottom: 15%; right: 6%; font-size: clamp(2rem, 4vw, 4rem); transform: rotate(-10deg); animation-duration: 5.5s; animation-delay: -0.8s; }
+.e5 { top: 45%; left: 3%;  font-size: clamp(1.6rem, 2.5vw, 3rem); transform: rotate(5deg); animation-duration: 4s; animation-delay: -3s; }
+
+@keyframes emoji-float {
+  0%, 100% { translate: 0 0; }
+  50%       { translate: 0 -12px; }
+}
+
+/* ── Content ── */
+.notfound-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 16px;
+  position: relative;
+  z-index: 2;
+}
+
+.notfound-code {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(6rem, 20vw, 14rem);
+  font-weight: 400;
+  color: #000;
+  line-height: 1;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.notfound-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(1.5rem, 4vw, 3rem);
+  font-weight: 400;
+  color: #000;
+  margin: 0;
+  line-height: 1.1;
+}
+
+.notfound-subtitle {
+  font-size: clamp(14px, 1.5vw, 18px);
+  color: #555;
+  margin: 0;
+  max-width: 420px;
+  line-height: 1.6;
+}
+
+.notfound-btn {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 8px;
+  padding: clamp(10px, 1.5vh, 14px) clamp(20px, 3vw, 32px);
+  background-color: #000;
+  color: #fff;
+  border: 2px solid #000;
+  border-radius: 8px;
+  font-size: clamp(14px, 1.2vw, 17px);
+  font-weight: 700;
+  text-decoration: none;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.notfound-btn:hover {
+  background-color: #5c79a7;
+  border-color: #5c79a7;
+}
